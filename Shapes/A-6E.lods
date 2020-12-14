@@ -1,0 +1,5 @@
+model = {
+    lods = {
+        {"a-6e intruder.edm",7500000.000000};
+    };
+}
