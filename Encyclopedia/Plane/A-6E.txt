@@ -1,0 +1,31 @@
+J-20
+Plane/j-20.png
+j-20
+
+
+Name: J-20 "Fire Fang"
+Type: Multirole fighters
+Developed: Chengdu , China
+Crew: 1
+Length: 20.3 m
+Height: 4.45 m
+Wing span: 12.8 m
+Wing area: 62 m²
+Maximum Mach at S/L: 1.1
+Maximum Mach at height: 2.8
+Weight empty: 17000 kg
+Normal weight: 25300 kg
+Maximum weight: 34500 kg
+G limit: 9
+Maximum range: 3600 km
+Maximum fuel: 11500 kg
+Service ceiling: 20000 m
+Take-off speed: 280 km/h
+Range with nominal load: 4400 km
+Landing speed: 280-300 km/h
+
+Armament:
+PL-12 Medium-range Air-to-air missile
+PL-15 Medium-range Air-to-air missile
+PL-10 Short-range Air-to-air combat shells
+LS-6 Precision guided glide bomb

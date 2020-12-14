@@ -1,0 +1,739 @@
+<!DOCTYPE html><html><head>
+      <title>DCSmodCodingGuideCN</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/zhangchengyu/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.5.3/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+
+      
+      
+      
+      
+      
+      
+      
+
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="dcs-world-mod%E7%8B%AC%E7%AB%8B%E8%88%AA%E7%94%B5%E7%BC%96%E7%A8%8B">DCS World mod&#x72EC;&#x7ACB;&#x822A;&#x7535;&#x7F16;&#x7A0B;</h1>
+
+<blockquote>
+<p>Written By <strong>CorsairCat</strong><br>
+Email to <a href="mailto:contactus@corsaircat.com">contactus@corsaircat.com</a> if you have question<br>
+Specail Thanks to @Nero<br>
+&#x8FD9;&#x662F;&#x4E00;&#x4EFD;&#x5F00;&#x53D1;&#x72EC;&#x7ACB;&#x8231;&#x5185;&#x822A;&#x7535;&#x7684;&#x6587;&#x6863;(&#x975E;&#x5B98;&#x65B9;)<br>
+&#x8FD9;&#x4EFD;&#x4E1C;&#x897F;&#x4E0D;&#x662F;&#x7FFB;&#x8BD1;&#x7A3F;&#xFF0C;&#x5168;&#x90E8;&#x662F;&#x57FA;&#x4E8E;&#x6211;&#x5BF9;&#x4EE3;&#x7801;&#x548C;mod&#x7684;&#x7406;&#x89E3;<br>
+&#x5F53;&#x524D;&#x7248;&#x672C;0.3.0&#xFF0C;&#x6682;&#x65F6;&#x8FD8;&#x6CA1;&#x5199;&#x5B8C;<br>
+&#x9075;&#x5FAA; CC BY-NC-SA 4.0 &#x534F;&#x8BAE;</p>
+</blockquote>
+<h2 class="mume-header" id="%E5%89%8D%E8%A8%80">&#x524D;&#x8A00;</h2>
+
+<p>&#x5199;&#x8FD9;&#x4EFD;&#x4E1C;&#x897F;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x53D1;&#x73B0;&#x4E2D;&#x6587;&#x7248;&#x672C;&#x7684;mod&#x5236;&#x4F5C;&#x8BF4;&#x660E;&#x5B58;&#x5728;&#x7F3A;&#x5931;,&#x540C;&#x65F6;&#x6211;&#x5BF9;&#x4E8E;&#x56FD;&#x5185;&#x7684;mod&#x5236;&#x4F5C;&#x73AF;&#x5883;&#x611F;&#x5230;&#x5931;&#x671B;&#x3002;<br>
+&#x8FD9;&#x4EFD;&#x4E1C;&#x897F;&#x7B97;&#x662F;&#x4E00;&#x4E2A;&#x7ED9;&#x540E;&#x6765;&#x7684;DCS World mod&#x5F00;&#x53D1;&#x8005;&#x7684;&#x5C0F;&#x793C;&#x7269;&#x3002;</p>
+<h4 class="mume-header" id="%E5%9C%A8%E5%BC%80%E5%A7%8B%E4%B9%8B%E5%89%8D">&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h4>
+
+<p>&#x9996;&#x5148;&#x8BF7;&#x5404;&#x4F4D;&#x5728;&#x770B;&#x8FD9;&#x4EFD;&#x4E4B;&#x524D;&#x5BF9;&#x4E8E;mod&#x6709;&#x57FA;&#x672C;&#x7684;&#x7406;&#x89E3;&#xFF08;&#x4F1A;&#x5957;&#x5B98;&#x65B9;&#x7684;&#x822A;&#x7535;&#xFF0C;&#x6BD4;&#x5982;FC3&#xFF09;&#x3002;&#x6240;&#x4EE5;&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4E0D;&#x4F1A;&#x8BA8;&#x8BBA;&#x5305;&#x542B;&#x5EFA;&#x6A21;&#x548C;&#x5982;&#x4F55;&#x5957;&#x58F3;&#xFF0C;&#x5982;&#x4F55;&#x6539;SFM&#x6C14;&#x52A8;&#x7684;&#x8BDD;&#x9898;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4E3B;&#x8981;&#x4F1A;&#x8BB2;&#x5982;&#x4F55;&#x5236;&#x4F5C;&#x4E00;&#x4E2A;&#x8131;&#x79BB;&#x5B98;&#x65B9;&#x6A21;&#x7EC4;&#x7684;&#x5B8C;&#x5168;&#x72EC;&#x7ACB;&#x7684;&#x822A;&#x7535;&#x7CFB;&#x7EDF;&#xFF08;&#x5177;&#x4F53;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x793E;&#x533A;&#x7684;A4-E&#x6A21;&#x7EC4;&#xFF09;&#x3002;<br>
+&#x6CE8;&#x610F;&#xFF1A;&#x5F88;&#x591A;SDK&#x662F;&#x4E0D;&#x5BF9;&#x975E;&#x7B2C;&#x4E09;&#x65B9;&#x5F00;&#x53D1;&#x7684;&#xFF0C;&#x4F5C;&#x4E3A;mod&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x53EA;&#x80FD;&#x4F7F;&#x7528;DCS&#x7684;Lua&#x811A;&#x672C;&#x5F15;&#x64CE;&#x63D0;&#x4F9B;&#x7684;&#x5F88;&#x6709;&#x9650;&#x7684;&#x529F;&#x80FD;&#x3002;&#x4F46;&#x5C31;&#x76EE;&#x524D;&#x5DF2;&#x77E5;&#x7684;&#x57FA;&#x672C;&#x4E0A;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7EDD;&#x5927;&#x591A;&#x6570;&#x822A;&#x7535;&#x63A7;&#x5236;&#x3002;&#x4F46;&#x662F;&#x6CE8;&#x610F;&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;&#x5185;&#x5BB9;&#x4E3A;&#x5B8C;&#x5168;&#x65E0;&#x6CD5;&#x63A7;&#x5236;:&#x65E0;&#x7EBF;&#x7535;&#x901A;&#x4FE1;&#x548C;&#x95ED;&#x8DEF;&#x5149;&#x5B66;&#x89C2;&#x7784;</p>
+<h4 class="mume-header" id="%E7%89%A2%E8%AE%B0%E4%BB%A5%E4%B8%8B%E5%86%85%E5%AE%B9">&#x7262;&#x8BB0;&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;</h4>
+
+<ul>
+<li>&#x5728;&#x5F00;&#x53D1;&#x4E2D;debug&#x8F93;&#x51FA;&#x7684;&#x6700;&#x7B80;&#x5355;&#x529E;&#x6CD5;&#x662F;&#x7528;print_message_to_user(&quot;XXXXX&quot;)&#x51FD;&#x6570;&#x6765;&#x8F93;&#x51FA;&#x72B6;&#x6001;&#xFF0C;&#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5224;&#x65AD;&#x4F60;&#x7684;&#x4E1C;&#x897F;&#x5361;&#x5728;&#x54EA;&#x91CC;&#x6216;&#x8005;&#x6709;&#x6CA1;&#x6709;&#x6267;&#x884C;&#x5230;&#x8FD9;&#x4E00;&#x6B65;</li>
+<li>&#x5982;&#x679C;&#x6709;&#x51FA;&#x73B0;&#x5947;&#x602A;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x8BF7;&#x67E5;&#x770B;log&#x6587;&#x4EF6;&#x53BB;&#x5B9A;&#x4F4D;&#xFF0C;&#x8BED;&#x6CD5;&#x95EE;&#x9898;&#x5BFC;&#x81F4;&#x7684;&#x811A;&#x672C;&#x9519;&#x8BEF;&#x4F1A;&#x51FA;&#x73B0;&#x5728;log&#x4E2D;</li>
+</ul>
+<hr>
+<h2 class="mume-header" id="%E4%B8%80-%E6%80%BB%E8%A7%88%E5%8A%A0%E8%BD%BD%E9%80%BB%E8%BE%91">&#x4E00;&#x3001; &#x603B;&#x89C8;&#xB7;&#x52A0;&#x8F7D;&#x903B;&#x8F91;</h2>
+
+<h3 class="mume-header" id="1-entrylua">1. entry.lua</h3>
+
+<p>&#x9996;&#x5148;&#x52A0;&#x8F7D;&#x65F6;&#x5019;&#x662F;&#x8D70;entry.lua&#x6587;&#x4EF6;,&#x5176;&#x4E2D;&#x6CE8;&#x610F;&#x4E0B;&#x9762;&#x8FD9;&#x884C;</p>
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token function">make_flyable</span><span class="token punctuation">(</span><span class="token string">&apos;YourPlaneName&apos;</span><span class="token punctuation">,</span> current_mod_path<span class="token operator">..</span><span class="token string">&apos;/Cockpit/Scripts/&apos;</span><span class="token punctuation">,</span> FM<span class="token punctuation">,</span> current_mod_path<span class="token operator">..</span><span class="token string">&apos;/comm.lua&apos;</span><span class="token punctuation">)</span>
+</pre><p>&#x5176;&#x4E2D;&#x5305;&#x542B;&#x56DB;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x662F;&#x98DE;&#x673A;&#x540D;&#x79F0;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x662F;&#x5EA7;&#x8231;&#x7684;&#x52A0;&#x8F7D;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x7B2C;&#x4E09;&#x4E2A;&#x662F;&#x9ED8;&#x8BA4;&#x8C03;&#x7528;&#x7684;&#x98DE;&#x884C;&#x6A21;&#x62DF;&#x6A21;&#x578B;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x662F;&#x57FA;&#x7840;&#x7684;&#x901A;&#x4FE1;&#x6A21;&#x578B;</p>
+<ul>
+<li>current_mod_path&#x4EE3;&#x8868;&#x76EE;&#x524D;&#x7684;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</li>
+<li>..&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x62FC;&#x63A5;&#xFF0C;&#x6BD4;&#x5982;&apos;a&apos;..&apos;b&apos;&#x7684;&#x7ED3;&#x679C;&#x662F;&apos;ab&apos;</li>
+</ul>
+<h3 class="mume-header" id="2-device_initlua">2. device_init.lua</h3>
+
+<ul>
+<li>&#x5176;&#x4E2D;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x6240;&#x6307;&#x7684;&#x76EE;&#x5F55;&#x662F;&#x5EA7;&#x8231;&#x7684;&#x9ED8;&#x8BA4;&#x52A0;&#x8F7D;&#x76EE;&#x5F55;</li>
+<li>&#x627E;&#x5230;&#x76EE;&#x5F55;&#x540E;&#x4F1A;&#x5148;&#x81EA;&#x52A8;&#x6267;&#x884C;device.init&#x6587;&#x4EF6;(&#x6682;&#x65F6;&#x4E0D;&#x8BA8;&#x8BBA;&#x53EF;&#x70B9;&#x51FB;&#x7684;&#x52A0;&#x8F7D;&#x6587;&#x4EF6;)</li>
+<li>dofile &#x4EE3;&#x8868;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;&#x9644;&#x52A0;&#x7684;lua&#x6587;&#x4EF6;</li>
+<li>&#x4E00;&#x822C;&#x662F;&#x5148;&#x8BA1;&#x6570;&#x6240;&#x6709;&#x7684;device&#xFF0C;&#x6BCF;&#x4E2A;device&#x540E;&#x9762;&#x6709;&#x4E2A;&#x76EE;&#x6807;&#x7684;&#x6267;&#x884C;lua&#x6587;&#x4EF6;(&#x4E00;&#x4E2A;device&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x4E00;&#x4E2A;&#x6A21;&#x5757;)</li>
+</ul>
+<h4 class="mume-header" id="a-mainpanel-%E4%BB%AA%E8%A1%A8%E5%8F%B0">a. MainPanel &#x4EEA;&#x8868;&#x53F0;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    MainPanel <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">&quot;ccMainPanel&quot;</span><span class="token punctuation">,</span>LockOn_Options<span class="token punctuation">.</span>script_path<span class="token operator">..</span><span class="token string">&quot;mainpanel_init.lua&quot;</span><span class="token punctuation">}</span>
+</pre><ul>
+<li>&#x8FD9;&#x4E00;&#x6761;&#x4EE3;&#x7801;&#x4EE3;&#x8868;&#x6267;&#x884C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4E3B;&#x4EEA;&#x8868;&#xFF1A;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6A21;&#x578B;&#x3002;</li>
+</ul>
+<h4 class="mume-header" id="b-creators-%E8%88%AA%E7%94%B5%E8%AE%BE%E5%A4%87">b. Creators &#x822A;&#x7535;&#x8BBE;&#x5907;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    creators  <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    creators<span class="token punctuation">[</span>devices<span class="token punctuation">.</span>ELECTRIC_SYSTEM<span class="token punctuation">]</span> <span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">&quot;avSimpleElectricSystem&quot;</span><span class="token punctuation">,</span>LockOn_Options<span class="token punctuation">.</span>script_path<span class="token operator">..</span><span class="token string">&quot;Systems/electric_system.lua&quot;</span><span class="token punctuation">}</span>
+</pre><ul>
+<li>creators&#x662F;&#x4E00;&#x4E2A;&#x8868;&#xFF0C;&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x6240;&#x6709;&#x7684;&#x822A;&#x7535;&#x8BBE;&#x5907;&#x903B;&#x8F91;</li>
+<li>&#x5728;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x8BBE;&#x5907;&#x5185;&#xFF0C;&#x90FD;&#x8981;&#x63CF;&#x8FF0;&#x8BBE;&#x5907;&#x7C7B;&#x578B;&#x548C;&#x8BBE;&#x5907;&#x7A0B;&#x5E8F;&#x811A;&#x672C;&#x7684;&#x4F4D;&#x7F6E;</li>
+</ul>
+<h6 class="mume-header" id="nbsp%E4%B8%BB%E8%A6%81%E8%AE%BE%E5%A4%87%E7%B1%BB%E5%9E%8B">&#xA0;&#x4E3B;&#x8981;&#x8BBE;&#x5907;&#x7C7B;&#x578B;</h6>
+
+<ul>
+<li>avSimpleElectricSystem, &#x8FD9;&#x662F;&#x57FA;&#x7840;&#x7684;&#x7535;&#x529B;&#x6A21;&#x5757;&#xFF0C;&#x5185;&#x7F6E;&#x51FD;&#x6570;&#x4E0E;&#x529F;&#x80FD;&#x5C06;&#x5728;&#x540E;&#x7EED;&#x5355;&#x72EC;&#x7AE0;&#x8282;&#x63CF;&#x8FF0;</li>
+<li>avSimpleWeaponSystem, &#x8FD9;&#x662F;&#x6B66;&#x5668;&#x6A21;&#x5757;</li>
+<li>avIntercom, &#x8FD9;&#x662F;&#x65E0;&#x7EBF;&#x7535;&#x6A21;&#x5757;</li>
+<li>avUHF_ARC_16, &#x8FD9;&#x662F;UHF&#x65E0;&#x7EBF;&#x7535;&#x6A21;&#x5757;&#xFF0C;&#x4E0E;Intercom&#x642D;&#x914D;&#x53EF;&#x4EE5;&#x542F;&#x7528;&#x4E0E;&#x5730;&#x52E4;&#x6C9F;&#x901A;</li>
+<li>avSimpleRadar&#xFF0C; &#x8FD9;&#x4E2A;&#x662F;&#x57FA;&#x7840;&#x96F7;&#x8FBE;&#x6A21;&#x5757;&#xFF0C;&#x540E;&#x7EED;&#x5728;&#x96F7;&#x8FBE;&#x7AE0;&#x8282;&#x8BE6;&#x7EC6;&#x63CF;&#x8FF0;</li>
+<li>avLuaDevice, &#x8FD9;&#x662F;&#x6807;&#x51C6;&#x7684;&#x8BBE;&#x5907;</li>
+</ul>
+<h4 class="mume-header" id="c-indicators-%E6%98%BE%E7%A4%BA%E5%B1%8F%E8%AE%BE%E5%A4%87">c. Indicators &#x663E;&#x793A;&#x5C4F;&#x8BBE;&#x5907;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">indicators <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+indicators<span class="token punctuation">[</span><span class="token operator">#</span>indicators <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">&quot;ccIndicator&quot;</span><span class="token punctuation">,</span> LockOn_Options<span class="token punctuation">.</span>script_path<span class="token operator">..</span><span class="token string">&quot;MFD/Indicator/init.lua&quot;</span><span class="token punctuation">,</span><span class="token keyword">nil</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">&quot;main_screen_center&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;main_screen_down&quot;</span><span class="token punctuation">,</span><span class="token string">&quot;main_screen_right&quot;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+</pre><ul>
+<li>indicators &#x4E5F;&#x662F;&#x4E00;&#x5F20;&#x8868;&#xFF0C;&#x7528;&#x6765;&#x63CF;&#x8FF0;&#x6240;&#x6709;&#x7684;&#x663E;&#x793A;&#x5C4F;&#x3002;&#x5177;&#x4F53;&#x540E;&#x7EED;&#x903B;&#x8F91;&#x5728;&#x663E;&#x793A;&#x5668;&#x7AE0;&#x8282;&#x8BE6;&#x7EC6;&#x8BB2;</li>
+</ul>
+<h3 class="mume-header" id="3-mainpanellua">3. mainpanel.lua</h3>
+
+<h4 class="mume-header" id="a-%E5%BA%A7%E8%88%B1%E5%86%85%E6%A8%A1%E5%9E%8B">a. &#x5EA7;&#x8231;&#x5185;&#x6A21;&#x578B;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    shape_name          <span class="token operator">=</span> <span class="token string">&quot;Cockpit-EDM-File-Name&quot;</span>
+    is_EDM              <span class="token operator">=</span> <span class="token keyword">true</span>
+    new_model_format    <span class="token operator">=</span> <span class="token keyword">true</span>
+</pre><ul>
+<li>&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4EEA;&#x8868;&#x53F0;&#x7684;&#x6A21;&#x578B;</li>
+</ul>
+<h4 class="mume-header" id="b-%E5%BA%A7%E8%88%B1%E5%86%85%E5%8A%A8%E7%94%BB%E5%A3%B0%E6%98%8E">b. &#x5EA7;&#x8231;&#x5185;&#x52A8;&#x753B;&#x58F0;&#x660E;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    Canopy                  <span class="token operator">=</span> <span class="token function">CreateGauge</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    Canopy<span class="token punctuation">.</span>arg_number       <span class="token operator">=</span> <span class="token number">1</span>
+    Canopy<span class="token punctuation">.</span>input            <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">}</span>
+    Canopy<span class="token punctuation">.</span>output           <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">}</span>
+    Canopy<span class="token punctuation">.</span>parameter_name   <span class="token operator">=</span> <span class="token string">&quot;Canopy_Anima&quot;</span>
+</pre><ul>
+<li>&#x7C7B;&#x4F3C;&#x4E8E;&#x4E0A;&#x9762;&#x8FD9;&#x6837;&#x7684;&#x662F;&#x5B9A;&#x4E49;&#x8231;&#x5185;&#x52A8;&#x753B;,CreateGauge()&#x4EE3;&#x8868;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x52A8;&#x753B;</li>
+</ul>
+<h3 class="mume-header" id="4-clickablelua-%E5%8F%AF%E7%82%B9%E5%87%BB%E6%8F%8F%E8%BF%B0">4. clickable.lua &#x53EF;&#x70B9;&#x51FB;&#x63CF;&#x8FF0;</h3>
+
+<ul>
+<li>&#x6CE8;&#x610F;&#xFF0C;&#x9700;&#x8981;&#x865A;&#x62DF;&#x4F53;&#xFF08;3dsmax Helper&#xFF09;&#x652F;&#x6301;</li>
+<li>&#x5177;&#x4F53;&#x51FD;&#x6570;&#x89C1;&#x6837;&#x4F8B;&#x8BF4;&#x660E;</li>
+</ul>
+<hr>
+<h2 class="mume-header" id="%E4%BA%8C-%E6%80%BB%E8%A7%88%E5%8A%A8%E7%94%BB%E6%B8%B2%E6%9F%93">&#x4E8C;&#x3001; &#x603B;&#x89C8;&#xB7;&#x52A8;&#x753B;&#x6E32;&#x67D3;</h2>
+
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x6240;&#x6709;&#x52A8;&#x753B;&#x90FD;&#x9700;&#x8981;arg based animation &#x652F;&#x6301;&#xFF0C;&#x6B64;&#x5904;&#x4E0D;&#x505A;&#x8BE6;&#x7EC6;&#x8BBA;&#x8FF0;<br>
+&#x7279;&#x522B;&#x6CE8;&#x610F;&#xFF0C;&#x7531;&#x4E8E;&#x5185;&#x5916;&#x6709;&#x4E24;&#x4EFD;&#x5EA7;&#x8231;&#xFF0C;&#x5916;&#x90E8;&#x6A21;&#x578B;&#x4E2D;&#x7684;arg114&#x52A8;&#x753B;&#x4E3A;&#x4F7F;&#x5916;&#x90E8;&#x8231;&#x5185;&#x6D88;&#x5931;</p>
+</blockquote>
+<h3 class="mume-header" id="1-%E8%88%B1%E5%A4%96%E5%8A%A8%E7%94%BB">1. &#x8231;&#x5916;&#x52A8;&#x753B;</h3>
+
+<ul>
+<li>&#x9996;&#x5148;&#x5EFA;&#x8BAE;&#x8231;&#x5916;&#x91C7;&#x7528;&#x6807;&#x51C6;&#x5316;&#x7684;arg&#x6570;&#x503C;&#xFF0C;&#x4EE5;&#x4FBF;AI&#x64CD;&#x4F5C;&#x98DE;&#x673A;&#x548C;SFM&#x7684;&#x8868;&#x73B0;&#x6B63;&#x5E38;</li>
+</ul>
+<h4 class="mume-header" id="a-%E5%85%B3%E4%BA%8E%E5%9C%A8%E8%87%AA%E4%B8%BB%E9%A9%BE%E9%A9%B6%E6%97%B6%E5%A6%82%E4%BD%95%E5%8F%8D%E9%A6%88%E5%88%B0%E5%A4%96%E9%83%A8%E5%8A%A8%E7%94%BB%E4%BB%A5%E5%8F%8A%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8%E5%8A%A8%E7%94%BB%E4%BD%8D%E7%BD%AE">a. &#x5173;&#x4E8E;&#x5728;&#x81EA;&#x4E3B;&#x9A7E;&#x9A76;&#x65F6;&#x5982;&#x4F55;&#x53CD;&#x9988;&#x5230;&#x5916;&#x90E8;&#x52A8;&#x753B;&#x4EE5;&#x53CA;&#x83B7;&#x53D6;&#x5916;&#x90E8;&#x52A8;&#x753B;&#x4F4D;&#x7F6E;</h4>
+
+<ul>
+<li>&#x5EFA;&#x8BAE;&#x91C7;&#x7528;&#x5185;&#x7F6E;&#x51FD;&#x6570;</li>
+<li>&#x7ED8;&#x5236;&#x5916;&#x90E8;&#xFF1A;<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token function">set_aircraft_draw_argument_value</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span> ROLL_STATE<span class="token punctuation">)</span> 
+</pre></li>
+<li>&#x8BFB;&#x53D6;&#x5916;&#x90E8;&#xFF1A;<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token function">get_aircraft_draw_argument_value</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span> 
+</pre></li>
+</ul>
+<p><strong>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x4E3A;&#x52A8;&#x753B;arg&#x53F7;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x503C;&#x4E3A;&#x8BBE;&#x7F6E;&#x5230;&#x7684;&#x72B6;&#x6001;</strong></p>
+<h3 class="mume-header" id="2-%E8%88%B1%E5%86%85%E5%8A%A8%E7%94%BB%E4%B8%8D%E5%90%AB%E5%B1%8F%E5%B9%95">2. &#x8231;&#x5185;&#x52A8;&#x753B;&#xFF08;&#x4E0D;&#x542B;&#x5C4F;&#x5E55;&#xFF09;</h3>
+
+<ul>
+<li>&#x8231;&#x5185;&#x52A8;&#x753B;&#x9700;&#x8981;&#x5728;mainpanel.lua&#x6CE8;&#x518C;&#xFF0C;&#x5177;&#x4F53;&#x89C1;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x90E8;&#x5206;</li>
+</ul>
+<h4 class="mume-header" id="a-%E5%85%B3%E4%BA%8E%E8%88%B1%E5%86%85%E5%8A%A8%E7%94%BB%E6%B3%A8%E5%86%8C">a. &#x5173;&#x4E8E;&#x8231;&#x5185;&#x52A8;&#x753B;&#x6CE8;&#x518C;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    Canopy                  <span class="token operator">=</span> <span class="token function">CreateGauge</span><span class="token punctuation">(</span><span class="token string">&quot;parameter&quot;</span><span class="token punctuation">)</span>
+    Canopy<span class="token punctuation">.</span>arg_number       <span class="token operator">=</span> <span class="token number">1</span>
+    Canopy<span class="token punctuation">.</span>input            <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">}</span>
+    Canopy<span class="token punctuation">.</span>output           <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">}</span>
+    Canopy<span class="token punctuation">.</span>parameter_name   <span class="token operator">=</span> <span class="token string">&quot;Canopy&quot;</span>
+</pre><ul>
+<li>CreateGauge(&quot;parameter&quot;)&#x4E3A;&#x6CE8;&#x518C;&#x5BF9;&#x8C61;&#xFF08;&#x4E00;&#x822C;&#x63A8;&#x8350;&#x7528;&#x8FD9;&#x4E2A;&#x6765;&#x8FDB;&#x884C;&#x5B8C;&#x5168;&#x63A7;&#x5236;&#xFF0C;&#x907F;&#x514D;&#x91C7;&#x7528;&#x9ED8;&#x8BA4;&#x7684;&#x503C;&#xFF0C;&#x6BD4;&#x8F83;&#x96BE;&#x4EE5;&#x63A7;&#x5236;&#xFF09;</li>
+<li>.arg_number &#x4E3A;&#x6CE8;&#x518C;&#x5176;&#x52A8;&#x753B;&#x5BF9;&#x5E94;&#x7684;arg</li>
+<li>.input&#x548C;.output&#x4E3A;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x5BF9;&#x5E94;&#x503C;&#xFF0C;&#x5373;&#xFF1A;set(value)&#x51FD;&#x6570; &#x5230; &#x6700;&#x7EC8;&#x7ED8;&#x5236;&#x8F93;&#x51FA;&#x7684;&#x503C;</li>
+<li>.parameter_name&#x4E3A;&#x7528;&#x6765;&#x8FDB;&#x884C;&#x63A7;&#x5236;&#x7684;&#x7D22;&#x5F15;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x7684;&#x547D;&#x540D;&#xFF0C;&#x907F;&#x514D;&#x51B2;&#x7A81;&#x4EE5;&#x53CA;&#x4E0D;&#x8981;&#x548C;&#x7CFB;&#x7EDF;&#x5185;&#x7F6E;&#x51B2;&#x7A81;</li>
+</ul>
+<h4 class="mume-header" id="b-%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%8A%A8%E7%94%BB">b. &#x5982;&#x4F55;&#x7ED8;&#x5236;&#x52A8;&#x753B;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    a <span class="token operator">=</span> <span class="token function">get_param_handle</span><span class="token punctuation">(</span><span class="token string">&quot;LandingGearLevel&quot;</span><span class="token punctuation">)</span> 
+</pre><ul>
+<li>&#x8FD9;&#x91CC;&#x91C7;&#x7528;a&#x4F5C;&#x4E3A;&#x6837;&#x4F8B;&#xFF0C;&#x9996;&#x5148;&#x9700;&#x8981;&#x7528;get_param_handle(target_param_name)&#x51FD;&#x6570;&#x6765;&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;</li>
+<li>&#x540E;&#x53EF;&#x91C7;&#x7528;:set()&#x6765;&#x8BBE;&#x7F6E;&#x5176;&#x7684;&#x503C;&#x6216;:get()&#x6765;&#x83B7;&#x53D6;&#x5176;&#x7684;&#x503C;</li>
+</ul>
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    a<span class="token punctuation">:</span><span class="token function">set</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    a<span class="token punctuation">:</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+</pre><h4 class="mume-header" id="c-%E6%B3%A8%E5%86%8C%E4%B8%AD%E7%9A%84input%E5%92%8Coutput">c. &#x6CE8;&#x518C;&#x4E2D;&#x7684;input&#x548C;output</h4>
+
+<ul>
+<li>&#x8231;&#x5185;&#x52A8;&#x753B;&#x7684;&#x7ED8;&#x5236;&#x5E76;&#x4E0D;&#x662F;&#x76F4;&#x63A5;&#x8FDB;&#x884C;&#x8BBE;&#x7F6E;&#x52A8;&#x753B;&#x7684;&#xFF0C;&#x800C;&#x662F;&#x4F60;&#x5BF9;param&#x5BF9;&#x8C61;&#x7684;set()&#x503C;&#x7528;input&#x5230;output&#x503C;&#x8FDB;&#x884C;&#x5BF9;&#x5E94;&#x5173;&#x7CFB;</li>
+<li>&#x4F8B;&#x5982;.input={-1,1},.output={0,1}&#x65F6;&#xFF0C;set(-1)&#x6700;&#x540E;&#x53CD;&#x5E94;&#x5230;&#x52A8;&#x753B;&#x7ED8;&#x5236;&#x7684;&#x7ED3;&#x679C;&#x4E3A;0&#x4F4D;&#x7F6E;</li>
+</ul>
+<hr>
+<h2 class="mume-header" id="%E4%B8%89-%E6%80%BB%E8%A7%88%E8%8E%B7%E5%8F%96%E9%A3%9E%E8%A1%8C%E5%99%A8%E5%A4%96%E9%83%A8%E5%8F%82%E6%95%B0">&#x4E09;&#x3001;&#x603B;&#x89C8;&#xB7;&#x83B7;&#x53D6;&#x98DE;&#x884C;&#x5668;&#x5916;&#x90E8;&#x53C2;&#x6570;</h2>
+
+<ul>
+<li>&#x6838;&#x5FC3;&#x51FD;&#x6570;&#x4E3A;get_base_data()&#x8FD9;&#x6837;&#x662F;&#x7533;&#x8BF7;&#x4E00;&#x5F20;&#x8868;,<a href="http://xn--sensorData-vj40a177g42f.md">&#x8BE6;&#x7EC6;&#x89C1;sensorData.md</a></li>
+<li>&#x83B7;&#x53D6;GPS&#x5750;&#x6807;&#x6570;&#x636E;: local self_loc_x , own_alt, self_loc_y = Data_Raw.getSelfCoordinates()</li>
+</ul>
+<hr>
+<h2 class="mume-header" id="%E5%9B%9B-%E8%88%AA%E7%94%B5%E8%AE%BE%E5%A4%87%E5%85%B3%E4%BA%8Eavluadevice">&#x56DB;&#x3001;&#x822A;&#x7535;&#x8BBE;&#x5907;&#xB7;&#x5173;&#x4E8E;avLuaDevice</h2>
+
+<h3 class="mume-header" id="1-%E8%BF%99%E9%87%8C%E4%BB%8E%E4%B8%80%E4%B8%AA%E6%A0%87%E5%87%86device%E7%9A%84%E8%84%9A%E6%9C%AC%E5%BC%80%E5%A7%8B">1. &#x8FD9;&#x91CC;&#x4ECE;&#x4E00;&#x4E2A;&#x6807;&#x51C6;device&#x7684;&#x811A;&#x672C;&#x5F00;&#x59CB;</h3>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token comment">-- &#x83B7;&#x53D6;&#x811A;&#x672C;&#x672C;&#x8EAB;&#x8BBE;&#x5907;</span>
+    <span class="token keyword">local</span> Device <span class="token operator">=</span> <span class="token function">GetSelf</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">-- &#x5237;&#x65B0;&#x51FD;&#x6570;&#x95F4;&#x9694;&#x8BBE;&#x7F6E;</span>
+    <span class="token keyword">local</span> update_time_step <span class="token operator">=</span> <span class="token number">0.02</span>
+    <span class="token function">make_default_activity</span><span class="token punctuation">(</span>update_time_step<span class="token punctuation">)</span>
+
+    <span class="token keyword">function</span> <span class="token function">post_initialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment">--&#x9ED8;&#x8BA4;&#x521D;&#x59CB;&#x5316;&#x51FD;&#x6570;</span>
+    <span class="token keyword">end</span>
+
+    Device<span class="token punctuation">:</span><span class="token function">listen_command</span><span class="token punctuation">(</span>KeyCommand<span class="token punctuation">)</span>
+
+    <span class="token keyword">function</span> <span class="token function">SetCommand</span><span class="token punctuation">(</span>command<span class="token punctuation">,</span>value<span class="token punctuation">)</span>
+        <span class="token comment">--&#x5BF9;listen_command&#x7684;&#x5904;&#x7406;&#x51FD;&#x6570;</span>
+    <span class="token keyword">end</span>
+
+    <span class="token keyword">function</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment">--&#x5185;&#x7F6E;&#x5237;&#x65B0;&#x51FD;&#x6570;</span>
+    <span class="token keyword">end</span>
+</pre><ul>
+<li>LuaDevice&#x672C;&#x8EAB;&#x53EA;&#x6709;listenCommand&#x51FD;&#x6570;</li>
+</ul>
+<h3 class="mume-header" id="2-%E5%85%B3%E4%BA%8E%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E9%97%AE%E9%A2%98">2. &#x5173;&#x4E8E;&#x521D;&#x59CB;&#x5316;&#x7684;&#x95EE;&#x9898;</h3>
+
+<ul>
+<li>&#x521D;&#x59CB;&#x5316;&#x4E2D;(post_initialise)&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x5728;&#x4E0D;&#x540C;&#x51FA;&#x751F;&#x60C5;&#x51B5;&#x4E0B;&#x7684;&#x8BBE;&#x7F6E;</li>
+</ul>
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token keyword">local</span> birth <span class="token operator">=</span> LockOn_Options<span class="token punctuation">.</span>init_conditions<span class="token punctuation">.</span>birth_place
+    <span class="token keyword">if</span> birth<span class="token operator">==</span><span class="token string">&quot;GROUND_HOT&quot;</span> <span class="token keyword">then</span>
+        <span class="token comment">--&#x5730;&#x9762;&#x70ED;&#x8F66;</span>
+    <span class="token keyword">elseif</span> birth<span class="token operator">==</span><span class="token string">&quot;AIR_HOT&quot;</span> <span class="token keyword">then</span>
+        <span class="token comment">--&#x7A7A;&#x4E2D;&#x51FA;&#x751F;</span>
+    <span class="token keyword">elseif</span> birth<span class="token operator">==</span><span class="token string">&quot;GROUND_COLD&quot;</span> <span class="token keyword">then</span>
+        <span class="token comment">--&#x5730;&#x9762;&#x51B7;&#x8231;</span>
+    <span class="token keyword">end</span>
+</pre><hr>
+<h2 class="mume-header" id="%E4%BA%94-%E8%88%AA%E7%94%B5%E8%AE%BE%E5%A4%87%E5%85%B3%E4%BA%8Eavsimpleelectricsystem">&#x4E94;&#x3001;&#x822A;&#x7535;&#x8BBE;&#x5907;&#xB7;&#x5173;&#x4E8E;avSimpleElectricSystem</h2>
+
+<h3 class="mume-header" id="1-%E6%A6%82%E8%BF%B0">1. &#x6982;&#x8FF0;</h3>
+
+<ul>
+<li>&#x8FD9;&#x4E2A;&#x8BBE;&#x5907;&#x662F;&#x6E38;&#x620F;&#x5185;&#x7F6E;&#x7684;&#x57FA;&#x7840;&#x7535;&#x529B;&#x6A21;&#x5757;</li>
+<li>&#x5F53;&#x4F60;&#x5E0C;&#x671B;&#x4F7F;&#x7528;avSimpleRadar,avSimpleWeaponSystem&#x7B49;&#x7B49;&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;&#x8BBE;&#x5907;&#x5FC5;&#x987B;&#x5B58;&#x5728;&#x5E76;&#x4E14;&#x4EFB;&#x610F;&#x7535;&#x529B;&#x603B;&#x7EBF;&#x5904;&#x4E8E;&#x6FC0;&#x6D3B;&#x72B6;&#x6001;</li>
+</ul>
+<h3 class="mume-header" id="2-%E8%AE%BE%E5%A4%87%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0">2. &#x8BBE;&#x5907;&#x5185;&#x7F6E;&#x51FD;&#x6570;</h3>
+
+<blockquote>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x6765;&#x6E90;&#x4E8E;&#x4E00;&#x4E2A;&#x8F83;&#x65E9;&#x7684;mod&#x6837;&#x4F8B;</p>
+</blockquote>
+<ul>
+<li>&#x9996;&#x5148;&#xFF0C;&#x8C03;&#x7528;&#x8BBE;&#x5907;&#x5BF9;&#x5E94;&#x7684;&#x5185;&#x7F6E;&#x51FD;&#x6570;&#x9700;&#x8981;&#x91C7;&#x7528;&#x5982;&#x4E0B;&#x65B9;&#x5F0F;</li>
+</ul>
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token keyword">local</span> Device <span class="token operator">=</span> <span class="token function">GetSelf</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+    Device<span class="token punctuation">:</span><span class="token function">Device_Function</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</pre><h4 class="mume-header" id="a-%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%86%85%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E5%87%BD%E6%95%B0">a. &#x7535;&#x529B;&#x7CFB;&#x7EDF;&#x5185;&#x7F6E;&#x521D;&#x59CB;&#x5316;&#x51FD;&#x6570;</h4>
+
+<ul>
+<li>&#x8FD9;&#x4E9B;&#x51FD;&#x6570;&#x662F;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x8BF7;&#x5C3D;&#x91CF;&#x653E;&#x5728;&#x811A;&#x672C;&#x9760;&#x8FD1;&#x5F00;&#x5934;&#x4F4D;&#x7F6E;</li>
+</ul>
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    &#x5DE6;&#x53D1;&#x53D1;&#x7535;&#x673A;<span class="token punctuation">(</span>&#x5355;&#x5F15;&#x64CE;&#x8BF7;&#x53EA;&#x542F;&#x7528;&#x8FD9;&#x4E2A;<span class="token punctuation">)</span>
+    <span class="token function">AC_Generator_1_on</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token operator">/</span><span class="token keyword">false</span><span class="token punctuation">)</span>
+
+    &#x53F3;&#x53D1;&#x53D1;&#x7535;&#x673A;
+    <span class="token function">AC_Generator_2_on</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token operator">/</span><span class="token keyword">false</span><span class="token punctuation">)</span>
+
+    &#x7535;&#x6C60;&#x7EC4;<span class="token punctuation">(</span>&#x63A8;&#x8350;&#x542F;&#x7528;<span class="token punctuation">)</span>
+    <span class="token function">DC_Battery_on</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token operator">/</span><span class="token keyword">false</span><span class="token punctuation">)</span>
+</pre><h4 class="mume-header" id="b-%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F%E5%86%85%E7%BD%AE%E7%9B%91%E6%B5%8B%E5%87%BD%E6%95%B0">b. &#x7535;&#x529B;&#x7CFB;&#x7EDF;&#x5185;&#x7F6E;&#x76D1;&#x6D4B;&#x51FD;&#x6570;</h4>
+
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    &#x4EA4;&#x6D41;&#x603B;&#x7EBF;
+    <span class="token function">get_AC_Bus_1_voltage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- &#x5DE6;&#x53D1;&#x8FD0;&#x8F6C;&#x6B63;&#x5E38;&#x4E14;&#x542F;&#x7528;&#x5DE6;&#x53D1;&#x7535;&#x673A;&#x65F6;&#x8FD4;&#x56DE;115</span>
+    <span class="token function">get_AC_Bus_2_voltage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- &#x53F3;&#x53D1;&#x8FD0;&#x8F6C;&#x6B63;&#x5E38;&#x4E14;&#x542F;&#x7528;&#x53F3;&#x53D1;&#x7535;&#x673A;&#x65F6;&#x8FD4;&#x56DE;115</span>
+
+    &#x76F4;&#x6D41;&#x603B;&#x7EBF;
+    <span class="token function">get_DC_Bus_1_voltage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- &#x5DE6;&#x53D1;&#x603B;&#x7EBF;&#x6709;115&#x6216;&#x7535;&#x6C60;&#x5F00;&#x5173;&#x6253;&#x5F00;&#x65F6;&#x8FD4;&#x56DE;28</span>
+    <span class="token function">get_DC_Bus_2_voltage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">-- &#x53F3;&#x53D1;&#x603B;&#x7EBF;&#x6709;115&#x6216;&#x7535;&#x6C60;&#x5F00;&#x5173;&#x6253;&#x5F00;&#x65F6;&#x8FD4;&#x56DE;28</span>
+</pre><h4 class="mume-header" id="c-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">c. &#x6CE8;&#x610F;&#x4E8B;&#x9879;</h4>
+
+<ul>
+<li>&#x76F4;&#x6D41;&#x603B;&#x7EBF;&#x7684;1&#x548C;2&#x662F;&#x548C;&#x4EA4;&#x6D41;&#x603B;&#x7EBF;&#x7684;1&#x548C;2&#x7ED1;&#x5B9A;&#x7684;</li>
+<li>&#x7535;&#x6C60;&#x5F00;&#x5173;&#x662F;&#x9ED8;&#x8BA4;&#x7684;iCommand&#x6307;&#x4EE4;&#x76F4;&#x63A5;&#x4F20;&#x9012;&#x7ED9;&#x6E38;&#x620F;&#x6838;&#x5FC3;&#x7684;</li>
+<li>&#x8FD9;&#x662F;&#x4E00;&#x4E9B;&#x548C;&#x7535;&#x529B;&#x76F8;&#x5173;&#x7684;&#x9ED8;&#x8BA4;icommand&#x6570;&#x503C;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x6307;&#x4EE4;&#x540D;&#x79F0;</th>
+<th style="text-align:center">&#x6307;&#x4EE4;&#x7F16;&#x53F7;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iCommandPowerOnOff</td>
+<td style="text-align:center">315</td>
+</tr>
+<tr>
+<td>iCommandGroundPowerDC</td>
+<td style="text-align:center">704</td>
+</tr>
+<tr>
+<td>iCommandGroundPowerDC_Cover</td>
+<td style="text-align:center">705</td>
+</tr>
+<tr>
+<td>iCommandPowerBattery1</td>
+<td style="text-align:center">706</td>
+</tr>
+<tr>
+<td>iCommandPowerBattery1_Cover</td>
+<td style="text-align:center">707</td>
+</tr>
+<tr>
+<td>iCommandPowerBattery2</td>
+<td style="text-align:center">708</td>
+</tr>
+<tr>
+<td>iCommandPowerBattery2_Cover</td>
+<td style="text-align:center">709</td>
+</tr>
+<tr>
+<td>iCommandGroundPowerAC</td>
+<td style="text-align:center">710</td>
+</tr>
+<tr>
+<td>iCommandPowerGeneratorLeft</td>
+<td style="text-align:center">711</td>
+</tr>
+<tr>
+<td>iCommandPowerGeneratorRight</td>
+<td style="text-align:center">712</td>
+</tr>
+<tr>
+<td>iCommandElectricalPowerInverter</td>
+<td style="text-align:center">713</td>
+</tr>
+<tr>
+<td>iCommandAPUGeneratorPower</td>
+<td style="text-align:center">1071</td>
+</tr>
+<tr>
+<td>iCommandBatteryPower</td>
+<td style="text-align:center">1073</td>
+</tr>
+<tr>
+<td>iCommandElectricalPowerInverterSTBY</td>
+<td style="text-align:center">1074</td>
+</tr>
+<tr>
+<td>iCommandElectricalPowerInverterOFF</td>
+<td style="text-align:center">1075</td>
+</tr>
+<tr>
+<td>iCommandElectricalPowerInverterTEST</td>
+<td style="text-align:center">1076</td>
+</tr>
+</tbody>
+</table>
+<h4 class="mume-header" id="d-%E5%85%B3%E4%BA%8Eicommand%E6%8C%87%E4%BB%A4">d. &#x5173;&#x4E8E;iCommand&#x6307;&#x4EE4;</h4>
+
+<ul>
+<li>&#x5982;&#x679C;&#x4E0D;&#x5E0C;&#x671B;&#x76F4;&#x63A5;&#x7531;&#x8F93;&#x5165;&#x76F4;&#x63A5;&#x53D1;&#x6307;&#x4EE4;&#x7ED9;&#x6E38;&#x620F;&#x6838;&#x5FC3;&#xFF0C;&#x53EF;&#x4EE5;&#x66F4;&#x6539;input&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x6307;&#x4EE4;&#x503C;</li>
+<li>&#x7136;&#x540E;&#x91C7;&#x7528;<pre data-role="codeBlock" data-info="lua" class="language-lua"><span class="token function">dispatch_action</span><span class="token punctuation">(</span><span class="token keyword">nil</span><span class="token punctuation">,</span> iCommandNum<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+</pre>&#x6765;&#x53D1;&#x9001;&#x539F;&#x751F;&#x6307;&#x4EE4;</li>
+</ul>
+<hr>
+<h2 class="mume-header" id="%E5%85%AD-%E8%88%AA%E7%94%B5%E8%AE%BE%E5%A4%87%E5%85%B3%E4%BA%8Eavsimpleweaponsystem">&#x516D;&#x3001;&#x822A;&#x7535;&#x8BBE;&#x5907;&#xB7;&#x5173;&#x4E8E;avSimpleWeaponSystem</h2>
+
+<h3 class="mume-header" id="1-%E6%A6%82%E8%BF%B0-1">1. &#x6982;&#x8FF0;</h3>
+
+<ul>
+<li>&#x8FD9;&#x4E2A;&#x7CFB;&#x7EDF;&#x662F;&#x822A;&#x7535;&#x4E2D;&#x7684;&#x6B66;&#x5668;&#x63A7;&#x5236;&#x6A21;&#x5757;&#xFF0C;&#x5176;&#x5185;&#x7F6E;&#x5F88;&#x591A;&#x4E0E;&#x6E38;&#x620F;&#x6B66;&#x5668;API&#x4EA4;&#x4E92;&#x7684;&#x51FD;&#x6570;</li>
+<li>&#x9700;&#x8981;&#x7535;&#x6E90;&#x7CFB;&#x7EDF;&#x63A5;&#x901A;</li>
+</ul>
+<h3 class="mume-header" id="2-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0">2. &#x5185;&#x7F6E;&#x51FD;&#x6570;</h3>
+
+<ul>
+<li>&#x6CE8;&#xFF1A;&#x51FD;&#x6570;&#x8C03;&#x7528;&#x548C;&#x7535;&#x529B;&#x6A21;&#x5757;&#x4E00;&#x81F4;&#x9700;&#x8981;&#x83B7;&#x53D6;getSelf()&#x8868;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x51FD;&#x6570;</th>
+<th>&#x4F5C;&#x7528;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop_chaff()</td>
+<td>&#x629B;&#x6D12;&#x7B94;&#x6761;</td>
+</tr>
+<tr>
+<td>drop_flare()</td>
+<td>&#x629B;&#x6D12;&#x7EA2;&#x5916;&#x5E72;&#x6270;&#x5F39;</td>
+</tr>
+<tr>
+<td>emergency_jettison()</td>
+<td>&#x7D27;&#x6025;&#x629B;&#x79BB;(&#x6548;&#x679C;&#x672A;&#x9A8C;&#x8BC1;)</td>
+</tr>
+<tr>
+<td>emergency_jettison_rack()</td>
+<td>&#x7D27;&#x6025;&#x629B;&#x79BB;&#x6302;&#x67B6;(&#x6548;&#x679C;&#x672A;&#x9A8C;&#x8BC1;)</td>
+</tr>
+<tr>
+<td>get_chaff_count()</td>
+<td>&#x83B7;&#x53D6;&#x7B94;&#x6761;&#x6570;&#x91CF;</td>
+</tr>
+<tr>
+<td>get_ECM_status()</td>
+<td>&#x83B7;&#x53D6;ECM&#x5E72;&#x6270;&#x5668;&#x72B6;&#x6001;(&#x672A;&#x5B9E;&#x9A8C;)</td>
+</tr>
+<tr>
+<td>get_flare_count()</td>
+<td>&#x83B7;&#x53D6;&#x5E72;&#x6270;&#x5F39;&#x6570;&#x91CF;</td>
+</tr>
+<tr>
+<td>get_station_info()</td>
+<td>&#x83B7;&#x53D6;&#x6302;&#x67B6;&#x4FE1;&#x606F;(&#x8FD4;&#x56DE;&#x4E3A;&#x4E00;&#x5F20;&#x8868;)</td>
+</tr>
+<tr>
+<td>get_target_range()</td>
+<td>&#x83B7;&#x53D6;&#x76EE;&#x6807;&#x8DDD;&#x79BB;</td>
+</tr>
+<tr>
+<td>get_target_span()</td>
+<td>&#x83B7;&#x53D6;&#x76EE;&#x6807;&#x5BBD;&#x5EA6;</td>
+</tr>
+<tr>
+<td>get_weapon_count()</td>
+<td>&#x83B7;&#x53D6;&#x6302;&#x67B6;&#x4E0A;&#x6B66;&#x5668;&#x6570;&#x91CF;(&#x90E8;&#x5206;&#x6B66;&#x5668;&#x4E3A;&#x5355;&#x6302;&#x67B6;&#x591A;&#x4E2A;)</td>
+</tr>
+<tr>
+<td>launch_station()</td>
+<td>&#x53D1;&#x5C04;&#x6B66;&#x5668;(&#x9700;&#x8981;&#x5148;&#x9009;&#x4E2D;&#x6302;&#x67B6;)</td>
+</tr>
+<tr>
+<td>select_station()</td>
+<td>&#x9009;&#x4E2D;&#x6302;&#x67B6;()</td>
+</tr>
+<tr>
+<td>set_ECM_status()</td>
+<td>&#x8BBE;&#x7F6E;ECM&#x5E72;&#x6270;&#x5668;&#x72B6;&#x6001;</td>
+</tr>
+<tr>
+<td>set_target_range()</td>
+<td>&#x8BBE;&#x7F6E;&#x76EE;&#x6807;&#x8DDD;&#x79BB;</td>
+</tr>
+<tr>
+<td>set_target_span()</td>
+<td>&#x8BBE;&#x7F6E;&#x76EE;&#x6807;&#x5BBD;&#x5EA6;</td>
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="3-%E5%85%B3%E4%BA%8E%E6%AD%A6%E5%99%A8%E5%8F%91%E5%B0%84">3. &#x5173;&#x4E8E;&#x6B66;&#x5668;&#x53D1;&#x5C04;</h3>
+
+<ul>
+<li>&#x6B66;&#x5668;&#x53D1;&#x5C04;&#x4E0D;&#x7BA1;&#x662F;&#x5426;&#x9501;&#x5B9A;&#xFF0C;&#x90FD;&#x53EF;&#x4EE5;&#x53D1;&#x5C04;&#xFF08;&#x662F;&#x5426;&#x53D1;&#x5C04;&#x53EF;&#x4EE5;&#x505A;&#x5224;&#x65AD;&#x63A7;&#x5236;&#xFF09;</li>
+<li>&#x6B66;&#x5668;&#x53D1;&#x5C04;&#x524D;&#x9700;&#x8981;&#x9009;&#x4E2D;&#x6302;&#x67B6;</li>
+<li>&#x96F7;&#x8FBE;&#x5F39;&#x9501;&#x5B9A;&#x5C06;&#x5728;&#x96F7;&#x8FBE;&#x7CFB;&#x7EDF;&#x90E8;&#x5206;&#x8BE6;&#x7EC6;&#x8BF4;</li>
+<li>&#x7EA2;&#x5916;&#x5F39;&#x4F1A;&#x5728;&#x8FD9;&#x91CC;&#x8BF4;</li>
+<li>&#x629B;&#x79BB;&#x4E5F;&#x9700;&#x8981;&#x6302;&#x67B6;&#x53F7;</li>
+</ul>
+<h3 class="mume-header" id="4-%E8%8E%B7%E5%8F%96%E6%8C%82%E8%BD%BD%E4%BF%A1%E6%81%AF">4. &#x83B7;&#x53D6;&#x6302;&#x8F7D;&#x4FE1;&#x606F;</h3>
+
+<ul>
+<li>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BE5;&#x51FD;&#x6570;&#x83B7;&#x53D6;&#x6302;&#x67B6;&#x4E0A;&#x6302;&#x8F7D;&#x7684;&#x8868;&#xFF1A;station = WeaponSystem:get_station_info(pylonSelected-1)</li>
+<li>&#x6302;&#x67B6;&#x53F7;&#x4ECE;0&#x5F00;&#x59CB;</li>
+<li>&#x5224;&#x65AD;&#x6302;&#x8F7D;&#x662F;&#x4EC0;&#x4E48;&#x7684;&#x7B80;&#x5355;&#x65B9;&#x6CD5;&#x662F;&#x67E5;&#x8BE2;&#x6302;&#x8F7D;&#x8868;&#x7684;CLSID(station.CLSID)&#x548C;&#x6E38;&#x620F;&#x6B66;&#x5668;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;CLSID&#xFF08;&#x5728;&#x67D0;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x7A0D;&#x540E;&#x8865;&#x5145;&#xFF09;</li>
+<li>station.count&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x6302;&#x67B6;&#x4E0A;&#x6709;&#x6CA1;&#x6709;&#x4E1C;&#x897F;&#xFF08;==0&#x5C31;&#x662F;&#x5FC5;&#x7136;&#x6CA1;&#x4E1C;&#x897F;&#xFF09;</li>
+<li>&#x5BF9;&#x5730;&#x653B;&#x51FB;&#x7684;&#x7CBE;&#x786E;&#x5236;&#x5BFC;&#x6B66;&#x5668;&#x76EE;&#x524D;&#x4E0D;&#x6E05;&#x695A;</li>
+</ul>
+<h3 class="mume-header" id="5-%E5%85%B3%E4%BA%8E%E7%BA%A2%E5%A4%96%E5%AF%BC%E5%BC%B9">5. &#x5173;&#x4E8E;&#x7EA2;&#x5916;&#x5BFC;&#x5F39;</h3>
+
+<ul>
+<li>&#x7EA2;&#x5916;&#x5BFC;&#x5F39;&#x7528;&#x7684;&#x5236;&#x5BFC;&#x63A7;&#x5236;&#x662F;parameter&#xFF08;&#x548C;&#x52A8;&#x753B;&#x4E00;&#x6837;&#x7684;&#x64CD;&#x4F5C;&#x903B;&#x8F91;&#xFF09;</li>
+</ul>
+<pre data-role="codeBlock" data-info="lua" class="language-lua">    <span class="token comment">-- &#x83B7;&#x53D6;&#x9501;&#x5B9A;&#x72B6;&#x6001;</span>
+    <span class="token comment">-- &#x662F;&#x5426;&#x9501;&#x5B9A;</span>
+    <span class="token keyword">local</span> ir_missile_lock_status <span class="token operator">=</span> <span class="token function">get_param_handle</span><span class="token punctuation">(</span><span class="token string">&quot;WS_IR_MISSILE_LOCK&quot;</span><span class="token punctuation">)</span>
+    <span class="token comment">-- &#x9501;&#x5B9A;&#x7684;&#x76EE;&#x6807;&#x7684;&#x9AD8;&#x7A0B;&#x548C;&#x65B9;&#x5411;</span>
+    <span class="token keyword">local</span> ir_missile_target_az <span class="token operator">=</span> <span class="token function">get_param_handle</span><span class="token punctuation">(</span><span class="token string">&quot;WS_IR_MISSILE_TARGET_AZIMUTH&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">local</span> ir_missile_target_el <span class="token operator">=</span> <span class="token function">get_param_handle</span><span class="token punctuation">(</span><span class="token string">&quot;WS_IR_MISSILE_TARGET_ELEVATION&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token comment">-- &#x8BBE;&#x7F6E;&#x641C;&#x7D22;&#x65B9;&#x5411;</span>
+    <span class="token comment">-- &#x65B9;&#x4F4D;&#x89D2;</span>
+    <span class="token keyword">local</span> ir_missile_desire_az <span class="token operator">=</span> <span class="token function">get_param_handle</span><span class="token punctuation">(</span><span class="token string">&quot;WS_IR_MISSILE_SEEKER_DESIRED_AZIMUTH&quot;</span><span class="token punctuation">)</span>
+    <span class="token comment">-- &#x9AD8;&#x7A0B;</span>
+    <span class="token keyword">local</span> ir_missile_desire_el <span class="token operator">=</span> <span class="token function">get_param_handle</span><span class="token punctuation">(</span><span class="token string">&quot;WS_IR_MISSILE_SEEKER_DESIRED_ELEVATION&quot;</span><span class="token punctuation">)</span>
+</pre><hr>
+<h1 class="mume-header" id="%E9%99%84%E5%BD%95">&#x9644;&#x5F55;</h1>
+
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

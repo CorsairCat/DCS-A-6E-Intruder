@@ -1,0 +1,1 @@
+return _('A-6E Intruder')
