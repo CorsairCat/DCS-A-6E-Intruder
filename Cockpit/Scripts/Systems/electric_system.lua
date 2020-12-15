@@ -12,8 +12,10 @@ make_default_activity(update_time_step)
 
 local sensor_data = get_base_data()
 
-electric_system:listen_command(Keys.PowerGeneratorLeft)
-electric_system:listen_command(Keys.PowerGeneratorRight)
+electric_system:listen_command(Keys.PowerGeneratorLeftUP)
+electric_system:listen_command(Keys.PowerGeneratorLeftDOWN)
+electric_system:listen_command(Keys.PowerGeneratorRightUP)
+electric_system:listen_command(Keys.PowerGeneratorRightDOWN)
 -- electric_system:listen_command(Keys.BatteryPower)
 
 electric_system:DC_Battery_on(true)
@@ -40,13 +42,13 @@ local left_gen = _switch_counter()
 local right_gen = _switch_counter()
 
 target_status = {
-    {left_spd , SWITCH_OFF, genLeftSwitch, "GenLeftSwitch"},
-    {right_spd , SWITCH_OFF, genRightSwitch, "GenRightSwitch"},
+    {left_gen , SWITCH_OFF, genLeftSwitch, "PTN_108"},
+    {right_gen , SWITCH_OFF, genRightSwitch, "PTN_111"},
 }
 
 current_status = {
-    {left_spd , SWITCH_OFF, SWITCH_OFF},
-    {right_spd , SWITCH_OFF, SWITCH_OFF},
+    {left_gen , SWITCH_OFF, SWITCH_OFF},
+    {right_gen , SWITCH_OFF, SWITCH_OFF},
 }
 
 function CockpitEvent(event,val)
@@ -76,7 +78,7 @@ function update_elec_state() --更新电力总线状态
         elec_primary_ac_ok:set(0)
     end
 
-    if electric_system:get_DC_Bus_1_voltage() > 0 and batteryStatus == 1 then 
+    if electric_system:get_DC_Bus_1_voltage() > 0 then 
         elec_primary_dc_ok:set(1)
     else
         elec_primary_dc_ok:set(0)
@@ -94,26 +96,26 @@ function post_initialize() --默认初始化函数
         electric_system:AC_Generator_2_on(true) -- A-6E have 2 engine, so two generator
         electric_system:DC_Battery_on(true) -- A-6 have a battery
         target_status = {
-            {left_spd , SWITCH_ON, genLeftSwitch, "GenLeftSwitch"},
-            {right_spd , SWITCH_ON, genRightSwitch, "GenRightSwitch"},
+            {left_gen , SWITCH_ON, genLeftSwitch, "PTN_108"},
+            {right_gen , SWITCH_ON, genRightSwitch, "PTN_111"},
         }
         
         current_status = {
-            {left_spd , SWITCH_ON, SWITCH_OFF},
-            {right_spd , SWITCH_ON, SWITCH_OFF},
+            {left_gen , SWITCH_ON, SWITCH_OFF},
+            {right_gen , SWITCH_ON, SWITCH_OFF},
         }
     elseif birth=="GROUND_COLD" then
         electric_system:AC_Generator_1_on(false) 
-        electric_system:AC_Generator_2_on(false) -- A-6A have 2 engine, so two generator
+        electric_system:AC_Generator_2_on(false) -- A-6E have 2 engine, so two generator
         electric_system:DC_Battery_on(true) -- A-6 have a battery but default open
         target_status = {
-            {left_spd , SWITCH_OFF, genLeftSwitch, "GenLeftSwitch"},
-            {right_spd , SWITCH_OFF, genRightSwitch, "GenRightSwitch"},
+            {left_gen , SWITCH_OFF, genLeftSwitch, "PTN_108"},
+            {right_gen , SWITCH_OFF, genRightSwitch, "PTN_111"},
         }
         
         current_status = {
-            {left_spd , SWITCH_OFF, SWITCH_OFF},
-            {right_spd , SWITCH_OFF, SWITCH_OFF},
+            {left_gen , SWITCH_OFF, SWITCH_OFF},
+            {right_gen , SWITCH_OFF, SWITCH_OFF},
         }
     end
 
@@ -128,37 +130,41 @@ end
 function SetCommand(command,value)
     -- 最基础的航电功能监听
     if command == Keys.PowerGeneratorLeftUP then
-        if target_status[left_gen] < 0.5 then
-            target_status[left_gen] = target_status[left_gen] + 1
+        if target_status[left_gen][2] < 0.5 then
+            current_status[left_gen][3] = current_status[left_gen][2]
+            target_status[left_gen][2] = target_status[left_gen][2] + 1
         end
-        if (target_status[left_gen] >= 0.5) then
+        if (target_status[left_gen][2] >= 0.5) then
             electric_system:AC_Generator_1_on(true)
         else
             electric_system:AC_Generator_1_on(false)
         end
     elseif command == Keys.PowerGeneratorLeftDOWN then
-        if target_status[left_gen] > -0.5 then
-            target_status[left_gen] = target_status[left_gen] - 1
+        if target_status[left_gen][2] > -0.5 then
+            current_status[left_gen][3] = current_status[left_gen][2]
+            target_status[left_gen][2] = target_status[left_gen][2] - 1
         end
-        if (target_status[left_gen] >= 0.5) then
+        if (target_status[left_gen][2] >= 0.5) then
             electric_system:AC_Generator_1_on(true)
         else
             electric_system:AC_Generator_1_on(false)
         end
     elseif command == Keys.PowerGeneratorRightUP then
-        if target_status[right_gen] < 0.5 then
-            target_status[right_gen] = target_status[right_gen] + 1
+        if target_status[right_gen][2] < 0.5 then
+            current_status[right_gen][3] = current_status[right_gen][2]
+            target_status[right_gen][2] = target_status[right_gen][2] + 1
         end
-        if (target_status[right_gen] >= 0.5) then
+        if (target_status[right_gen][2] >= 0.5) then
             electric_system:AC_Generator_2_on(true)
         else
             electric_system:AC_Generator_2_on(false)
         end
     elseif command == Keys.PowerGeneratorRightDOWN then
-        if target_status[right_gen] > -0.5 then
-            target_status[right_gen] = target_status[right_gen] - 1
+        if target_status[right_gen][2] > -0.5 then
+            current_status[right_gen][3] = current_status[right_gen][2]
+            target_status[right_gen][2] = target_status[right_gen][2] - 1
         end
-        if (target_status[right_gen] >= 0.5) then
+        if (target_status[right_gen][2] >= 0.5) then
             electric_system:AC_Generator_2_on(true)
         else
             electric_system:AC_Generator_2_on(false)

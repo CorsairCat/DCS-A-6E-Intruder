@@ -53,27 +53,31 @@ local left_throttle = get_param_handle("LeftThrottor")
 local right_throttle = get_param_handle("RightThrottor")
 
 function set_rpm_display(rpm_in_percent)
+    local return_rpm_in_1 = 0
     if rpm_in_percent < 70 then
-        local return_rpm_in_1 = 0.0023 * rpm_in_percent + 0.25
+        return_rpm_in_1 = 0.0023 * rpm_in_percent + 0.25
     else
-        local return_rpm_in_1 = 0.01457 * (rpm_in_percent - 70) + 0.411
+        return_rpm_in_1 = 0.01457 * (rpm_in_percent - 70) + 0.411
     end
-    return(return_rpm_in_1)
+    return return_rpm_in_1
 end
 
 function set_temperature_display(temperature_input)
-    if temperature_input < 400 then
-        local return_EGT = 0.0023 * rpm_in_percent / 40 + 0.25
+    local return_EGT = 0
+    if temperature_input < 300 then
+        return_EGT = 0.0023 * temperature_input * 7 / 30 + 0.25
     else
-        local temperature_after_turbine = math.ln(temperature_input - 400) * 40
-        local return_EGT = 0.01457 * temperature_after_turbine / 10 + 0.411
+        local temperature_after_turbine = (temperature_input - 300) * 0.5
+        return_EGT = 0.01457 * temperature_after_turbine / 10 + 0.411
     end
     return(return_EGT)
 end
 
 function update_Engine_Working_Status()
-    RPM_l:set(set_rpm_display(sensor_data.getEngineLeftRPM()))
-    RPM_r:set(set_rpm_display(sensor_data.getEngineRightRPM()))
+    local left_rpm = sensor_data.getEngineLeftRPM()
+    local right_rpm = sensor_data.getEngineRightRPM()
+    RPM_l:set(set_rpm_display(left_rpm))
+    RPM_r:set(set_rpm_display(right_rpm))
     EGT_l:set(set_temperature_display(sensor_data.getEngineLeftTemperatureBeforeTurbine()))
     EGT_r:set(set_temperature_display(sensor_data.getEngineRightTemperatureBeforeTurbine()))
     FF_l:set(sensor_data.getEngineLeftFuelConsumption() * 3 * 0.75 + 0.24)
@@ -105,6 +109,9 @@ Engine:listen_command(Keys.RightEngineCrank)
 Engine:listen_command(Keys.RightEngineCrankUP)
 
 Engine:listen_command(Keys.CSDSwitch)
+Engine:listen_command(Keys.NWWSwitch)
+Engine:listen_command(Keys.BleedHoldCover)
+Engine:listen_command(Keys.AirCondSwitch)
 
 switch_count = 0
 
@@ -133,8 +140,8 @@ target_status = {
     {right_spd , SWITCH_OFF, get_param_handle("PTN_110"), "PTN_110"},
     {left_fuel_m , SWITCH_OFF, get_param_handle("PTN_112"), "PTN_112"},
     {right_fuel_m , SWITCH_OFF, get_param_handle("PTN_113"), "PTN_113"},
-    {left_crank, SWITCH_OFF, get_param_handle("PTN_118"), "PTN_118"},
-    {right_crank, SWITCH_OFF, get_param_handle("PTN_119"), "PTN_119"},
+    {left_crank, SWITCH_OFF, get_param_handle("PTN_150"), "PTN_150"},
+    {right_crank, SWITCH_OFF, get_param_handle("PTN_151"), "PTN_151"},
     {csd_status, SWITCH_OFF, get_param_handle("PTN_115"), "PTN_115"},
     {nww_status, SWITCH_OFF, get_param_handle("PTN_114"), "PTN_114"},
     {aircond_status, SWITCH_OFF, get_param_handle("PTN_116"), "PTN_116"},
@@ -261,6 +268,9 @@ start_count_time = 0
 start_count_flag_l = 0
 start_count_flag_r = 0
 
+L_IDLE_RESTART = 0
+R_IDLE_RESTART = 0
+
 --监听函数
 function SetCommand(command, value)
     if (get_elec_primary_dc_ok() or get_elec_primary_ac_ok()) then
@@ -348,12 +358,14 @@ function SetCommand(command, value)
                 dispatch_action(nil, iCommandLeftEngineStop)
                 print_message_to_user("dispatch_action")
                 -- engine_state_left = ENGINE_OFF
-            elseif engine_state_left == ENGINE_STARTING then
+                L_IDLE_RESTART = 1
+            elseif engine_state_left == ENGINE_STARTING or (engine_state_left == ENGINE_RUNNING and L_IDLE_RESTART == 1) then
                 dispatch_action(nil, iCommandLeftEngineStart, nil)
                 engine_state_left = ENGINE_RUNNING
                 -- Externel_Bleed_Status = SWITCH_OFF
                 left_idle_status = SWITCH_ON
                 left_throttle:set(0.15)
+                L_IDLE_RESTART = 0
             end
         elseif (command == Keys.RightEngineIDLEPOS) then
             if (right_idle_status == SWITCH_ON and right_throttle:get() < 0.17) then
@@ -362,28 +374,37 @@ function SetCommand(command, value)
                 -- engine_state_right = ENGINE_OFF
                 dispatch_action(nil, iCommandRightEngineStop)
                 print_message_to_user("dispatch_action")
-            elseif engine_state_right == ENGINE_STARTING then
+                R_IDLE_RESTART = 1
+            elseif engine_state_right == ENGINE_STARTING or (engine_state_right == ENGINE_RUNNING and R_IDLE_RESTART == 1) then
                 dispatch_action(nil, iCommandRightEngineStart, nil)
                 engine_state_right = ENGINE_RUNNING
                 -- Externel_Bleed_Status = SWITCH_OFF
                 right_idle_status = SWITCH_ON
                 right_throttle:set(0.15)
+                R_IDLE_RESTART = 0
             end
         elseif (command == Keys.CSDSwitch) then
-            if bleed_hold_status == SWITCH_ON then
+            if target_status[bleed_hold_status][2] == SWITCH_ON then
+                current_status[csd_status][3] = current_status[csd_status][2]
                 target_status[csd_status][2] = 1 - target_status[csd_status][2]
             end
         elseif (command == Keys.NWWSwitch) then
-            if bleed_hold_status == SWITCH_ON then
+            if target_status[bleed_hold_status][2] == SWITCH_ON then
+                current_status[nww_status][3] = current_status[nww_status][2]
                 target_status[nww_status][2] = 1 - target_status[nww_status][2]
             end
-        elseif (command == Keys.aircond_status) then
-            if bleed_hold_status == SWITCH_ON then
+        elseif (command == Keys.AirCondSwitch) then
+            if target_status[bleed_hold_status][2] == SWITCH_ON then
+                current_status[aircond_status][3] = current_status[aircond_status][2]
                 target_status[aircond_status][2] = 1 - target_status[aircond_status][2]
             end
         elseif (command == Keys.BleedHoldCover) then
+            current_status[bleed_hold_status][3] = current_status[bleed_hold_status][2]
             target_status[bleed_hold_status][2] = 1 - target_status[bleed_hold_status][2]
             if target_status[bleed_hold_status][2] == SWITCH_OFF then
+                current_status[csd_status][3] = current_status[csd_status][2]
+                current_status[nww_status][3] = current_status[nww_status][2]
+                current_status[aircond_status][3] = current_status[aircond_status][2]
                 target_status[csd_status][2] = SWITCH_OFF
                 target_status[nww_status][2] = SWITCH_OFF
                 target_status[aircond_status][2] = SWITCH_OFF
@@ -415,21 +436,37 @@ function update_bleed_status()
     end
 end
 
+FUEL_MASTER_STOP_FLAG_L = 0
+FUEL_MASTER_STOP_FLAG_R = 0
+
 function update_Engine_Status()
-    if (left_idle_status == SWITCH_OFF and sensor_data.getEngineLeftRPM() <= 10) then
+    if sensor_data.getEngineLeftRPM() <= 10 then
         engine_state_left = ENGINE_POST_STARTING
-    elseif (left_idle_status == SWITCH_OFF and sensor_data.getEngineLeftRPM() < 35) then
+        FUEL_MASTER_STOP_FLAG_L = 0
+        L_IDLE_RESTART = 0
+    elseif sensor_data.getEngineLeftRPM() < 45 then
             engine_state_left = ENGINE_STARTING
+    elseif sensor_data.getEngineLeftRPM() >= 45 then
+        engine_state_left = ENGINE_RUNNING
     elseif (left_idle_status == SWITCH_OFF and sensor_data.getEngineLeftRPM() >= 20) then
         dispatch_action(nil, iCommandLeftEngineStop)
+    else
+        engine_state_left = ENGINE_OFF
     end
-    if (right_idle_status == SWITCH_OFF and sensor_data.getEngineRightRPM() <= 0) then
+    if sensor_data.getEngineRightRPM() <= 10 then
         engine_state_right = ENGINE_POST_STARTING
-    elseif (right_idle_status == SWITCH_OFF and sensor_data.getEngineRightRPM() < 35) then
+        FUEL_MASTER_STOP_FLAG_R = 0
+        R_IDLE_RESTART = 0
+    elseif sensor_data.getEngineRightRPM() < 45 then
         engine_state_right = ENGINE_STARTING
+    elseif sensor_data.getEngineRightRPM() >= 45 then
+        engine_state_right = ENGINE_RUNNING
     elseif (right_idle_status == SWITCH_OFF and sensor_data.getEngineRightRPM() >= 20) then
         dispatch_action(nil, iCommandRightEngineStop)
+    else
+        engine_state_right = ENGINE_OFF
     end
+
     if left_idle_status == SWITCH_ON then
         left_throttle:set(sensor_data.getThrottleLeftPosition() * 0.85 + 0.15) 
     end
@@ -439,15 +476,22 @@ function update_Engine_Status()
 
     if target_status[left_fuel_m][2] == SWITCH_OFF and (engine_state_left == ENGINE_RUNNING or engine_state_left == ENGINE_STARTING) then
         dispatch_action(nil, iCommandLeftEngineStop, nil)
-    elseif target_status[left_fuel_m][2] == SWITCH_ON and engine_state_left == ENGINE_STARTING then
+        FUEL_MASTER_STOP_FLAG_L = 1
+    elseif target_status[left_fuel_m][2] == SWITCH_ON and (engine_state_left == ENGINE_STARTING or engine_state_left == ENGINE_RUNNING) and (FUEL_MASTER_STOP_FLAG_L == 1 and left_idle_status == SWITCH_ON) then
+        print_message_to_user("restart")
         dispatch_action(nil, iCommandLeftEngineStart, nil)
+        FUEL_MASTER_STOP_FLAG_L = 0
     end
 
     if target_status[right_fuel_m][2] == SWITCH_OFF and (engine_state_right == ENGINE_RUNNING or engine_state_right == ENGINE_STARTING) then
         dispatch_action(nil, iCommandRightEngineStop, nil)
-    elseif target_status[right_fuel_m][2] == SWITCH_ON and engine_state_right == ENGINE_STARTING then
+        FUEL_MASTER_STOP_FLAG_R = 1
+    elseif target_status[right_fuel_m][2] == SWITCH_ON and (engine_state_right == ENGINE_STARTING or engine_state_right == ENGINE_RUNNING) and (right_idle_status == SWITCH_ON and FUEL_MASTER_STOP_FLAG_R == 1) then
+        print_message_to_user("restart")
         dispatch_action(nil, iCommandRightEngineStart, nil)
+        FUEL_MASTER_STOP_FLAG_R = 0
     end
+    -- print_message_to_user("EngineState:"..sensor_data.getEngineRightRPM()..","..engine_state_right..";")
     
     local lthro_click_ref = get_clickable_element_reference("PTN_LTHRO")
     local rthro_click_ref = get_clickable_element_reference("PTN_RTHRO")
