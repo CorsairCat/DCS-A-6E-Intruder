@@ -40,9 +40,15 @@
 + 116: AIR cond
 + 117: all close
 
-#### ARG 118 - 119
+#### ARG 118 - 119 [150 151 now]
 + Left Engine Crank (118)
 + Right Engine Crank (119)
+
+#### ARG 120 - 123
++ 120: flaperon pop up 
++ 121: anti skid
++ 122: APC [cold/std/hot]
++ 123: APC [engage/stby/off]
 ----
 
 ## Display Instruments
