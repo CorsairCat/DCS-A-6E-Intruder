@@ -376,12 +376,12 @@ elements["PARKING_BREAK"] = default_2_position_tumb("Parking Break", devices.BRE
 
 multi_tumb_click_list = {
     {"PTN_101", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 101, Keys.FuelDisMain},
-    {"PTN_102", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 102, Keys.FuelDisWing},
-    {"PTN_103", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 103, Keys.FuelDisCtr},
-    {"PTN_104", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 104, Keys.FuelDisLout},
-    {"PTN_105", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 105, Keys.FuelDisLin},
-    {"PTN_106", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 106, Keys.FuelDisRin},
-    {"PTN_107", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 107, Keys.FuelDisRout},
+    {"PTN_102", "Fuel Gauge Wing Select", devices.FUEL_SYSTEM, 102, Keys.FuelDisWing},
+    {"PTN_103", "Fuel Gauge CTR Select", devices.FUEL_SYSTEM, 103, Keys.FuelDisCtr},
+    {"PTN_104", "Fuel Gauge L out Select", devices.FUEL_SYSTEM, 104, Keys.FuelDisLout},
+    {"PTN_105", "Fuel Gauge L in Select", devices.FUEL_SYSTEM, 105, Keys.FuelDisLin},
+    {"PTN_106", "Fuel Gauge R in Select", devices.FUEL_SYSTEM, 106, Keys.FuelDisRin},
+    {"PTN_107", "Fuel Gauge R out Select", devices.FUEL_SYSTEM, 107, Keys.FuelDisRout},
 }
 
 for k,v in pairs(multi_tumb_click_list) do

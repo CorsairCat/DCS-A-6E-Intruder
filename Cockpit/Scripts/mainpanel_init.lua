@@ -87,11 +87,11 @@ animation_list = {
     {"HSI_HDG_x1", 353},
     {"FUEL_QUAN_IN", 354},
     {"FUEL_QUAN_SEL", 355},
-    {"FUEL_QUAN_A_x1W", 356},
-    {"FUEL_QUAN_A_x1K", 357},
-    {"FUEL_QUAN_A_x100", 358},
-    {"FUEL_QUAN_A_x10", 359},
-    {"FUEL_QUAN_A_x1", 360},
+    {"FUEL_QUAN_A_5", 356},
+    {"FUEL_QUAN_A_4", 357},
+    {"FUEL_QUAN_A_3", 358},
+    {"FUEL_QUAN_A_2", 359},
+    {"FUEL_QUAN_A_1", 360},
 
     {"PTN_101", 101},
     {"PTN_102", 102},
@@ -249,12 +249,6 @@ CanopyInside.arg_number		        = 38
 CanopyInside.input				    = {0, 1}
 CanopyInside.output			        = {0, 1}
 CanopyInside.parameter_name	        = "CanopyInsideView"
-
-BatterySwitch					    = CreateGauge("parameter")
-BatterySwitch.arg_number		    = 107
-BatterySwitch.input				    = {0, 1}
-BatterySwitch.output			    = {-1, 1}
-BatterySwitch.parameter_name	    = "BatterySwitch"
 
 GenLeftSwitch					    = CreateGauge("parameter")
 GenLeftSwitch.arg_number		    = 108

@@ -273,7 +273,8 @@ A_6e = {
 			},
             {
 				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
-                { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
+				{ CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
+				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
             }
         ),
 		pylon(2, 1,  -0.000000, -0.00000, -0.00000,
@@ -284,6 +285,7 @@ A_6e = {
 				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
                 { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
 				{ CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
+				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
             }
         ),
 		pylon(3, 1, -0.000000, -0.00000, -0.00000,
@@ -294,6 +296,7 @@ A_6e = {
 				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
                 { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
 				-- { CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
+				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
             }
         ),
 		pylon(4, 1, -0.000000, -0.000000, -0.00000,
@@ -304,6 +307,7 @@ A_6e = {
 				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
                 { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
 				-- { CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
+				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
             }
         ),
 		pylon(5, 1, 0.000000, 0.00000, 0.00000,
@@ -314,6 +318,7 @@ A_6e = {
 				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
                 { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
 				-- { CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
+				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
             }
         ),
 	},
@@ -492,3 +497,40 @@ A_6e = {
 }
 
 add_aircraft(A_6e)
+
+
+---- set self defined weapons
+
+-- AERO 1D 300 Gal fuel tanks
+local function Aero_1d_fuel_tank(clsid)
+	local data = {
+		category	= CAT_FUEL_TANKS,
+		CLSID		= clsid,
+		attribute	=  {wsType_Air,wsType_Free_Fall,wsType_FuelTank,WSTYPE_PLACEHOLDER},
+		Picture		= "AERO-1D.png",
+		displayName	= _("AERO-1D Fuel Tank 300 gallons"),
+		Weight_Empty	= 88,			-- empty weight with 1 fin(use for A-6): 193.5 lb
+		Weight			= 1013,			-- 300 gallons, 6.8 lb/gal  use JP-5 fuel full weight = 2233.5 lb
+		Cx_pil			= 0.0016,		
+		shape_table_data = 
+		{
+			{
+				name	= "AERO_1D";
+				file	= "AERO_1D";
+				life	= 1;
+				fire	= { 0, 1};
+				username	= "AERO_1D";
+				index	= WSTYPE_PLACEHOLDER;
+			},
+		},
+		Elements	= 
+		{
+			{
+				ShapeName	= "AERO_1D",
+			}, 
+		}, 
+	}
+	declare_loadout(data)
+end
+
+Aero_1d_fuel_tank("{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}") -- assign a uuid for it to prevent problem

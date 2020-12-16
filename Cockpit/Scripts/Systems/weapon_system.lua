@@ -50,19 +50,19 @@ WeaponSystem:listen_command(Keys.WeaponLaunch)
 ----rest are for pylon drop tank checking and will send to parameters
 
 local pylon_is_tank = {
-    get_param_handle("pylon_lout"),
-    get_param_handle("pylon_lin"),
-    get_param_handle("pylon_ctr"),
-    get_param_handle("pylon_rin"),
     get_param_handle("pylon_rout"),
+    get_param_handle("pylon_rin"),
+    get_param_handle("pylon_ctr"),
+    get_param_handle("pylon_lin"),
+    get_param_handle("pylon_lout"),
 }
 
 function check_externel_tank_status()
     local pylonSelection = 0
     for pylonSelection = 0, 4, 1 do
         local station = WeaponSystem:get_station_info(pylonSelection)
-        if (station.CLSID == "") then
-            pylon_is_tank[pylonSelection]:set(1)
+        if (station.CLSID == "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}") then
+            pylon_is_tank[pylonSelection + 1]:set(1)
         end
     end
 end
@@ -166,6 +166,8 @@ function update()
     elseif (ir_missile_lock_param:get() == 0) then
         weapon_status_display:set("STBY")
     end
+
+    check_externel_tank_status()
 end
 
 need_to_be_closed = false
