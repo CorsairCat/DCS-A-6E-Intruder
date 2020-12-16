@@ -35,7 +35,7 @@ local rout_tank_dis = _switch_counter()
 
 target_status = {
     {main_tank_dis , SWITCH_OFF, get_param_handle("PTN_101"), "PTN_101"},
-    {wing_tank_dis , SWITCH_OFF, get_param_handle("PTN_102"), "PTN_102"},
+    {wing_tank_dis , SWITCH_ON, get_param_handle("PTN_102"), "PTN_102"},
     {ctr_tank_dis , SWITCH_OFF, get_param_handle("PTN_103"), "PTN_103"},
     {lout_tank_dis , SWITCH_OFF, get_param_handle("PTN_104"), "PTN_104"},
     {lin_tank_dis , SWITCH_OFF, get_param_handle("PTN_105"), "PTN_105"},
@@ -45,7 +45,7 @@ target_status = {
 
 current_status = {
     {main_tank_dis , SWITCH_OFF, SWITCH_OFF},
-    {wing_tank_dis , SWITCH_OFF, SWITCH_OFF},
+    {wing_tank_dis , SWITCH_ON, SWITCH_OFF},
     {ctr_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {lout_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {lin_tank_dis , SWITCH_OFF, SWITCH_OFF},
@@ -91,10 +91,78 @@ function update_switch_status()
     end
 end
 
+FuelSystem:listen_command(Keys.FuelDisMain)
+FuelSystem:listen_command(Keys.FuelDisWing)
+FuelSystem:listen_command(Keys.FuelDisCtr)
+FuelSystem:listen_command(Keys.FuelDisLin)
+FuelSystem:listen_command(Keys.FuelDisLout)
+FuelSystem:listen_command(Keys.FuelDisRin)
+FuelSystem:listen_command(Keys.FuelDisRout)
+
 -----Switch default position update control off
+
+function post_initialize()
+    for k,v in pairs(target_status) do
+        target_status[k][3]:set(current_status[k][2])
+    end
+end
+
+DISPLAY_TANK = wing_tank_dis
+
+function setDisplayStatus(new_selection)
+    target_status[DISPLAY_TANK][2] = SWITCH_OFF
+    local temp_switch_ref = get_clickable_element_reference(target_status[DISPLAY_TANK][4])
+    temp_switch_ref:hide(false)
+    target_status[new_selection][2] = SWITCH_ON
+    DISPLAY_TANK = new_selection
+    temp_switch_ref = get_clickable_element_reference(target_status[DISPLAY_TANK][4])
+    temp_switch_ref:hide(true)
+end
+
+fuel_main_dis = get_param_handle("FUEL_QUAN_IN")
+fuel_sel_dis = get_param_handle("FUEL_QUAN_SEL")
+fuel_quanW_dis = get_param_handle("FUEL_QUAN_A_x1W")
+fuel_quanK_dis = get_param_handle("FUEL_QUAN_A_x1K")
+fuel_quan3_dis = get_param_handle("FUEL_QUAN_A_x100")
+fuel_quan2_dis = get_param_handle("FUEL_QUAN_A_x10")
+fuel_quan1_dis = get_param_handle("FUEL_QUAN_A_x1")
+
+
+function updateFuelGaugeDisplay()
+    local fuel_main = 0
+    local fuel_wing = 0
+    local fuel_total = 0
+    local fuel_externel = 0
+    local fuel_gauge_step = 0.1
+    if get_elec_primary_ac_ok() then
+        fuel_total = sensor_data.getTotalFuelWeight()
+    else
+        
+    end
+    fuel_main_dis:set()
+end
+
+function SetCommand(command, value)
+    if command == Keys.FuelDisMain then
+        setDisplayStatus(main_tank_dis)
+    elseif command == Keys.FuelDisWing then
+        setDisplayStatus(wing_tank_dis)
+    elseif command == Keys.FuelDisCtr then
+        setDisplayStatus(ctr_tank_dis)
+    elseif command == Keys.FuelDisLout then
+        setDisplayStatus(lout_tank_dis)
+    elseif command == Keys.FuelDisLin then
+        setDisplayStatus(lin_tank_dis)
+    elseif command == Keys.FuelDisRin then
+        setDisplayStatus(rin_tank_dis)
+    elseif command == Keys.FuelDisRout then
+        setDisplayStatus(rout_tank_dis)
+    end
+end
 
 function update()
     update_switch_status()
+    updateFuelGaugeDisplay()
 end
 
 --不关闭该lua

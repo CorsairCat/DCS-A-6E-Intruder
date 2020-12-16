@@ -22,7 +22,7 @@ creators[devices.RADAR_RAW]		  ={"avSimpleRadar"			,LockOn_Options.script_path..
 creators[devices.HUD_DCMS]        ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/dcms_hud.lua"}
 creators[devices.BASIC_FLIGHT_INS]={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/basic_flight_instru.lua"}
 creators[devices.CLOCK]           ={"avLuaDevice"           ,LockOn_Options.script_path.."aviation_clock.lua"}
--- creators[devices.FUEL_GAGE]       ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/fuel_system.lua"}
+-- creators[devices.FUEL_SYSTEM]       ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/fuel_system.lua"}
 
 -- Indicators
 indicators = {}

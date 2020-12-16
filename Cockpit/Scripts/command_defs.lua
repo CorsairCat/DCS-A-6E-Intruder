@@ -124,6 +124,14 @@ Keys =
 
     -- LeftEngineOFF = __custom_counter(),
     -- RightEngineOFF = __custom_counter(),
+
+    FuelDisMain = __custom_counter(),
+    FuelDisWing = __custom_counter(),
+    FuelDisCtr = __custom_counter(),
+    FuelDisLout = __custom_counter(),
+    FuelDisLin = __custom_counter(),
+    FuelDisRin = __custom_counter(),
+    FuelDisRout = __custom_counter(),
 }
 
 --从5000开始递增点击指令
