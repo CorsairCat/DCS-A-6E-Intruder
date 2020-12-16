@@ -47,6 +47,28 @@ local weapon_mode_display = get_param_handle("WEAPON_MODE_DIS")
 WeaponSystem:listen_command(Keys.WeaponSelectNext)
 WeaponSystem:listen_command(Keys.WeaponLaunch)
 
+----rest are for pylon drop tank checking and will send to parameters
+
+local pylon_is_tank = {
+    get_param_handle("pylon_lout"),
+    get_param_handle("pylon_lin"),
+    get_param_handle("pylon_ctr"),
+    get_param_handle("pylon_rin"),
+    get_param_handle("pylon_rout"),
+}
+
+function check_externel_tank_status()
+    local pylonSelection = 0
+    for pylonSelection = 0, 4, 1 do
+        local station = WeaponSystem:get_station_info(pylonSelection)
+        if (station.CLSID == "") then
+            pylon_is_tank[pylonSelection]:set(1)
+        end
+    end
+end
+
+----end of transfer pylon tank status
+
 weapon_select_display:set("NO")
 weapon_bay_display:set("CLOSE")
 weapon_status_display:set("NO")

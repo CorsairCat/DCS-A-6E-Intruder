@@ -119,7 +119,13 @@ animation_list = {
 
     -- the arg 9xx stand for transfer information
     {"EnvironmentControl", 902},
-    {"WindshieldDeice", 903}
+    {"WindshieldDeice", 903},
+    -- following mark drop tank status
+    {"pylon_lin", 904},
+    {"pylon_lout", 905},
+    {"pylon_rout", 906},
+    {"pylon_rin", 907},
+    {"pylon_ctr", 908}
 }
 
 --[[
