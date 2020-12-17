@@ -49,7 +49,53 @@
 + 121: anti skid
 + 122: APC [cold/std/hot]
 + 123: APC [engage/stby/off]
-----
+
+#### ARG 124 - 134
++ 124: collision
++ 125: Taxi, Prob light
++ 126: Key LT
++ 127: Key
++ 128: Tail
++ 129: WING
++ 130: Formation
++ 131: Flood
++ 132: Instruments
++ 133: Console
++ 134: Approach Index
+
+#### ARG 135 - 144
+##### 135 - 139 HDI Display
++ 135: OFF
++ 136: STBY
++ 137: TC CAL
++ 138: TC
++ 139: CONT ANALOG
+##### 140 - 144 RANGE MILES
++ 140: TEST
++ 141: 1 miles
++ 142: 1.5 miles
++ 143: 2 miles
++ 144: 3 mils
+
+#### ARG 145 - 149
++ 145: Tank Press
++ 146: Wing drop tank trans
++ 147: Wing tank dump
++ 148: fuselarge tank dump
++ 149: Fuel ready
+
+#### ARG 152 - 158
++ hud
++ hud moveable reticles: 152
++ hud main control: 153
++ hud fixed reticles: 154
++ hud TEST: 155
++ reticles brightness: 156
++ in range brightness: 157
++ breakaway brightness: 158
+
+
+----------
 
 ## Display Instruments
 #### ARG 301
