@@ -132,6 +132,17 @@ Keys =
     FuelDisLin = __custom_counter(),
     FuelDisRin = __custom_counter(),
     FuelDisRout = __custom_counter(),
+
+    FuelTankPressUP = __custom_counter(),
+    WingDropTankTransUP = __custom_counter(),
+    FuelTankPressDOWN = __custom_counter(),
+    WingDropTankTransDOWN = __custom_counter(),
+    WingTankDump = __custom_counter(),
+    FuseTankDump = __custom_counter(),
+    FuelReadyUP = __custom_counter(),
+    BoostPumpTestUP = __custom_counter(),
+    FuelReadyDOWN = __custom_counter(),
+    BoostPumpTestDOWN = __custom_counter(),
 }
 
 --从5000开始递增点击指令

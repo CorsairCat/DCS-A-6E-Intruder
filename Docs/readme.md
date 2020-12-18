@@ -83,6 +83,7 @@
 + 147: Wing tank dump
 + 148: fuselarge tank dump
 + 149: Fuel ready
++ 118: Boost Pump Test
 
 #### ARG 152 - 158
 + hud

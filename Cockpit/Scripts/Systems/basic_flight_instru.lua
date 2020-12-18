@@ -145,7 +145,7 @@ end
 
 function update_Gyro_Display()
     if (get_elec_primary_ac_ok() == true) then
-        Gauge_display_state[gyro_roll][2] = -sensor_data.getRoll() * RAD_TO_DEGREE / 90
+        Gauge_display_state[gyro_roll][2] = -sensor_data.getRoll() * RAD_TO_DEGREE / 90 / 2
         Gauge_display_state[gyro_pitch][2] = sensor_data.getPitch() * RAD_TO_DEGREE / 90
     else
         Gauge_display_state[gyro_roll][2] = -0.3
@@ -155,7 +155,7 @@ end
 
 function calculate_Climb_Slide()
     if (get_elec_primary_ac_ok() == true) then
-        local climb_rate = sensor_data.getVerticalVelocity() * METER_TO_INCH / 60 / 6000
+        local climb_rate = sensor_data.getVerticalVelocity() * METER_TO_INCH * 60 / 6000
         local slide_rate = sensor_data.getRateOfYaw() * RAD_TO_DEGREE / 90
         Gauge_display_state[climb_rate_ind][2] = climb_rate
         Gauge_display_state[slide_rate_ind][2] = slide_rate
@@ -170,7 +170,7 @@ function update_HSI_Compass()
     local temp = 0
     if (get_elec_primary_ac_ok() == true) then
         if (current_magnitude_heading > 180) then
-            temp = (360 - current_magnitude_heading) / 180
+            temp = - (360 - current_magnitude_heading) / 180
         else
             temp = current_magnitude_heading / 180
         end

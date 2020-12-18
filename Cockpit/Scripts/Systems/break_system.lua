@@ -44,6 +44,7 @@ function post_initialize()
     elseif birth=="GROUND_COLD" then
         parking_brake_target = 1
     end
+    dispatch_action(nil,iCommandPlaneWheelBrakeOn)
     parking_brake_handle:set(parking_brake_target)
 end
 
@@ -67,8 +68,8 @@ function SetCommand(command,value)
         dispatch_action(nil,iCommandPlaneWheelBrakeOff)
     elseif (command == Airbrake) then
         if (air_brake_state == 0) then
-            air_brake_state = 0.45
-        elseif (air_brake_state == 0.45) then
+            air_brake_state = 1
+        elseif (air_brake_state == 0) then
             air_brake_state = 0
         end
     elseif (command == AirbrakeOn) then

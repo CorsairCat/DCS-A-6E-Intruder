@@ -33,6 +33,13 @@ local lin_tank_dis = _switch_counter()
 local rin_tank_dis = _switch_counter()
 local rout_tank_dis = _switch_counter()
 
+local tank_press = _switch_counter()
+local wing_drop_tank_trans = _switch_counter()
+local wing_tank_dump = _switch_counter()
+local fuse_tank_dump = _switch_counter()
+local fuel_ready = _switch_counter()
+local boost_pump_test = _switch_counter()
+
 
 target_status = {
     {main_tank_dis , SWITCH_OFF, get_param_handle("PTN_101"), "PTN_101"},
@@ -42,17 +49,50 @@ target_status = {
     {lin_tank_dis , SWITCH_OFF, get_param_handle("PTN_105"), "PTN_105"},
     {rin_tank_dis , SWITCH_OFF, get_param_handle("PTN_106"), "PTN_106"},
     {rout_tank_dis , SWITCH_OFF, get_param_handle("PTN_107"), "PTN_107"},
+    {tank_press , SWITCH_TEST, get_param_handle("PTN_145"), "PTN_145"},
+    {wing_drop_tank_trans , SWITCH_OFF, get_param_handle("PTN_146"), "PTN_146"},
+    {wing_tank_dump , SWITCH_OFF, get_param_handle("PTN_147"), "PTN_147"},
+    {fuse_tank_dump , SWITCH_OFF, get_param_handle("PTN_148"), "PTN_148"},
+    {fuel_ready , SWITCH_OFF, get_param_handle("PTN_149"), "PTN_149"},
+    {boost_pump_test , SWITCH_OFF, get_param_handle("PTN_118"), "PTN_118"},
 }
 
 current_status = {
     {main_tank_dis , SWITCH_OFF, SWITCH_OFF},
-    {wing_tank_dis , SWITCH_ON, SWITCH_OFF},
+    {wing_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {ctr_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {lout_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {lin_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {rin_tank_dis , SWITCH_OFF, SWITCH_OFF},
     {rout_tank_dis , SWITCH_OFF, SWITCH_OFF},
+    {tank_press, SWITCH_OFF, SWITCH_OFF},
+    {wing_drop_tank_trans, SWITCH_OFF, SWITCH_OFF},
+    {wing_tank_dump, SWITCH_OFF, SWITCH_OFF},
+    {fuse_tank_dump, SWITCH_OFF, SWITCH_OFF},
+    {fuel_ready, SWITCH_OFF, SWITCH_OFF},
+    {boost_pump_test, SWITCH_OFF, SWITCH_OFF},
 }
+
+function post_initialize()
+    local birth = LockOn_Options.init_conditions.birth_place
+    if birth == "GROUND_HOT" or birth == "AIR_HOT" then
+        target_status = {
+            {main_tank_dis , SWITCH_OFF, get_param_handle("PTN_101"), "PTN_101"},
+            {wing_tank_dis , SWITCH_ON, get_param_handle("PTN_102"), "PTN_102"},
+            {ctr_tank_dis , SWITCH_OFF, get_param_handle("PTN_103"), "PTN_103"},
+            {lout_tank_dis , SWITCH_OFF, get_param_handle("PTN_104"), "PTN_104"},
+            {lin_tank_dis , SWITCH_OFF, get_param_handle("PTN_105"), "PTN_105"},
+            {rin_tank_dis , SWITCH_OFF, get_param_handle("PTN_106"), "PTN_106"},
+            {rout_tank_dis , SWITCH_OFF, get_param_handle("PTN_107"), "PTN_107"},
+            {tank_press , SWITCH_OFF, get_param_handle("PTN_145"), "PTN_145"},
+            {wing_drop_tank_trans , SWITCH_OFF, get_param_handle("PTN_146"), "PTN_146"},
+            {wing_tank_dump , SWITCH_OFF, get_param_handle("PTN_147"), "PTN_147"},
+            {fuse_tank_dump , SWITCH_OFF, get_param_handle("PTN_148"), "PTN_148"},
+            {fuel_ready , SWITCH_OFF, get_param_handle("PTN_149"), "PTN_149"},
+            {boost_pump_test , SWITCH_OFF, get_param_handle("PTN_118"), "PTN_118"},
+        }
+    end
+end
 
 function update_switch_status()
     for k,v in pairs(target_status) do
@@ -99,6 +139,17 @@ FuelSystem:listen_command(Keys.FuelDisLin)
 FuelSystem:listen_command(Keys.FuelDisLout)
 FuelSystem:listen_command(Keys.FuelDisRin)
 FuelSystem:listen_command(Keys.FuelDisRout)
+
+FuelSystem:listen_command(Keys.FuelTankPressUP)
+FuelSystem:listen_command(Keys.WingDropTankTransUP)
+FuelSystem:listen_command(Keys.FuelTankPressDOWN)
+FuelSystem:listen_command(Keys.WingDropTankTransDOWN)
+FuelSystem:listen_command(Keys.WingTankDump)
+FuelSystem:listen_command(Keys.FuseTankDump)
+FuelSystem:listen_command(Keys.FuelReadyUP)
+FuelSystem:listen_command(Keys.BoostPumpTestUP)
+FuelSystem:listen_command(Keys.FuelReadyDOWN)
+FuelSystem:listen_command(Keys.BoostPumpTestDOWN)
 
 FuelSystem:listen_event("WeaponRearmComplete")
 
@@ -225,6 +276,8 @@ local fuel_quan2 = _gauge_counter()
 local fuel_quan1 = _gauge_counter()
 local fuel_quan_main = _gauge_counter()
 local fuel_quan_sel = _gauge_counter()
+local fuel_press_l = _gauge_counter()
+local fuel_press_r = _gauge_counter()
 
 Gauge_display_state = { -- last parameter define if it is unneed from 9 to zero
     {fuel_quan5, 0, 0, get_param_handle("FUEL_QUAN_A_5"), 0},
@@ -234,6 +287,8 @@ Gauge_display_state = { -- last parameter define if it is unneed from 9 to zero
     {fuel_quan1, 0, 0, get_param_handle("FUEL_QUAN_A_1"), 0},
     {fuel_quan_main, 0, 0, get_param_handle("FUEL_QUAN_IN"), 1},
     {fuel_quan_sel, 0, 0, get_param_handle("FUEL_QUAN_SEL"), 1},
+    {fuel_press_l, 0, 0, get_param_handle("OP_L"), 0},
+    {fuel_press_r, 0, 0, get_param_handle("OP_R"),},
 }
 
 GAUGE_ANI_STEP = 0.05
@@ -338,12 +393,85 @@ function SetCommand(command, value)
         setDisplayStatus(rin_tank_dis)
     elseif command == Keys.FuelDisRout then
         setDisplayStatus(rout_tank_dis)
+    elseif command == Keys.FuelTankPressUP then
+        if (target_status[tank_press][2] < 0.5) then
+            current_status[tank_press][3] = current_status[tank_press][2]
+            target_status[tank_press][2] = target_status[tank_press][2] + 1
+        end
+    elseif command == Keys.FuelTankPressDOWN then
+        if (target_status[tank_press][2] > -0.5) then
+            current_status[tank_press][3] = current_status[tank_press][2]
+            target_status[tank_press][2] = target_status[tank_press][2] - 1
+        end
+    elseif command == Keys.WingDropTankTransUP then
+        if (target_status[wing_drop_tank_trans][2] < 0.5) then
+            current_status[wing_drop_tank_trans][3] = current_status[wing_drop_tank_trans][2]
+            target_status[wing_drop_tank_trans][2] = target_status[wing_drop_tank_trans][2] + 1
+        end
+    elseif command == Keys.WingDropTankTransDOWN then
+        if (target_status[wing_drop_tank_trans][2] > -0.5) then
+            current_status[wing_drop_tank_trans][3] = current_status[wing_drop_tank_trans][2]
+            target_status[wing_drop_tank_trans][2] = target_status[wing_drop_tank_trans][2] - 1
+        end
+    elseif command == Keys.WingTankDump then
+        current_status[wing_tank_dump][3] = current_status[wing_tank_dump][2]
+        target_status[wing_tank_dump][2] = 1 - target_status[wing_tank_dump][2]
+    elseif command == Keys.FuseTankDump then
+        current_status[fuse_tank_dump][3] = current_status[fuse_tank_dump][2]
+        target_status[fuse_tank_dump][2] = 1 - target_status[fuse_tank_dump][2]
+    elseif command == Keys.FuelReadyUP then
+        if (target_status[fuel_ready][2] < 0.5) then
+            current_status[fuel_ready][3] = current_status[fuel_ready][2]
+            target_status[fuel_ready][2] = target_status[fuel_ready][2] + 1
+        end
+    elseif command == Keys.FuelReadyDOWN then
+        if (target_status[fuel_ready][2] > -0.5) then
+            current_status[fuel_ready][3] = current_status[fuel_ready][2]
+            target_status[fuel_ready][2] = target_status[fuel_ready][2] - 1
+        end
+    elseif command == Keys.BoostPumpTestUP then
+        if (target_status[boost_pump_test][2] < 0.5) then
+            current_status[boost_pump_test][3] = current_status[boost_pump_test][2]
+            target_status[boost_pump_test][2] = SWITCH_ON
+        end
+    elseif command == Keys.BoostPumpTestDOWN then
+        if (target_status[boost_pump_test][2] > -0.5) then
+            current_status[boost_pump_test][3] = current_status[boost_pump_test][2]
+            target_status[boost_pump_test][2] = SWITCH_OFF
+        end
     end
     print_message_to_user(fuel_in_tank[DISPLAY_TANK][2])
 end
 
+function update_oil_pressure()
+    local oil_press_left = 0
+    local oil_press_right = 0
+    local fuel_master_l = get_param_handle("PTN_112")
+    local fuel_master_r = get_param_handle("PTN_113")
+    if target_status[tank_press][2] == SWITCH_TEST then -- off
+       -- do nothing
+    elseif target_status[tank_press][2] == SWITCH_OFF then -- normal
+        if fuel_master_l:get() > 0.5 then
+            oil_press_left = (sensor_data.getEngineLeftRPM() - 67) * 15 / 32 + 35
+        end
+        if fuel_master_r:get() > 0.5 then
+            oil_press_right = (sensor_data.getEngineRightRPM() - 67) * 15 / 32 + 35
+        end
+    elseif target_status[tank_press][2] == SWITCH_ON then -- override
+        if fuel_master_l:get() > 0.5 then
+            oil_press_left = 20
+        end
+        if fuel_master_r:get() > 0.5 then
+            oil_press_right = 20
+        end    
+    end
+    Gauge_display_state[fuel_press_l][2] = oil_press_left / 100
+    Gauge_display_state[fuel_press_r][2] = oil_press_right / 100
+end
+
 function update()
     update_switch_status()
+    update_oil_pressure()
     update_current_fuel_in_tank()
     updateFuelGaugeDisplay()
 end

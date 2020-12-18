@@ -366,13 +366,15 @@ elements["PTN_117"] = default_2_position_tumb("Bleed System Cover", devices.ENGI
 elements["PTN_150"] = default_button("Left Engine Crank",  devices.ENGINE, Keys.LeftEngineCrank, Keys.LeftEngineCrankUP, 150)
 elements["PTN_151"] = default_button("Right Engine Crank", devices.ENGINE, Keys.RightEngineCrank, Keys.RightEngineCrankUP, 151)
 
-elements["PTN_LTHRO"] = default_2_position_tumb("Left ENGINE IDLE",  devices.ENGINE, Keys.LeftEngineIDLEPOS, 141)
-elements["PTN_RTHRO"] = default_2_position_tumb("Right Engine IDLE",  devices.ENGINE, Keys.RightEngineIDLEPOS, 142)
+elements["PTN_LTHRO"] = default_2_position_tumb("Left ENGINE IDLE",  devices.ENGINE, Keys.LeftEngineIDLEPOS, 41)
+elements["PTN_RTHRO"] = default_2_position_tumb("Right Engine IDLE",  devices.ENGINE, Keys.RightEngineIDLEPOS, 42)
 
 -- 
 elements["FLAP_LEVEL"] = default_multi_position_tumb("Flap handle", devices.FLAP_SYSTEM, Keys.FlapUp, Keys.FlapDown, 43, 5.0)
 
 elements["PARKING_BREAK"] = default_2_position_tumb("Parking Break", devices.BREAK_SYSTEM, Keys.ParkingBrakes, 50)
+
+elements["PTN_118"] = default_button("Boost Pump Test", devices.FUEL_SYSTEM, Keys.BoostPumpTestUP, Keys.BoostPumpTestDOWN, 118)
 
 multi_tumb_click_list = {
     {"PTN_101", "Fuel Gauge Main Select", devices.FUEL_SYSTEM, 101, Keys.FuelDisMain},
@@ -382,6 +384,11 @@ multi_tumb_click_list = {
     {"PTN_105", "Fuel Gauge L in Select", devices.FUEL_SYSTEM, 105, Keys.FuelDisLin},
     {"PTN_106", "Fuel Gauge R in Select", devices.FUEL_SYSTEM, 106, Keys.FuelDisRin},
     {"PTN_107", "Fuel Gauge R out Select", devices.FUEL_SYSTEM, 107, Keys.FuelDisRout},
+    {"PTN_145", "Fuel Tank Press", devices.FUEL_SYSTEM, 145, Keys.FuelTankPressUP, Keys.FuelTankPressDOWN},
+    {"PTN_146", "Wing Drop Tank Trans", devices.FUEL_SYSTEM, 146, Keys.WingDropTankTransUP, Keys.WingDropTankTransDOWN},
+    {"PTN_147", "Wing Tank Dump", devices.FUEL_SYSTEM, 147, Keys.WingTankDump},
+    {"PTN_148", "Fuselarge Tank Dump", devices.FUEL_SYSTEM, 148, Keys.FuseTankDump},
+    {"PTN_149", "Fuel Ready", devices.FUEL_SYSTEM, 149, Keys.FuelReadyUP, Keys.FuelReadyDOWN},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
