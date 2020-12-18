@@ -33,6 +33,7 @@ local lin_tank_dis = _switch_counter()
 local rin_tank_dis = _switch_counter()
 local rout_tank_dis = _switch_counter()
 
+
 target_status = {
     {main_tank_dis , SWITCH_OFF, get_param_handle("PTN_101"), "PTN_101"},
     {wing_tank_dis , SWITCH_ON, get_param_handle("PTN_102"), "PTN_102"},
@@ -120,14 +121,6 @@ function setDisplayStatus(new_selection)
     temp_switch_ref = get_clickable_element_reference(target_status[DISPLAY_TANK][4])
     temp_switch_ref:hide(true)
 end
-
-fuel_main_ind = get_param_handle("FUEL_QUAN_IN")
-fuel_sel_ind = get_param_handle("FUEL_QUAN_SEL")
-fuel_quanW_dis = get_param_handle("FUEL_QUAN_A_5")
-fuel_quanK_dis = get_param_handle("FUEL_QUAN_A_4")
-fuel_quan3_dis = get_param_handle("FUEL_QUAN_A_3")
-fuel_quan2_dis = get_param_handle("FUEL_QUAN_A_2")
-fuel_quan1_dis = get_param_handle("FUEL_QUAN_A_1")
 
 fuel_ind_is_startup = 1
 
@@ -219,6 +212,32 @@ fuel_quan3_num_c = 0
 fuel_quan2_num_c = 0
 fuel_quan1_num_c = 0
 
+gauge_count = 0
+function _gauge_counter()
+    gauge_count = gauge_count + 1
+    return gauge_count
+end
+
+local fuel_quan5 = _gauge_counter()
+local fuel_quan4 = _gauge_counter()
+local fuel_quan3 = _gauge_counter()
+local fuel_quan2 = _gauge_counter()
+local fuel_quan1 = _gauge_counter()
+local fuel_quan_main = _gauge_counter()
+local fuel_quan_sel = _gauge_counter()
+
+Gauge_display_state = { -- last parameter define if it is unneed from 9 to zero
+    {fuel_quan5, 0, 0, get_param_handle("FUEL_QUAN_A_5"), 0},
+    {fuel_quan4, 0, 0, get_param_handle("FUEL_QUAN_A_4"), 0},
+    {fuel_quan3, 0, 0, get_param_handle("FUEL_QUAN_A_3"), 0},
+    {fuel_quan2, 0, 0, get_param_handle("FUEL_QUAN_A_2"), 0},
+    {fuel_quan1, 0, 0, get_param_handle("FUEL_QUAN_A_1"), 0},
+    {fuel_quan_main, 0, 0, get_param_handle("FUEL_QUAN_IN"), 1},
+    {fuel_quan_sel, 0, 0, get_param_handle("FUEL_QUAN_SEL"), 1},
+}
+
+GAUGE_ANI_STEP = 0.05
+
 function updateFuelGaugeDisplay()
     local fuel_main = 0
     local fuel_sel = 0
@@ -230,9 +249,8 @@ function updateFuelGaugeDisplay()
         if fuel_ind_is_startup == 1 then
             FUEL_G_COUNTER = FUEL_G_COUNTER + 1
         end
-        fuel_main = fuel_in_tank[main_tank_dis][2] / fuel_in_tank[main_tank_dis][3]
-        fuel_sel = fuel_in_tank[DISPLAY_TANK][2] / fuel_in_tank[DISPLAY_TANK][3]
-    else
+        fuel_main = fuel_in_tank[main_tank_dis][2] / 10000
+        fuel_sel = fuel_in_tank[DISPLAY_TANK][2] / 10000
         FUEL_G_COUNTER = 0
         fuel_ind_is_startup = 1
     end
@@ -244,52 +262,65 @@ function updateFuelGaugeDisplay()
 
     -- display total fuel
 
-    local fuel_quanw_num = math.modf(fuel_total/10000) / 10
+    Gauge_display_state[fuel_quan5][2] = math.modf(fuel_total/10000) / 10
     fuel_total = math.fmod(fuel_total, 10000)
-    local fuel_quank_num = math.modf(fuel_total/1000) / 10
+    Gauge_display_state[fuel_quan4][2] = math.modf(fuel_total/1000) / 10
     fuel_total = math.fmod(fuel_total, 1000)
-    local fuel_quan3_num = math.modf(fuel_total/100) / 10
+    Gauge_display_state[fuel_quan3][2] = math.modf(fuel_total/100) / 10
     fuel_total = math.fmod(fuel_total, 100)
-    local fuel_quan2_num = math.modf(fuel_total/10) / 10
+    Gauge_display_state[fuel_quan2][2] = math.modf(fuel_total/10) / 10
     fuel_total = math.fmod(fuel_total, 10)
-    local fuel_quan1_num = fuel_total / 10
+    Gauge_display_state[fuel_quan1][2] = fuel_total / 10
 
-    fuel_quan1_dis:set(fuel_quan1_num)
+    Gauge_display_state[fuel_quan_main][2] = fuel_main
+    Gauge_display_state[fuel_quan_sel][2] = fuel_sel
 
-    if fuel_quanw_num_c < fuel_quanw_num then
-        fuel_quanw_num_c = fuel_quanw_num_c + 0.002
-        fuel_quanW_dis:set(fuel_quanw_num)
-    elseif fuel_quanw_num_c > fuel_quanw_num then
-        fuel_quanw_num_c = fuel_quanw_num_c - 0.002
-        fuel_quanW_dis:set(fuel_quanw_num)
+    for k_G,v_G in pairs(Gauge_display_state) do
+        if math.abs(Gauge_display_state[k_G][2] - Gauge_display_state[k_G][3]) < GAUGE_ANI_STEP then
+            Gauge_display_state[k_G][3] = Gauge_display_state[k_G][2]
+        elseif Gauge_display_state[k_G][5] == 1 then
+            if Gauge_display_state[k_G][2] < Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+            elseif Gauge_display_state[k_G][2] > Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+            end
+        elseif Gauge_display_state[k_G][5] == 2 then
+            if Gauge_display_state[k_G][3] > 0.85 and Gauge_display_state[k_G][2] < - 0.85 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+                if Gauge_display_state[k_G][3] > 1 then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - 2
+                end
+            elseif Gauge_display_state[k_G][3] < -0.85 and Gauge_display_state[k_G][2] > 0.85 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+                if Gauge_display_state[k_G][3] < 0 then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + 2
+                end
+            else
+                if Gauge_display_state[k_G][2] < Gauge_display_state[k_G][3] then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+                elseif Gauge_display_state[k_G][2] > Gauge_display_state[k_G][3] then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+                end
+            end
+        elseif Gauge_display_state[k_G][3] > 0.85 and Gauge_display_state[k_G][2] < 0.15 then
+            Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+            if Gauge_display_state[k_G][3] > 1 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - 1
+            end
+        elseif Gauge_display_state[k_G][3] < 0.15 and Gauge_display_state[k_G][2] > 0.85 then
+            Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+            if Gauge_display_state[k_G][3] < 0 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + 1
+            end
+        else
+            if Gauge_display_state[k_G][2] < Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+            elseif Gauge_display_state[k_G][2] > Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+            end
+        end
+        Gauge_display_state[k_G][4]:set(Gauge_display_state[k_G][3])
     end
-
-    if fuel_quank_num_c < fuel_quank_num then
-        fuel_quank_num_c = fuel_quank_num_c + 0.002
-        fuel_quanK_dis:set(fuel_quank_num_c)
-    elseif fuel_quank_num_c > fuel_quank_num then
-        fuel_quank_num_c = fuel_quank_num_c - 0.002
-        fuel_quanK_dis:set(fuel_quank_num_c)
-    end
-
-    if fuel_quan3_num_c < fuel_quan3_num then
-        fuel_quan3_num_c = fuel_quan3_num_c + 0.002
-        fuel_quan3_dis:set(fuel_quan3_num_c)
-    elseif fuel_quan3_num_c > fuel_quan3_num then
-        fuel_quan3_num_c = fuel_quan3_num_c - 0.002
-        fuel_quan3_dis:set(fuel_quan3_num_c)
-    end
-
-    if fuel_quan2_num_c < fuel_quan2_num then
-        fuel_quan2_num_c = fuel_quan2_num_c + 0.002
-        fuel_quan2_dis:set(fuel_quan2_num_c)
-    elseif fuel_quan2_num_c > fuel_quan2_num then
-        fuel_quan2_num_c = fuel_quan2_num_c - 0.002
-        fuel_quan2_dis:set(fuel_quan2_num_c)
-    end
-
-    fuel_main_ind:set(fuel_main)
-    fuel_sel_ind:set(fuel_sel)
 end
 
 function SetCommand(command, value)

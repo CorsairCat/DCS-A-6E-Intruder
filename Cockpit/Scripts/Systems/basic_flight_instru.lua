@@ -13,10 +13,53 @@ local DEGREE_TO_RAD  = 0.0174532925199433
 local RAD_TO_DEGREE  = 57.29577951308233
 local METER_TO_INCH = 3.2808
 
-local airspeed_ind = get_param_handle("AIR_SPEED")
-local mach_ind = get_param_handle("MACH_IND")
-local current_g_ind = get_param_handle("G_METER")
-local aoa_ind = get_param_handle("AOA_IND")
+GAUGE_ANI_STEP = 0.04
+
+gauge_count = 0
+function _gauge_counter()
+    gauge_count = gauge_count + 1
+    return gauge_count
+end
+
+local airspeed_ind = _gauge_counter()
+local mach_ind = _gauge_counter()
+local current_g_ind = _gauge_counter()
+local aoa_ind = _gauge_counter()
+local radar_alt_ind = _gauge_counter()
+local Baro_alt_x100 = _gauge_counter()
+local Baro_alt_x1k = _gauge_counter()
+local Baro_alt_x1w = _gauge_counter()
+local QNH_set_x1k = _gauge_counter()
+local QNH_set_x100 = _gauge_counter()
+local QNH_set_x10 = _gauge_counter()
+local QNH_set_x1 = _gauge_counter()
+local Baro_power = _gauge_counter()
+local gyro_roll = _gauge_counter()
+local gyro_pitch= _gauge_counter()
+local climb_rate_ind = _gauge_counter()
+local slide_rate_ind = _gauge_counter()
+local HSI_compass_ind = _gauge_counter()
+
+Gauge_display_state = { -- last parameter define if it is unneed from 9 to zero
+    {airspeed_ind, 0, 0, get_param_handle("AIR_SPEED"), 1},
+    {mach_ind, 0, 0, get_param_handle("MACH_IND"), 1},
+    {current_g_ind, 0, 0, get_param_handle("G_METER"), 1},
+    {aoa_ind, 0, 0, get_param_handle("AOA_IND"), 1},
+    {radar_alt_ind, 0, 0, get_param_handle("RADAR_ALT_IND"), 1},
+    {Baro_alt_x100, 0, 0, get_param_handle("BARO_ALT"), 0},
+    {Baro_alt_x1k, 0, 0, get_param_handle("BARO_x1K"), 0},
+    {Baro_alt_x1w, 0, 0, get_param_handle("BARO_x1W"), 0},
+    {QNH_set_x1k, 0, 0, get_param_handle("QNH_x1K"), 0},
+    {QNH_set_x100, 0, 0, get_param_handle("QNH_x100"), 0},
+    {QNH_set_x10, 0, 0, get_param_handle("QNH_x10"), 0},
+    {QNH_set_x1, 0, 0, get_param_handle("QNH_x1"), 0},
+    {Baro_power, 0, 0, get_param_handle("BARO_POWER"), 1},
+    {gyro_roll, 0, 0, get_param_handle("GYRO_ROLL"), 2},
+    {gyro_pitch, 0, 0, get_param_handle("GYRO_PITCH"), 2},
+    {climb_rate_ind, 0, 0, get_param_handle("CLIMB_RATE"), 1},
+    {slide_rate_ind, 0, 0, get_param_handle("SLIDE_IND"), 1},
+    {HSI_compass_ind, 0, 0, get_param_handle("HSI_COMPASS"), 2},
+}
 
 function Airspeed_Gauge_AOA_G_Cal()
     local current_speed = 0
@@ -40,21 +83,11 @@ function Airspeed_Gauge_AOA_G_Cal()
             aoa_num = 0.5 - 0.1 * math.log(-temp)
         end
     end
-    airspeed_ind:set(current_speed/700)
-    mach_ind:set(current_mach_covert)
-    current_g_ind:set(vertical_acc)
-    aoa_ind:set(aoa_num)
+    Gauge_display_state[airspeed_ind][2] = current_speed/700
+    Gauge_display_state[mach_ind][2] = current_mach_covert
+    Gauge_display_state[current_g_ind][2] = vertical_acc
+    Gauge_display_state[aoa_ind][2] = aoa_num
 end
-
-local radar_alt_ind = get_param_handle("RADAR_ALT_IND")
-local Baro_alt_x100 = get_param_handle("BARO_ALT")
-local Baro_alt_x1k = get_param_handle("BARO_x1K")
-local Baro_alt_x1w = get_param_handle("BARO_x1W")
-local QNH_set_x1k = get_param_handle("QNH_x1K")
-local QNH_set_x100 = get_param_handle("QNH_x100")
-local QNH_set_x10 = get_param_handle("QNH_x10")
-local QNH_set_x1 = get_param_handle("QNH_x1")
-local Baro_power = get_param_handle("BARO_POWER")
 
 QNH_SET = 2992
 
@@ -64,9 +97,6 @@ function Altitude_Cal()
 
     local baro_x1k_target = 0
     local baro_x1w_target = 0
-
-    local current_baro_x1k = Baro_alt_x1k:get()
-    local current_baro_x1w = Baro_alt_x1w:get()
 
     local baro_power_status = 0
 
@@ -80,83 +110,60 @@ function Altitude_Cal()
         baro_power_status = 1
     end
 
-    Baro_alt_x100:set(math.fmod(baro_altitude,1000)/1000)
+    Gauge_display_state[Baro_alt_x1k][2] = baro_x1k_target/10
+    Gauge_display_state[Baro_alt_x1w][2] = baro_x1w_target/10
+    Gauge_display_state[Baro_power][2] = baro_power_status
+
+    Gauge_display_state[Baro_alt_x100][2] = math.fmod(baro_altitude,1000)/1000
 
     if (radar_altitude < 100) then
-        radar_alt_ind:set(radar_altitude / 450)
+        Gauge_display_state[radar_alt_ind][2] = radar_altitude / 450
     elseif (radar_altitude < 200) then
-        radar_alt_ind:set((radar_altitude - 100) * 0.0012 + 0.22)
+        Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 100) * 0.0012 + 0.22
     elseif (radar_altitude < 400) then
-        radar_alt_ind:set((radar_alt_ind - 200) * 0.0007 + 0.34)
+        Gauge_display_state[radar_alt_ind][2] = (radar_alt_ind - 200) * 0.0007 + 0.34
     elseif (radar_altitude < 500) then
-        radar_alt_ind:set((radar_alt_ind - 400) * 0,0002 + 0.48)
+        Gauge_display_state[radar_alt_ind][2] = (radar_alt_ind - 400) * 0,0002 + 0.48
     elseif (radar_altitude < 1000) then
-        radar_alt_ind:set((radar_altitude - 500) * 0.0003 + 0.5) --0.65
+        Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 500) * 0.0003 + 0.5 --0.65
     elseif (radar_altitude < 2000) then
-        radar_alt_ind:set((radar_altitude - 1000) * 0.00015 + 0.65) --0.8
+        Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 1000) * 0.00015 + 0.65 --0.8
     elseif (radar_altitude < 5000) then
-        radar_alt_ind:set((radar_altitude - 2000) * 0.0000667 + 0.8)
+        Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 2000) * 0.0000667 + 0.8
     end
 
     local baro_altitude_set_temp = QNH_SET
 
-    if (baro_x1k_target > current_baro_x1k) then
-        current_baro_x1k = current_baro_x1k + 0.1
-    elseif (baro_x1k_target < current_baro_x1k) then
-        current_baro_x1k = current_baro_x1k - 0.1
-    end
-
-    if (baro_x1w_target > current_baro_x1w) then
-        current_baro_x1w = current_baro_x1w + 0.1
-    elseif (baro_x1k_target < current_baro_x1k) then
-        current_baro_x1w = current_baro_x1w - 0.1
-    end
-
-    Baro_alt_x1k:set(current_baro_x1k/10)
-    Baro_alt_x1w:set(current_baro_x1w/10)
-
-    Baro_power:set(baro_power_status)
-
-    for i = 1, 4, 1 do
-        QNH_set_x1k:set(math.modf(baro_altitude_set_temp/1000)/10)
-        baro_altitude_set_temp = math.fmod(baro_altitude_set_temp,1000)
-        QNH_set_x100:set(math.modf(baro_altitude_set_temp/100)/10)
-        baro_altitude_set_temp = math.fmod(baro_altitude_set_temp,100)
-        QNH_set_x10:set(math.modf(baro_altitude_set_temp/10)/10)
-        baro_altitude_set_temp = math.fmod(baro_altitude_set_temp,10)
-        QNH_set_x1:set(baro_altitude_set_temp/10)
-    end
+    Gauge_display_state[QNH_set_x1k][2] = math.modf(baro_altitude_set_temp/1000)/10
+    baro_altitude_set_temp = math.fmod(baro_altitude_set_temp,1000)
+    Gauge_display_state[QNH_set_x100][2] = math.modf(baro_altitude_set_temp/100)/10
+    baro_altitude_set_temp = math.fmod(baro_altitude_set_temp,100)
+    Gauge_display_state[QNH_set_x10][2] = math.modf(baro_altitude_set_temp/10)/10
+    baro_altitude_set_temp = math.fmod(baro_altitude_set_temp,10)
+    Gauge_display_state[QNH_set_x1][2] = baro_altitude_set_temp/10
 end
-
-local gyro_roll = get_param_handle("GYRO_ROLL")
-local gyro_pitch= get_param_handle("GYRO_PITCH")
 
 function update_Gyro_Display()
     if (get_elec_primary_ac_ok() == true) then
-        gyro_roll:set(-sensor_data.getRoll() * RAD_TO_DEGREE / 90 )
-        gyro_pitch:set(sensor_data.getPitch() * RAD_TO_DEGREE / 90)
+        Gauge_display_state[gyro_roll][2] = -sensor_data.getRoll() * RAD_TO_DEGREE / 90
+        Gauge_display_state[gyro_pitch][2] = sensor_data.getPitch() * RAD_TO_DEGREE / 90
     else
-        gyro_roll:set(-0.3)
-        gyro_pitch:set(0.3)
+        Gauge_display_state[gyro_roll][2] = -0.3
+        Gauge_display_state[gyro_pitch][2] = 0.3
     end
 end
-
-local climb_rate_ind = get_param_handle("CLIMB_RATE")
-local slide_rate_ind = get_param_handle("SLIDE_IND")
 
 function calculate_Climb_Slide()
     if (get_elec_primary_ac_ok() == true) then
         local climb_rate = sensor_data.getVerticalVelocity() * METER_TO_INCH / 60 / 6000
         local slide_rate = sensor_data.getRateOfYaw() * RAD_TO_DEGREE / 90
-        climb_rate_ind:set(climb_rate)
-        slide_rate_ind:set(slide_rate)
+        Gauge_display_state[climb_rate_ind][2] = climb_rate
+        Gauge_display_state[slide_rate_ind][2] = slide_rate
     else
-        climb_rate_ind:set(0)
-        slide_rate_ind:set(0)
+        Gauge_display_state[climb_rate_ind][2] = 0
+        Gauge_display_state[slide_rate_ind][2] = 0
     end
 end
-
-local HSI_compass_ind = get_param_handle("HSI_COMPASS")
 
 function update_HSI_Compass()
     local current_magnitude_heading = sensor_data.getMagneticHeading() * RAD_TO_DEGREE
@@ -168,12 +175,60 @@ function update_HSI_Compass()
             temp = current_magnitude_heading / 180
         end
     end
-    HSI_compass_ind:set(temp)
+    Gauge_display_state[HSI_compass_ind][2] = temp
 end
 
 function post_initialize()
-    Baro_alt_x1k:set(0)
-    Baro_alt_x1w:set(0)
+
+end
+
+function update_Gauge_Display()
+    for k_G,v_G in pairs(Gauge_display_state) do
+        if math.abs(Gauge_display_state[k_G][2] - Gauge_display_state[k_G][3]) < GAUGE_ANI_STEP then
+            Gauge_display_state[k_G][3] = Gauge_display_state[k_G][2]
+        elseif Gauge_display_state[k_G][5] == 1 then
+            if Gauge_display_state[k_G][2] < Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+            elseif Gauge_display_state[k_G][2] > Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+            end
+        elseif Gauge_display_state[k_G][5] == 2 then
+            if Gauge_display_state[k_G][3] > 0.85 and Gauge_display_state[k_G][2] < - 0.85 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+                if Gauge_display_state[k_G][3] > 1 then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - 2
+                end
+            elseif Gauge_display_state[k_G][3] < -0.85 and Gauge_display_state[k_G][2] > 0.85 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+                if Gauge_display_state[k_G][3] < 0 then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + 2
+                end
+            else
+                if Gauge_display_state[k_G][2] < Gauge_display_state[k_G][3] then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+                elseif Gauge_display_state[k_G][2] > Gauge_display_state[k_G][3] then
+                    Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+                end
+            end
+        elseif Gauge_display_state[k_G][3] > 0.85 and Gauge_display_state[k_G][2] < 0.15 then
+            Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+            if Gauge_display_state[k_G][3] > 1 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - 1
+            end
+        elseif Gauge_display_state[k_G][3] < 0.15 and Gauge_display_state[k_G][2] > 0.85 then
+            Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+            if Gauge_display_state[k_G][3] < 0 then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + 1
+            end
+        else
+            if Gauge_display_state[k_G][2] < Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] - GAUGE_ANI_STEP
+            elseif Gauge_display_state[k_G][2] > Gauge_display_state[k_G][3] then
+                Gauge_display_state[k_G][3] = Gauge_display_state[k_G][3] + GAUGE_ANI_STEP
+            end
+        end
+        Gauge_display_state[k_G][4]:set(Gauge_display_state[k_G][3])
+    end
 end
 
 function update()
@@ -182,6 +237,7 @@ function update()
     update_Gyro_Display()
     calculate_Climb_Slide()
     update_HSI_Compass()
+    update_Gauge_Display()
 end
 
 need_to_be_closed = false
