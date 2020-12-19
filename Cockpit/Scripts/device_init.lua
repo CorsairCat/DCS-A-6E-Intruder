@@ -30,7 +30,7 @@ indicators = {}
 -- MFD
 -- indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."MFD/Indicator/init.lua",nil,{{"main_screen_center","main_screen_down","main_screen_right"}}} --MFD
 -- MFCD
-indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."MFCD/Indicator/mfcd_init.lua",nil,{{"main_screen_center","main_screen_down","main_screen_right"}}}
+-- indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."MFCD/Indicator/mfcd_init.lua",nil,{{"main_screen_center","main_screen_down","main_screen_right"}}}
 -- HUD
 indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."HUD/Indicator/hud_init.lua",nil,{{"HUD_center","HUD_down","HUD_right"}}}
 -- RADAR RAW DISPLAY
