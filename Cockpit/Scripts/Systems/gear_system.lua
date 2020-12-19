@@ -34,6 +34,7 @@ gear_system:listen_command(gear_switch)
 gear_system:listen_command(gear_up)
 gear_system:listen_command(gear_down)
 gear_system:listen_command(click_cmd.GearLevel)
+gear_system:listen_command(120)
 
 function post_initialize()
     local birth = LockOn_Options.init_conditions.birth_place
@@ -80,7 +81,9 @@ function SetCommand(command,value)
     elseif (command == gear_up) then
         nose_gear_status = 0
         l_main_gear_status = 0
-        r_main_gear_status = 0        
+        r_main_gear_status = 0       
+    elseif (command == 120) then
+        dispatch_action(nil, THROTTLEAXIS, -1)
 	end
 end
 

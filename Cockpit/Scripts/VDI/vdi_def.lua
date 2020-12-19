@@ -25,7 +25,7 @@ MRAD_TO_DEGREE = 0.05729577951308233
 
 --A4定义了两个层级
 --数值越小越靠上
-VDI_DEFAULT_LEVEL = 4                              -- 二次裁剪显示层
+VDI_DEFAULT_LEVEL = 8                              -- 二次裁剪显示层
 VDI_DEFAULT_NOCLIP_LEVEL  = VDI_DEFAULT_LEVEL - 1 -- 一次裁剪显示层
 
 -- 默认hud单色吧
@@ -33,9 +33,12 @@ VDI_DEFAULT_NOCLIP_LEVEL  = VDI_DEFAULT_LEVEL - 1 -- 一次裁剪显示层
 DEBUG_COLOR                 = {0,255,0,200}
 -- 白天模式hud的颜色
 VDI_DAY_COLOR               = {0,200,0,255}
+BASE_GROUND_GREEN           = {0, 10, 0, 200}
 
 -- 定义vdi贴图
 basic_vdi_material = MakeMaterial(vdi_IND_TEX_PATH.."vdi_base_ind.dds", VDI_DAY_COLOR)
+basic_vdi_material_dark = MakeMaterial(vdi_IND_TEX_PATH.."vdi_base_ind.dds", BASE_GROUND_GREEN)
+
 
 -- 定义vdi默认长宽
 default_vdi_x = 2000
@@ -56,6 +59,11 @@ function vdi_vert_gen(width, height, tc)
         {(0 + width) / 2 / default_vdi_x , 0 / 2 / default_vdi_y},
         {(0 + width) / 2 / default_vdi_x , 2 * (0 - height) / 2 / default_vdi_y},
         {(0 - width) / 2 / default_vdi_x , 2 * (0 - height) / 2 / default_vdi_y},}
+    elseif tc == "topcenter_move" then
+        return {{(0 - width) / 2 / default_vdi_x ,(-9000 + 0)  / 2 / default_vdi_y},
+        {(0 + width) / 2 / default_vdi_x , (-9000 + 0) / 2 / default_vdi_y},
+        {(0 + width) / 2 / default_vdi_x , (-9000 + 2 * (0 - height)) / 2 / default_vdi_y},
+        {(0 - width) / 2 / default_vdi_x , (-9000 + 2 * (0 - height)) / 2 / default_vdi_y},}
     elseif tc == "downcenter" then
         return {{(0 - width) / 2 / default_vdi_x , 2 * (0 + height) / 2 / default_vdi_y},
         {(0 + width) / 2 / default_vdi_x , 2 * (0 + height) / 2 / default_vdi_y},

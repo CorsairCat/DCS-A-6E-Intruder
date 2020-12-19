@@ -63,6 +63,8 @@ A_6e = {
         16, -- left elevator
         17, -- rudder
 
+		85, -- tow link
+
         2,  -- nose wheel steering
         21, -- SFM air brake
         13, -- right slat
