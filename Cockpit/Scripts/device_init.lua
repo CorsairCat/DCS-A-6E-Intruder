@@ -23,6 +23,7 @@ creators[devices.HUD_DCMS]        ={"avLuaDevice"           ,LockOn_Options.scri
 creators[devices.BASIC_FLIGHT_INS]={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/basic_flight_instru.lua"}
 creators[devices.CLOCK]           ={"avLuaDevice"           ,LockOn_Options.script_path.."aviation_clock.lua"}
 creators[devices.FUEL_SYSTEM]     ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/fuel_system.lua"}
+creators[devices.VDI_DCMS]        ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/dcms_vdi.lua"}
 
 -- Indicators
 indicators = {}
@@ -33,6 +34,7 @@ indicators = {}
 -- indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."MFCD/Indicator/mfcd_init.lua",nil,{{"main_screen_center","main_screen_down","main_screen_right"}}}
 -- HUD
 indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."HUD/Indicator/hud_init.lua",nil,{{"HUD_center","HUD_down","HUD_right"}}}
+indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."VDI/vdi_init.lua",nil,{{"VDI_center","VDI_down","VDI_right"}}}
 -- RADAR RAW DISPLAY
 -- indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."avRadar/indicator/init.lua",nil,{{},{sz_l = 0.0,sx_l = -0.50, sy_l = -0.1},1}}		
 --RADAROFF indicators[#indicators + 1] = {"ccIndicator",LockOn_Options.script_path.."RADAR/Indicator/init.lua",--init script 初始化脚本
