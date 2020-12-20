@@ -77,9 +77,10 @@ A_6e = {
         191, -- right (green) navigation wing-tip light
         192, -- tail (white) light
 
-        198, -- anticollision (flashing red) top light
-        199, -- anticollision (flashing red) bottom light
-        208, -- taxi light (white) right main gear door
+		--198, -- anticollision (flashing red) top light
+		85, -- captsual launch bar
+        83, -- anticollision (flashing red) bottom light
+        51, -- taxi light (white) right main gear door
         402, -- huffer
         500, -- model air brake
         501, -- RAT
@@ -473,27 +474,35 @@ A_6e = {
 	lights_data = {
 		typename = "collection",
 		lights = {
-			[2] = { typename = "collection", -- form lights aft
+			[WOLALIGHT_TAXI_LIGHTS] = { typename = "collection", -- form lights aft
 				lights = {
-					{typename = "spotlight",argument = 208, dir_correction = {elevation = math.rad(3)}}, -- form front
-					{typename = "spotlight",argument = 209, dir_correction = {elevation = math.rad(-1)}}, -- form aft
-					{typename = "natostrobelight",connector = "TOP_BEACON",argument_1 = 83,period = 2.0,color = {1.0, 0.0, 0.0},phase_shift = 0.0},
-					{typename = "natostrobelight",connector = "BOTTOM_BEACON",argument_1 = 802,period = 2.0,color = {1.0, 0.0, 0.0},phase_shift = 0.0},
+					{typename = "argumentlight",argument = 51, value = 0.5}, -- form front
+					-- {typename = "spotlight",argument = 209, dir_correction = {elevation = math.rad(-1)}}, -- form aft
+					{typename = "argumentlight",argument = 83,period = 2.0,phase_shift = 0.0},
+					-- {typename = "natostrobelight",connector = "BOTTOM_BEACON",argument_1 = 802,period = 2.0,color = {1.0, 0.0, 0.0},phase_shift = 0.0},
 				},
 			},
 			[3] = { typename = "collection", -- left nav light
 				lights = {
-					{typename = "omnilight",argument = 190}, -- left nav light red
-					{typename = "omnilight",argument = 191}, -- tail nav light white
-					{typename = "omnilight",argument = 192}, -- right nav light green
+					{typename = "argumentlight",argument = 190}, -- wing nav light
+					-- {typename = "omnilight",argument = 191}, -- tail nav light white
+					{typename = "argumentlight",argument = 192}, -- tail nav light 
 				},
 			},
-			[4] = { typename = "collection", -- tail nav light
+			[WOLALIGHT_SPOTS] = { typename = "collection", -- form lights aft
 				lights = {
-					{typename = "argumentlight",argument = 200}, -- FORMATION LIGHTS
-					{typename = "argumentlight",argument = 201}, -- FORMATION LIGHTS
+					{typename = "argumentlight",argument = 51}, -- form front
+					-- {typename = "spotlight",argument = 209, dir_correction = {elevation = math.rad(-1)}}, -- form aft
+					-- {typename = "argumentlight",argument = 83,period = 2.0,phase_shift = 0.0},
+					-- {typename = "natostrobelight",connector = "BOTTOM_BEACON",argument_1 = 802,period = 2.0,color = {1.0, 0.0, 0.0},phase_shift = 0.0},
 				},
 			},
+			--[4] = { typename = "collection", -- tail nav light
+			--	lights = {
+			--		-- {typename = "argumentlight",argument = 200}, -- FORMATION LIGHTS
+			--		-- {typename = "argumentlight",argument = 201}, -- FORMATION LIGHTS
+			--	},
+			--},
 		}
 	}, -- end lights_data
 }

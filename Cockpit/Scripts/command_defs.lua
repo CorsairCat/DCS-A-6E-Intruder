@@ -143,6 +143,21 @@ Keys =
     BoostPumpTestUP = __custom_counter(),
     FuelReadyDOWN = __custom_counter(),
     BoostPumpTestDOWN = __custom_counter(),
+
+    LightStrobe = __custom_counter(),
+    LightTaxi = __custom_counter(),
+    LightNaviWingUP = __custom_counter(),
+    LightNaviWingDOWN = __custom_counter(),
+    LightNaviTailUP = __custom_counter(),
+    LightNaviTailDOWN = __custom_counter(),
+    LightFormationUP = __custom_counter(),
+    LightFormationDOWN = __custom_counter(),
+    LightFloodUP = __custom_counter(),
+    LightFloodDOWN = __custom_counter(),
+
+    LightConsoleBRT = __custom_counter(),
+    LightInstruBRT = __custom_counter(),
+    LightApproIndexBRT = __custom_counter(),
 }
 
 --从5000开始递增点击指令

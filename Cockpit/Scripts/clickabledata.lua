@@ -389,6 +389,13 @@ multi_tumb_click_list = {
     {"PTN_147", "Wing Tank Dump", devices.FUEL_SYSTEM, 147, Keys.WingTankDump},
     {"PTN_148", "Fuselarge Tank Dump", devices.FUEL_SYSTEM, 148, Keys.FuseTankDump},
     {"PTN_149", "Fuel Ready", devices.FUEL_SYSTEM, 149, Keys.FuelReadyUP, Keys.FuelReadyDOWN},
+
+    {"PTN_124", "Collision Light", devices.LIGHT_SYSTEM, 124, Keys.LightStrobe},
+    {"PTN_125", "Taxi/Probe Light", devices.LIGHT_SYSTEM, 125, Keys.LightTaxi},
+    {"PTN_128", "Tail Navigation Light", devices.LIGHT_SYSTEM, 128, Keys.LightNaviTailUP, Keys.LightNaviTailDOWN},
+    {"PTN_129", "Wing Navigation Light", devices.LIGHT_SYSTEM, 129, Keys.LightNaviWingUP, Keys.LightNaviWingDOWN},
+    {"PTN_130", "Formation Light", devices.LIGHT_SYSTEM, 130, Keys.LightFormationUP, Keys.LightFormationDOWN},
+    {"PTN_131", "Flood Light", devices.LIGHT_SYSTEM, 131, Keys.LightFloodUP, Keys.LightFloodDOWN},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
@@ -399,10 +406,9 @@ for k,v in pairs(multi_tumb_click_list) do
     end
 end
 
---elements["PTN_003"].animated            = {true, true}
---elements["PTN_003"].animation_speed     = {2, 2}
---elements["PTN_003"].arg_value = {2,-2}
---elements["PTN_003"].arg_lim = {{-1,1},{-1,1}}
+elements["PTN_132"] = default_axis("Instrument Light", devices.LIGHT_SYSTEM, Keys.LightInstruBRT, 1132, 0, 0.1)
+elements["PTN_133"] = default_axis("Console Light", devices.LIGHT_SYSTEM, Keys.LightConsoleBRT, 1133, 0, 0.1)
+elements["PTN_134"] = default_axis("Approach Index Light", devices.LIGHT_SYSTEM, Keys.LightApproIndexBRT, 1134, 0, 0.1)
 
 --for i,o in pairs(elements) do
 --	if  o.class[1] == class_type.TUMB or 
