@@ -32,8 +32,8 @@ VDI_DEFAULT_NOCLIP_LEVEL  = VDI_DEFAULT_LEVEL - 1 -- 一次裁剪显示层
 -- 排错颜色（大雾）
 DEBUG_COLOR                 = {0,255,0,200}
 -- 白天模式hud的颜色
-VDI_DAY_COLOR               = {0,200,0,255}
-BASE_GROUND_GREEN           = {0, 10, 0, 200}
+VDI_DAY_COLOR               = {10, 90, 10,180}
+BASE_GROUND_GREEN           = {0, 10, 0, 180}
 
 -- 定义vdi贴图
 basic_vdi_material = MakeMaterial(vdi_IND_TEX_PATH.."vdi_base_ind.dds", VDI_DAY_COLOR)

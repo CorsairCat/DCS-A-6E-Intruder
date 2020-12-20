@@ -52,9 +52,9 @@ function post_initialize()
 end
 
 function update()
-    vdi_ground_tex_enable:set(0.5)
-    vdi_analog_enable:set(0.5)
-    vdi_cloud_tex_enable:set(0.5)
+    vdi_ground_tex_enable:set(0.3)
+    vdi_analog_enable:set(0.3)
+    vdi_cloud_tex_enable:set(0.3)
     vdi_test_enable:set(1)
 
     local moving_step = 0.005
@@ -66,18 +66,19 @@ function update()
     end
     local temp_control 
     local temp_opac
-    local moving_step = 0.0035
+    local moving_step = 0.005
     for i = 1, 12, 1 do
         temp_control = get_param_handle("VDI_ANALOG_CLOUD_MOVING_"..i)
         temp_opac = get_param_handle("VDI_ANALOG_CLOUD_OPAC_"..i)
         current_move = temp_control:get()
         if current_move > 2 then
             temp_control:set(0.3)
+            current_move = 0.3
         else
             temp_control:set(current_move + moving_step)
         end
         if current_move < 0.4 then
-            temp_opac:set(((current_move - 0.2) * 4))
+            temp_opac:set(((current_move - 0.3) * 4))
         else
             temp_opac:set(1)
         end
