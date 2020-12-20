@@ -148,15 +148,15 @@ function SetCommand(command, value)
             new_value = 0.1
         end
         if target_status[instrument_light_switch][2] <= 1 and target_status[instrument_light_switch][2] >= 0 then
-            print_message_to_user(new_value)
+            --print_message_to_user(new_value)
             target_status[instrument_light_switch][2] = target_status[instrument_light_switch][2] + new_value
         elseif target_status[instrument_light_switch][2] < 0 then
             target_status[instrument_light_switch][2] = 0.01
         elseif target_status[instrument_light_switch][2] > 1 then
             target_status[instrument_light_switch][2] = 0.99
         end
-        print_message_to_user(value)
-        print_message_to_user(target_status[instrument_light_switch][2])
+        --print_message_to_user(value)
+        --print_message_to_user(target_status[instrument_light_switch][2])
     elseif command == Keys.LightConsoleBRT then
         if value < 0.5 then
             new_value = - 0.1
