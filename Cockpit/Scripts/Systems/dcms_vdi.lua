@@ -84,6 +84,6 @@ function update()
         end
     end
 
-    vdi_ana_roll:set(sensor_data.getRoll() * RAD_TO_DEGREE / 90 / 2)
+    vdi_ana_roll:set(sensor_data.getRoll())
 end
 

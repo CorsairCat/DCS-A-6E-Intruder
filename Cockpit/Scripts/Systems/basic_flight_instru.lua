@@ -175,7 +175,7 @@ function update_HSI_Compass()
             temp = current_magnitude_heading / 180
         end
     end
-    Gauge_display_state[HSI_compass_ind][2] = temp
+    Gauge_display_state[HSI_compass_ind][2] = - temp
 end
 
 function post_initialize()
