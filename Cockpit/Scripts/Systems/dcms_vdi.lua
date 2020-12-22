@@ -24,6 +24,8 @@ local vdi_bank_angle = get_param_handle("VDI_BANK")
 local vdi_ana_roll = get_param_handle("VDI_ANALOG_ADI_ROLL")
 local vdi_bank_up = get_param_handle("VDI_BANK_MOVE_PARAM")
 local vdi_bg_pitch = get_param_handle("VDI_BG_PITCH")
+local vdi_impact_pitch = get_param_handle("VDI_PITCH_MOVE")
+local vdi_impact_yaw = get_param_handle("VDI_YAW_MOVE")
 
 function post_initialize()
     for i = 1, 12, 1 do
@@ -91,7 +93,11 @@ function update()
 
     vdi_ana_roll:set(sensor_data.getRoll())
     vdi_bg_pitch:set(- sensor_data.getPitch() * 0.5)
-    vdi_bank_angle:set(sensor_data.getRoll() * 0.5)
-    vdi_bank_up:set(math.abs(sensor_data.getRoll() * 1))
+
+    vdi_impact_pitch:set(- sensor_data.getAngleOfAttack() * 0.5)
+    vdi_impact_yaw:set(- sensor_data.getAngleOfSlide() * 0.5)
+
+    vdi_bank_angle:set(- sensor_data.getRoll() * 0.5)
+    vdi_bank_up:set(math.abs(sensor_data.getRoll() * 0.05))
 end
 

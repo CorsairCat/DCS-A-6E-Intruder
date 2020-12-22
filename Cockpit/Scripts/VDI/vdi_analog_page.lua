@@ -80,6 +80,24 @@ vdi_analog_ground.level                    = VDI_DEFAULT_LEVEL
 vdi_analog_ground.parent_element	       = "vdi_ground_clip"
 Add(vdi_analog_ground)
 
+local vdi_analog_ground 				   = CreateElement "ceTexPoly"
+vdi_analog_ground.vertices                 = vdi_vert_gen(4500 ,4000)
+vdi_analog_ground.indices                  = {0,1,2,2,3,0}
+vdi_analog_ground.tex_coords               = tex_coord_gen(0,1024,1024,1024,2048,2048)
+vdi_analog_ground.material                 = basic_vdi_material_dark
+vdi_analog_ground.name 			           = create_guid_string()
+vdi_analog_ground.init_pos                 = {0, - 4000 / 1500, 0}
+vdi_analog_ground.init_rot		           = {0, 0, 0}
+vdi_analog_ground.collimated	           = true
+vdi_analog_ground.element_params           = {"VDI_ANALOG_GROUND_ENABLE","VDI_ANALOG_GROUND_MOVING"}
+vdi_analog_ground.controllers              = {{"opacity_using_parameter",0},{"move_up_down_using_parameter",1, 0.1},}
+vdi_analog_ground.use_mipfilter            = true
+vdi_analog_ground.additive_alpha           = true
+vdi_analog_ground.h_clip_relation          = h_clip_relations.COMPARE
+vdi_analog_ground.level                    = VDI_DEFAULT_LEVEL
+vdi_analog_ground.parent_element	       = "vdi_ground_clip"
+Add(vdi_analog_ground)
+
 for i = 1, 12, 1 do
     local x_index
     local y_index = 1
