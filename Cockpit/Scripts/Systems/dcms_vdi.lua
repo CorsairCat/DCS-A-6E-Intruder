@@ -14,13 +14,16 @@ local DEGREE_TO_RAD  = 0.0174532925199433
 local RAD_TO_DEGREE  = 57.29577951308233
 local METER_TO_INCH = 3.2808
 
-local vdi_test_enable = get_param_handle("VDI_DIS_ENABLE")
+local vdi_base_enable = get_param_handle("VDI_DIS_ENABLE")
+local vdi_simbol_enable = get_param_handle("VDI_SIM_DIS_ENABLE")
 local vdi_analog_enable = get_param_handle("VDI_ANALOG_DIS_ENABLE")
 local vdi_cloud_tex_enable = get_param_handle("VDI_CLOUD_DIS_ENABLE")
 local vdi_ground_tex_enable = get_param_handle("VDI_ANALOG_GROUND_ENABLE")
 local vdi_ground_moving = get_param_handle("VDI_ANALOG_GROUND_MOVING")
-
+local vdi_bank_angle = get_param_handle("VDI_BANK")
 local vdi_ana_roll = get_param_handle("VDI_ANALOG_ADI_ROLL")
+local vdi_bank_up = get_param_handle("VDI_BANK_MOVE_PARAM")
+local vdi_bg_pitch = get_param_handle("VDI_BG_PITCH")
 
 function post_initialize()
     for i = 1, 12, 1 do
@@ -52,10 +55,12 @@ function post_initialize()
 end
 
 function update()
-    vdi_ground_tex_enable:set(0.3)
-    vdi_analog_enable:set(0.3)
-    vdi_cloud_tex_enable:set(0.3)
-    vdi_test_enable:set(1)
+    local current_opac = 0.4
+    vdi_ground_tex_enable:set(current_opac)
+    vdi_analog_enable:set(current_opac)
+    vdi_cloud_tex_enable:set(current_opac)
+    vdi_base_enable:set(1)
+    vdi_simbol_enable:set(current_opac * 2)
 
     local moving_step = 0.005
     local current_move = vdi_ground_moving:get()
@@ -78,12 +83,15 @@ function update()
             temp_control:set(current_move + moving_step)
         end
         if current_move < 0.4 then
-            temp_opac:set(((current_move - 0.3) * 4))
+            temp_opac:set(((current_move - 0.3) * 4) * current_opac)
         else
-            temp_opac:set(1)
+            temp_opac:set(1 * current_opac)
         end
     end
 
     vdi_ana_roll:set(sensor_data.getRoll())
+    vdi_bg_pitch:set(- sensor_data.getPitch() * 0.5)
+    vdi_bank_angle:set(sensor_data.getRoll() * 0.5)
+    vdi_bank_up:set(math.abs(sensor_data.getRoll() * 1))
 end
 

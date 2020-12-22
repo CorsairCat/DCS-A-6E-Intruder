@@ -39,8 +39,8 @@ vdi_cloud_clip.material		            = "BASE_SKY_GREEN"
 vdi_cloud_clip.h_clip_relation          = h_clip_relations.COMPARE--COMPARE --REWRITE_LEVEL
 vdi_cloud_clip.level			        = VDI_DEFAULT_NOCLIP_LEVEL
 vdi_cloud_clip.change_opacity           = false
-vdi_cloud_clip.element_params           = {"VDI_ANALOG_DIS_ENABLE"}              -- 初始化主显示控制
-vdi_cloud_clip.controllers              = {{"opacity_using_parameter",0}}
+vdi_cloud_clip.element_params           = {"VDI_ANALOG_DIS_ENABLE", "VDI_BG_PITCH"}              -- 初始化主显示控制
+vdi_cloud_clip.controllers              = {{"opacity_using_parameter",0},  {"move_up_down_using_parameter",1, 0.1},}
 -- vdi_cloud_clip.isvisible		        = SHOW_MASKS
 vdi_cloud_clip.parent_element	        = "VDI_ANA_ADI_rot"
 Add(vdi_cloud_clip)
@@ -55,8 +55,8 @@ vdi_ground_clip.material		            = "BASE_GROUND_GREEN"
 vdi_ground_clip.h_clip_relation             = h_clip_relations.INCREASE_IF_LEVEL--COMPARE --REWRITE_LEVEL
 vdi_ground_clip.level			            = VDI_DEFAULT_LEVEL - 1
 vdi_ground_clip.change_opacity              = false
-vdi_ground_clip.element_params              = {"VDI_ANALOG_DIS_ENABLE"}              -- 初始化主显示控制
-vdi_ground_clip.controllers                 = {{"opacity_using_parameter",0}}
+vdi_ground_clip.element_params              = {"VDI_ANALOG_DIS_ENABLE", "VDI_BG_PITCH"}              -- 初始化主显示控制
+vdi_ground_clip.controllers                 = {{"opacity_using_parameter",0}, {"move_up_down_using_parameter",1, 0.1},}
 vdi_ground_clip.isvisible		            = SHOW_MASKS
 vdi_ground_clip.parent_element	            = "VDI_ANA_ADI_rot_2"
 Add(vdi_ground_clip)
@@ -118,3 +118,4 @@ for i = 1, 12, 1 do
 Add(vdi_analog_ground)
 
 end 
+

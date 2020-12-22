@@ -69,7 +69,7 @@ function SetCommand(command,value)
     elseif (command == Airbrake) then
         if (air_brake_state == 0) then
             air_brake_state = 1
-        elseif (air_brake_state == 0) then
+        elseif (air_brake_state == 1) then
             air_brake_state = 0
         end
     elseif (command == AirbrakeOn) then
