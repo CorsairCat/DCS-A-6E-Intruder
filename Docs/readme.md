@@ -95,6 +95,24 @@
 + in range brightness: 157
 + breakaway brightness: 158
 
+#### ARG 159 - 163
++ VDI
++ 159: vdi brightness
++ 160: contrast ratio of target
++ 161: pitch trim
++ 162: oFFSET imp pt
++ 163: path brightness
+
+#### ARG 164 - 171
++ RADAR
++ 164: power switch of display
++ 165: brightness
++ 166: contrast
++ 167: altitude ref
++ 168: RNG mark control
++ 169: AZ mark control
++ 170: presist
++ 171: one scan and ease control
 
 ----------
 
