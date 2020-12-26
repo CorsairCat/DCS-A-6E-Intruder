@@ -114,6 +114,99 @@
 + 170: presist
 + 171: one scan and ease control
 
+#### ARG 172 - 177
++ Auto Pilot Control Panel
++ 172: ON OFF
++ 173: AUTO STBY
++ 174: CMD
++ 175: ALT hold
++ 176: Return to Level
++ 177: Mach Hold
+
+#### ARG 178 - 183
++ UHF COMM
++ 178: COMM mode 
++ 179: UHF Channel 1
++ 180: UHF Channel 2
++ 181: UHF Channel 3
++ 182: GUARD XMIT
++ 183: Volume
+
+#### ARG 184 - 190
++ TACAN Conrol
++ 184: Mode
++ 185: Channel 1
++ 186: Channel 2
++ 187: Channel x100 display
++ 188: Channel x10 display
++ 189: Channel x1 display
++ 190: VOL control/button (not sure)
+
+#### ARG 191 - 208
++ IFF Panel
++ 191: Code Roller
++ 192: Reply Button
++ 193: Test Button
++ 194: Master Switch
++ 195: Audio Switch
++ 196: Test M-1
++ 197: Test M-2
++ 198: Test M-3/A
++ 199: Test M-C
++ 200: RAD Test
++ 201: Mode 4 Switch
++ 202: Mode 1 First Roller
++ 203: Mode 1 Second Roller
++ 204: Mode 3/A Fiest Roller
++ 205: Mode 3/A Second Roller
++ 206: Mode 3/A Third Roller
++ 207: Mode 3/A Fourth Roller
++ 208: IDENT Mic
+
+#### ARG 209 - 217
++ Air Conditioning Panel
++ 209: Cockpit
++ 210: Auto/Man
++ 211: Auto temp Control
++ 212: Aircond Master
++ 213: Defog Flow
++ 214: CMPTR EMER Cool
++ 215: Engine deice
++ 216: windshield deice
++ 217: pitot heat
+
+#### ARG 218 - 220
++ Wing Folding
++ 218: push button
++ 219: lift handle
++ 220: Pin lock switch
+
+#### ARG 221 - 224
++ Center ICS Panel
++ 221: INPTH Volume
++ 222: ICS Ampl select
++ 223: mic sems
++ 224: hot/cold
+
+#### ARG 225 - 233
++ RADIO mix Panel
++ 225: trans 
++ 226: UHF
++ 227: AUX
++ 228: TAC
++ 229: Volume
++ 230: ALQ FWD
++ 231: ALQ AFT
++ 232: APR-25
++ 233: APR-27
+
+#### ARG 234 - 237
++ End panel of center panel
++ 234: CABIN Dump
++ 235: UHF ANT SEL
++ 236: TACAN ANT SEL
++ 237: CNI Master
+
 ----------
 
 ## Display Instruments
