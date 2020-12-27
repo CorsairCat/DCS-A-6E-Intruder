@@ -25,6 +25,7 @@ creators[devices.CLOCK]           ={"avLuaDevice"           ,LockOn_Options.scri
 creators[devices.FUEL_SYSTEM]     ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/fuel_system.lua"}
 creators[devices.VDI_DCMS]        ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/dcms_vdi.lua"}
 creators[devices.LIGHT_SYSTEM]    ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/light_system.lua"}
+creators[devices.AUTO_PILOT]      ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/autopilot_control.lua"}
 
 -- Indicators
 indicators = {}
