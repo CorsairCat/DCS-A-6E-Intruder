@@ -192,6 +192,17 @@ Keys =
     UHFFreqCSTOP = __custom_counter(),
     UHFGuard = __custom_counter(),
     UHFVolume = __custom_counter(),
+
+    -- TACAN
+    TACANMode = __custom_counter(),
+    TACANChanA = __custom_counter(),
+    TACANChanB = __custom_counter(),
+
+    -- Radio System Antanna
+    TACANAntUP = __custom_counter(),
+    TACANAntDOWN = __custom_counter(),
+    UHFAntUP = __custom_counter(),
+    UHFAntDOWN = __custom_counter(),
 }
 
 --从5000开始递增点击指令

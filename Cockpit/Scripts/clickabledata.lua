@@ -414,7 +414,9 @@ multi_tumb_click_list = {
 
     -- UHF
     {"PTN_182", "Guard type", devices.RADIO_SYSTEM, 182, Keys.UHFGuard},
-    
+    -- antanna
+    {"PTN_235", "TACAN Antanna Selection", devices.RADIO_SYSTEM, 235, Keys.TACANAntUP, Keys.TACANAntDOWN},
+    {"PTN_236", "UHF Antanna Selection", devices.RADIO_SYSTEM, 236, Keys.UHFAntUP, Keys.UHFAntDOWN},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
@@ -431,8 +433,13 @@ elements["PTN_134"] = default_axis("Approach Index Light", devices.LIGHT_SYSTEM,
 
 elements["PTN_211"] = default_axis("Auto Temperature Control", devices.ECS_SYSTEM, Keys.AircondTemp, 1134, 0, 0.1)
 elements["PTN_213"] = default_axis("Defog Airflow", devices.ECS_SYSTEM, Keys.AircondDefog, 1134, 0, 0.1)
+-- UHF
 elements["PTN_178"] = default_axis("UHF Mode Selection", devices.RADIO_SYSTEM, Keys.UHFMode, 1134, 0, 0.1)
 elements["PTN_183"] = default_axis("UHF Volume", devices.RADIO_SYSTEM, Keys.UHFVolume, 1134, 0, 0.1)
+-- TACAN
+elements["PTN_184"] = default_axis("TACAN Mode Selection", devices.RADIO_SYSTEM, Keys.TACANMode, 1134, 0, 0.1)
+elements["PTN_185"] = default_axis("TACAN Channel x10", devices.RADIO_SYSTEM, Keys.TACANChanA, 1134, 0, 0.1)
+elements["PTN_186"] = default_axis("TACAN Channel x1", devices.RADIO_SYSTEM, Keys.TACANChanB, 1134, 0, 0.1)
 
 elements["PTN_179"] = springloaded_3_pos_tumb("UHF tens of Mega hertz", devices.RADIO_SYSTEM, Keys.UHFFreqAUP, Keys.UHFFreqASTOP, Keys.UHFFreqADOWN, Keys.UHFFreqASTOP, 1134)
 elements["PTN_180"] = springloaded_3_pos_tumb("UHF Mega hertz", devices.RADIO_SYSTEM, Keys.UHFFreqBUP, Keys.UHFFreqBSTOP, Keys.UHFFreqBDOWN, Keys.UHFFreqBSTOP, 1134)

@@ -146,6 +146,16 @@ animation_list = {
     {"PTN_181", 181},
     {"PTN_182", 182},
     {"PTN_183", 183},
+    -- TACAN Panel will combined into Radio System
+    {"PTN_184", 184},
+    {"PTN_185", 185},
+    {"PTN_186", 186},
+    {"PTN_187", 187},
+    {"PTN_188", 188},
+    {"PTN_189", 189},
+    -- ATANNA of UHF and tacan
+    {"PTN_235", 235},
+    {"PTN_236", 236},
 
     -- ECS
     {"PTN_209", 209},
@@ -173,6 +183,9 @@ animation_list = {
     -- autopilot mode
     {"ap_mainmode", 910}, -- 0: off; 1: STAB; 2: AUTO;
     {"ap_holdmode", 911}, -- 0: off; 1: ALT; 2: MACH;
+
+    {"tacan_mode", 912}, -- 0:off; 1:REC; 2:T/C
+    {"tacan_chann", 913}, 
 }
 
 --[[
