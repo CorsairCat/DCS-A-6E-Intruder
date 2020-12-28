@@ -178,6 +178,20 @@ Keys =
     DeicePitot = __custom_counter(),
     AircondTemp = __custom_counter(),
     AircondDefog = __custom_counter(),
+
+    -- UHF radio
+    UHFMode = __custom_counter(),
+    UHFFreqAUP = __custom_counter(),
+    UHFFreqADOWN = __custom_counter(),
+    UHFFreqBDOWN = __custom_counter(),
+    UHFFreqBUP = __custom_counter(),
+    UHFFreqCDOWN = __custom_counter(),
+    UHFFreqCUP = __custom_counter(),
+    UHFFreqASTOP = __custom_counter(),
+    UHFFreqBSTOP = __custom_counter(),
+    UHFFreqCSTOP = __custom_counter(),
+    UHFGuard = __custom_counter(),
+    UHFVolume = __custom_counter(),
 }
 
 --从5000开始递增点击指令

@@ -126,7 +126,7 @@ function default_3_position_tumb(hint_, device_, command_, arg_, cycled_, invers
     }
 end
 
-function springloaded_3_pos_tumb(hint_, device_, command_, arg_, inversed_, sound_, animation_speed_)
+function springloaded_3_pos_tumb(hint_, device_, command_, command2_, command3_, command4_, arg_, inversed_, sound_, animation_speed_)
     local animation_speed_ = animation_speed_ or anim_speed_default
     local val = 1
     if inversed_ then
@@ -137,8 +137,8 @@ function springloaded_3_pos_tumb(hint_, device_, command_, arg_, inversed_, soun
         class               = {class_type.BTN, class_type.BTN},
         hint                = hint_,
         device              = device_,
-        action              = {command_, command_},
-        stop_action         = {command_, command_},
+        action              = {command_, command3_},
+        stop_action         = {command2_, command4_},
         arg                 = {arg_, arg_},
         arg_value           = {val, -val},
         arg_lim             = {{-1, 1}, {-1, 1}},
@@ -411,6 +411,10 @@ multi_tumb_click_list = {
     {"PTN_215", "Engine Anti ice", devices.ECS_SYSTEM, 215, Keys.DeiceEngine},
     {"PTN_216", "Windshield Wash and Heat", devices.ECS_SYSTEM, 216, Keys.DeiceWindShieldUP, Keys.DeiceWindShieldDOWN},
     {"PTN_217", "Pitot Heat", devices.ECS_SYSTEM, 217, Keys.DeicePitot},
+
+    -- UHF
+    {"PTN_182", "Guard type", devices.RADIO_SYSTEM, 182, Keys.UHFGuard},
+    
 }
 
 for k,v in pairs(multi_tumb_click_list) do
@@ -427,6 +431,12 @@ elements["PTN_134"] = default_axis("Approach Index Light", devices.LIGHT_SYSTEM,
 
 elements["PTN_211"] = default_axis("Auto Temperature Control", devices.ECS_SYSTEM, Keys.AircondTemp, 1134, 0, 0.1)
 elements["PTN_213"] = default_axis("Defog Airflow", devices.ECS_SYSTEM, Keys.AircondDefog, 1134, 0, 0.1)
+elements["PTN_178"] = default_axis("UHF Mode Selection", devices.RADIO_SYSTEM, Keys.UHFMode, 1134, 0, 0.1)
+elements["PTN_183"] = default_axis("UHF Volume", devices.RADIO_SYSTEM, Keys.UHFVolume, 1134, 0, 0.1)
+
+elements["PTN_179"] = springloaded_3_pos_tumb("UHF tens of Mega hertz", devices.RADIO_SYSTEM, Keys.UHFFreqAUP, Keys.UHFFreqASTOP, Keys.UHFFreqADOWN, Keys.UHFFreqASTOP, 1134)
+elements["PTN_180"] = springloaded_3_pos_tumb("UHF Mega hertz", devices.RADIO_SYSTEM, Keys.UHFFreqBUP, Keys.UHFFreqBSTOP, Keys.UHFFreqBDOWN, Keys.UHFFreqBSTOP, 1134)
+elements["PTN_181"] = springloaded_3_pos_tumb("UHF hundreds and tens of Kilo hertz", devices.RADIO_SYSTEM, Keys.UHFFreqCUP, Keys.UHFFreqCSTOP, Keys.UHFFreqCDOWN, Keys.UHFFreqCSTOP, 1134)
 --for i,o in pairs(elements) do
 --	if  o.class[1] == class_type.TUMB or 
 --	   (o.class[2]  and o.class[2] == class_type.TUMB) or

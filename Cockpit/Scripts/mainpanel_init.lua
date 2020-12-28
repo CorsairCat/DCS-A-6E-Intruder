@@ -139,6 +139,14 @@ animation_list = {
     -- {"PTN_176", 176}, currently not functional and not model
     {"PTN_177", 177},
 
+    -- UHF radio
+    {"PTN_178", 178},
+    {"PTN_179", 179},
+    {"PTN_180", 180},
+    {"PTN_181", 181},
+    {"PTN_182", 182},
+    {"PTN_183", 183},
+
     -- ECS
     {"PTN_209", 209},
     {"PTN_210", 210},
@@ -149,7 +157,6 @@ animation_list = {
     {"PTN_215", 215},
     {"PTN_216", 216},
     {"PTN_217", 217},
-
 
 
     -- the arg 9xx stand for transfer information

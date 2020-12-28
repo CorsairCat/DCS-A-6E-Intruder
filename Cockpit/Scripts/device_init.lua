@@ -27,6 +27,7 @@ creators[devices.VDI_DCMS]        ={"avLuaDevice"           ,LockOn_Options.scri
 creators[devices.LIGHT_SYSTEM]    ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/light_system.lua"}
 creators[devices.AUTO_PILOT]      ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/autopilot_control.lua"}
 creators[devices.ECS_SYSTEM]      ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/ecs_system.lua"}
+creators[devices.RADIO_SYSTEM]    ={"avLuaDevice"           ,LockOn_Options.script_path.."Systems/radio_system.lua"}
 
 -- Indicators
 indicators = {}

@@ -30,7 +30,7 @@ local vdi_impact_yaw = get_param_handle("VDI_YAW_MOVE")
 local test_uhf = get_param_handle("UHF_DISPLAY")
 
 function post_initialize()
-    test_uhf:set("DEFAULT UHF CHANNEL TEST")
+    -- test_uhf:set("DEFAULT UHF CHANNEL TEST")
     for i = 1, 12, 1 do
         temp_control = get_param_handle("VDI_ANALOG_CLOUD_MOVING_"..i)
         if i == 11 or i == 12 then

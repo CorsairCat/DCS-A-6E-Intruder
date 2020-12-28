@@ -1,6 +1,3 @@
-dofile(LockOn_Options.common_script_path..'Radio.lua')
-dofile(LockOn_Options.common_script_path.."mission_prepare.lua")
-
 dofile(LockOn_Options.script_path.."devices.lua")
 dofile(LockOn_Options.script_path.."command_defs.lua")
 
@@ -9,8 +6,8 @@ _ = gettext.translate
 
 local dev 	    = GetSelf()
 
-local update_time_step = 0.05 --update will be called once per second
---make_default_activity(update_time_step)
+local update_time_step = 0.02 --update will be called once per second
+make_default_activity(update_time_step)
 
 local sensor_data = get_base_data()
 
@@ -54,11 +51,7 @@ current_status = {
 local UHF_channel_display = get_param_handle("UHF_DISPLAY")
 
 function post_initialize()
-	dev:set_frequency(256E6) -- Sochi
-	dev:set_modulation(MODULATION_AM)
-	local intercom = GetDevice(devices.INTERCOM)
-	intercom:set_communicator(devices.UHF_RADIO)
-	UHF_channel_display:set("UHF FREQ:".."256E6")
+
 end
 
 UHF_FREQ_TEN = 25
@@ -82,12 +75,12 @@ dev:listen_command(Keys.UHFFreqCSTOP)
 function SetCommand(command,value)
 	if command == Keys.UHFMode then
 		if value > 0.5 then
-			target_status[uhf_mode_switch][2] = target_status[uhf_mode_switch][2] + 0.33
+			target_status[uhf_mode_switch][2] = target_status[uhf_mode_switch][2] + 0.5
 			if target_status[uhf_mode_switch][2] > 1 then
 				target_status[uhf_mode_switch][2] = 1
 			end
 		else
-			target_status[uhf_mode_switch][2] = target_status[uhf_mode_switch][2] - 0.33
+			target_status[uhf_mode_switch][2] = target_status[uhf_mode_switch][2] - 0.5
 			if target_status[uhf_mode_switch][2] < 0 then
 				target_status[uhf_mode_switch][2] = 0
 			end
@@ -132,7 +125,7 @@ function SetCommand(command,value)
 	elseif command == Keys.UHFFreqCSTOP then
 		target_status[uhf_freq_c][2] = SWITCH_OFF
 	end
-	print_message_to_user("UHF FREQ:"..UHF_FREQ_TEN..UHF_FREQ_ONE.."."..UHF_FREQ_DIG..UHF_LAST)
+	-- print_message_to_user("UHF FREQ:"..UHF_FREQ_TEN..UHF_FREQ_ONE.."."..UHF_FREQ_DIG..UHF_LAST)
 end
 
 function update_switch_status()
@@ -200,7 +193,7 @@ function update_UHF_channel()
 	if target_status[uhf_freq_c][2] == SWITCH_ON then
 		CCOUNTER = CCOUNTER + 1
 		if CCOUNTER == 5 then
-			if UHF_FREQ_DIG < 9 then
+			if UHF_FREQ_DIG < 99 then
 				UHF_FREQ_DIG = UHF_FREQ_DIG + 1
 			end
 			CCOUNTER = 0
@@ -220,12 +213,9 @@ end
 
 function update()
 	
-	--update_switch_status()
-	--update_UHF_channel()
-	--UHF_channel_display:set("UHF FREQ:"..UHF_FREQ_TEN..UHF_FREQ_ONE.."."..UHF_FREQ_DIG..UHF_LAST)
+	update_switch_status()
+	update_UHF_channel()
+	UHF_channel_display:set(string.format("UHF FREQ: %02d%d.%02d%d",UHF_FREQ_TEN,UHF_FREQ_ONE,UHF_FREQ_DIG,UHF_LAST))
 end
 
 need_to_be_closed = false -- close lua state after initialization
-
-
-

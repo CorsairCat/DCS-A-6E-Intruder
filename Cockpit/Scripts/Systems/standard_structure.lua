@@ -52,6 +52,23 @@ function SetCommand(command, value)
 
 end
 
+function update_switch_status()
+    local switch_moving_step = 0.25
+    for k,v in pairs(target_status) do
+        if math.abs(target_status[k][2] - current_status[k][2]) < switch_moving_step then
+            current_status[k][2] = target_status[k][2]
+        elseif target_status[k][2] > current_status[k][2] then
+            current_status[k][2] = current_status[k][2] + switch_moving_step
+        elseif target_status[k][2] < current_status[k][2] then
+            current_status[k][2] = current_status[k][2] - switch_moving_step
+        end
+        target_status[k][3]:set(current_status[k][2])
+        local temp_switch_ref = get_clickable_element_reference(target_status[k][4])
+        temp_switch_ref:update()
+        -- print_message_to_user(k)
+    end
+end
+
 function update()
     
 end
