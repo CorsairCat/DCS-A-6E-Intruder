@@ -188,6 +188,8 @@ fontdescription["font_HUD"] = {
     fonts["font_kneeboard_hint"]	= {fontdescription_cmn["font_general_loc"], 10, {255,0,0,255}}
 	fonts["mpcd_font_base"]			= {fontdescription["font_MPCD"], 10, materials["TEST_COLOR"]}
 	fonts["hud_font_base"]			= {fontdescription["font_HUD"], 10, materials["HUD_DAY_COLOR"] }
+	fonts["uhf_font_base"]			= {fontdescription["font_HUD"], 10, {100,100,100, 255} }
+
 
 
 -- force preload resources to avoid freeze on start (list of texture files)

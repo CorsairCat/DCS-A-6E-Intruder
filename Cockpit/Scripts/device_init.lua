@@ -38,6 +38,7 @@ indicators = {}
 -- HUD
 indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."HUD/Indicator/hud_init.lua",nil,{{"HUD_center","HUD_down","HUD_right"}}}
 indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."VDI/vdi_init.lua",nil,{{"VDI_center","VDI_down","VDI_right"}}}
+indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."UHF/uhf_init.lua",nil,{{"UHF_center","UHF_down","UHF_right"}}}
 -- RADAR RAW DISPLAY
 -- indicators[#indicators + 1] = {"ccIndicator", LockOn_Options.script_path.."avRadar/indicator/init.lua",nil,{{},{sz_l = 0.0,sx_l = -0.50, sy_l = -0.1},1}}		
 --RADAROFF indicators[#indicators + 1] = {"ccIndicator",LockOn_Options.script_path.."RADAR/Indicator/init.lua",--init script 初始化脚本

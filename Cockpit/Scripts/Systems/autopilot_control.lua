@@ -71,8 +71,14 @@ function SetCommand(command, value)
         target_status[stab_switch][2] = 1 - target_status[stab_switch][2]
     elseif (command == Keys.AutoPilotAltHoldSwitch) then
         target_status[althold_switch][2] = 1 - target_status[althold_switch][2]
+        if target_status[althold_switch][2] == SWITCH_ON and target_status[machhold_switch][2] == SWITCH_ON then
+            target_status[machhold_switch][2] = SWITCH_OFF
+        end
     elseif (command == Keys.AutoPilotMachHoldSwitch) then
         target_status[machhold_switch][2] = 1 - target_status[machhold_switch][2]
+        if target_status[althold_switch][2] == SWITCH_ON and target_status[machhold_switch][2] == SWITCH_ON then
+            target_status[althold_switch][2] = SWITCH_OFF
+        end
     end
 end
 
@@ -132,11 +138,11 @@ function check_ap_mode_status()
     end
     if ap_main_mode_param:get() == 2 then
         if (target_status[althold_switch][2] >= 0.95) then
-            target_status[machhold_switch][2] = SWITCH_OFF
+            -- target_status[machhold_switch][2] = SWITCH_OFF
             ap_hold_mode_param:set(1)
         end
         if (target_status[machhold_switch][2] >= 0.95) then
-            target_status[althold_switch][2] = SWITCH_OFF
+            -- target_status[althold_switch][2] = SWITCH_OFF
             ap_hold_mode_param:set(2)
         end
     else
