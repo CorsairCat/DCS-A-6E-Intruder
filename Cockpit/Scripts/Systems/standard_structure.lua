@@ -36,8 +36,14 @@ current_status = {
 }
 
 function post_initialize()
+    local birth = LockOn_Options.init_conditions.birth_place
+    if birth == "GROUND_HOT" then
 
+    elseif birth == "GROUND_COLD" then
 
+    elseif birth == "AIR_HOT" then
+        
+    end
 end
 
 AutopilotSystem:listen_command()
@@ -49,3 +55,5 @@ end
 function update()
     
 end
+
+need_to_be_closed = false

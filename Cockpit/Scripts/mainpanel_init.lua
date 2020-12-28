@@ -139,6 +139,16 @@ animation_list = {
     -- {"PTN_176", 176}, currently not functional and not model
     {"PTN_177", 177},
 
+    -- ECS
+    {"PTN_209", 209},
+    {"PTN_210", 210},
+    {"PTN_211", 211},
+    {"PTN_212", 212},
+    {"PTN_213", 213},
+    {"PTN_214", 214},
+    {"PTN_215", 215},
+    {"PTN_216", 216},
+    {"PTN_217", 217},
 
 
 

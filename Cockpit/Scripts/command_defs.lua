@@ -164,6 +164,20 @@ Keys =
     AutoPilotCmdSwitch = __custom_counter(),
     AutoPilotAltHoldSwitch = __custom_counter(),
     AutoPilotMachHoldSwitch = __custom_counter(),
+
+    -- ECS aircondition
+    AircondMasterSwitch = __custom_counter(),
+    AircondAutoManSwitch = __custom_counter(),
+    AircondCockpitSwitchUP = __custom_counter(),
+    AircondCockpitSwitchDOWN = __custom_counter(),
+    AircondCMPTREmerUP = __custom_counter(),
+    AircondCMPTREmerDOWN = __custom_counter(),
+    DeiceEngine = __custom_counter(),
+    DeiceWindShieldUP = __custom_counter(),
+    DeiceWindShieldDOWN = __custom_counter(),
+    DeicePitot = __custom_counter(),
+    AircondTemp = __custom_counter(),
+    AircondDefog = __custom_counter(),
 }
 
 --从5000开始递增点击指令

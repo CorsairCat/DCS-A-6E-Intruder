@@ -150,3 +150,5 @@ function update()
     update_switch_status()
     check_ap_mode_status()
 end
+
+need_to_be_closed = false

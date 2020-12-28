@@ -403,6 +403,14 @@ multi_tumb_click_list = {
     {"PTN_175", "Autopilot Alt hold", devices.AUTO_PILOT, 175, Keys.AutoPilotAltHoldSwitch},
     {"PTN_177", "Autopilot Mach hold", devices.AUTO_PILOT, 176, Keys.AutoPilotMachHoldSwitch},
     
+    -- ECS Aircondition
+    {"PTN_209", "Cockpit Aircondition", devices.ECS_SYSTEM, 209, Keys.AircondCockpitSwitchUP, Keys.AircondCockpitSwitchDOWN},
+    {"PTN_210", "Aircondition Mode", devices.ECS_SYSTEM, 210, Keys.AircondAutoManSwitch},
+    {"PTN_212", "Aircondition Master", devices.ECS_SYSTEM, 212, Keys.AircondMasterSwitch},
+    {"PTN_214", "CMPTR EMER cooling", devices.ECS_SYSTEM, 214, Keys.AircondCMPTREmerUP, Keys.AircondCMPTREmerDOWN},
+    {"PTN_215", "Engine Anti ice", devices.ECS_SYSTEM, 215, Keys.DeiceEngine},
+    {"PTN_216", "Windshield Wash and Heat", devices.ECS_SYSTEM, 216, Keys.DeiceWindShieldUP, Keys.DeiceWindShieldDOWN},
+    {"PTN_217", "Pitot Heat", devices.ECS_SYSTEM, 217, Keys.DeicePitot},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
@@ -417,6 +425,8 @@ elements["PTN_132"] = default_axis("Instrument Light", devices.LIGHT_SYSTEM, Key
 elements["PTN_133"] = default_axis("Console Light", devices.LIGHT_SYSTEM, Keys.LightConsoleBRT, 1133, 0, 0.1)
 elements["PTN_134"] = default_axis("Approach Index Light", devices.LIGHT_SYSTEM, Keys.LightApproIndexBRT, 1134, 0, 0.1)
 
+elements["PTN_211"] = default_axis("Auto Temperature Control", devices.ECS_SYSTEM, Keys.AircondTemp, 1134, 0, 0.1)
+elements["PTN_213"] = default_axis("Defog Airflow", devices.ECS_SYSTEM, Keys.AircondDefog, 1134, 0, 0.1)
 --for i,o in pairs(elements) do
 --	if  o.class[1] == class_type.TUMB or 
 --	   (o.class[2]  and o.class[2] == class_type.TUMB) or
