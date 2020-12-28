@@ -131,7 +131,13 @@ animation_list = {
     {"PTN_150", 150},
     {"PTN_151", 151},
 
-
+    -- auto pilot panel
+    {"PTN_172", 172},
+    {"PTN_173", 173},
+    {"PTN_174", 174},
+    {"PTN_175", 175},
+    -- {"PTN_176", 176}, currently not functional and not model
+    {"PTN_177", 177},
 
 
 
@@ -146,6 +152,10 @@ animation_list = {
     {"pylon_rin", 907},
     {"pylon_ctr", 908},
     {"oil_press", 909},
+
+    -- autopilot mode
+    {"ap_mainmode", 910}, -- 0: off; 1: STAB; 2: AUTO;
+    {"ap_holdmode", 911}, -- 0: off; 1: ALT; 2: MACH;
 }
 
 --[[

@@ -396,6 +396,13 @@ multi_tumb_click_list = {
     {"PTN_129", "Wing Navigation Light", devices.LIGHT_SYSTEM, 129, Keys.LightNaviWingUP, Keys.LightNaviWingDOWN},
     {"PTN_130", "Formation Light", devices.LIGHT_SYSTEM, 130, Keys.LightFormationUP, Keys.LightFormationDOWN},
     {"PTN_131", "Flood Light", devices.LIGHT_SYSTEM, 131, Keys.LightFloodUP, Keys.LightFloodDOWN},
+    -- autopilot
+    {"PTN_172", "Autopilot engage", devices.AUTO_PILOT, 172, Keys.AutoPilotPowerSwitch},
+    {"PTN_173", "Autopilot Mode", devices.AUTO_PILOT, 173, Keys.AutoPilotStabSwitch},
+    {"PTN_174", "Autopilot CMD (Not Used)", devices.AUTO_PILOT, 174, Keys.AutoPilotCmdSwitch},
+    {"PTN_175", "Autopilot Alt hold", devices.AUTO_PILOT, 175, Keys.AutoPilotAltHoldSwitch},
+    {"PTN_177", "Autopilot Mach hold", devices.AUTO_PILOT, 176, Keys.AutoPilotMachHoldSwitch},
+    
 }
 
 for k,v in pairs(multi_tumb_click_list) do

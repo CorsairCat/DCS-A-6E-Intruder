@@ -158,6 +158,12 @@ Keys =
     LightConsoleBRT = __custom_counter(),
     LightInstruBRT = __custom_counter(),
     LightApproIndexBRT = __custom_counter(),
+
+    AutoPilotPowerSwitch = __custom_counter(),
+    AutoPilotStabSwitch = __custom_counter(),
+    AutoPilotCmdSwitch = __custom_counter(),
+    AutoPilotAltHoldSwitch = __custom_counter(),
+    AutoPilotMachHoldSwitch = __custom_counter(),
 }
 
 --从5000开始递增点击指令
