@@ -98,6 +98,9 @@ vdi_analog_ground.level                    = VDI_DEFAULT_LEVEL
 vdi_analog_ground.parent_element	       = "vdi_ground_clip"
 Add(vdi_analog_ground)
 
+-- 1060 25 840 735
+
+
 for i = 1, 12, 1 do
     local x_index
     local y_index = 1

@@ -26,7 +26,8 @@ local vdi_bank_up = get_param_handle("VDI_BANK_MOVE_PARAM")
 local vdi_bg_pitch = get_param_handle("VDI_BG_PITCH")
 local vdi_impact_pitch = get_param_handle("VDI_PITCH_MOVE")
 local vdi_impact_yaw = get_param_handle("VDI_YAW_MOVE")
-
+local vdi_analog_test = get_param_handle("VDI_ANALOG_TEST_ENABLE")
+local vdi_tc_test = get_param_handle("VDI_TC_TEST_ENABLE")
 local test_uhf = get_param_handle("UHF_DISPLAY")
 
 ------Here Strat the general Switch Control
@@ -52,6 +53,7 @@ local vdi_control_stby = _switch_counter() -- 2
 local vdi_control_tc = _switch_counter() -- 3
 local vdi_control_tc_C = _switch_counter() -- 4
 local vdi_control_analog = _switch_counter() -- 5
+local vdi_control_test = _switch_counter()
 
 target_status = {
     {vdi_control_off , SWITCH_ON, get_param_handle("PTN_135"), "PTN_135"},
@@ -59,6 +61,7 @@ target_status = {
     {vdi_control_tc , SWITCH_OFF, get_param_handle("PTN_137"), "PTN_137"},
     {vdi_control_tc_C , SWITCH_OFF, get_param_handle("PTN_138"), "PTN_138"},
     {vdi_control_analog , SWITCH_OFF, get_param_handle("PTN_139"), "PTN_139"},
+    {vdi_control_test, SWITCH_OFF, get_param_handle("PTN_140"), "PTN_140"},
 }
 
 current_status = {
@@ -67,6 +70,7 @@ current_status = {
     {vdi_control_tc , SWITCH_OFF,},
     {vdi_control_tc_C , SWITCH_OFF,},
     {vdi_control_analog , SWITCH_OFF,},
+    {vdi_control_test, SWITCH_OFF,},
 }
 
 function update_switch_status()
@@ -123,11 +127,12 @@ function post_initialize()
     local birth = LockOn_Options.init_conditions.birth_place
     if birth == "GROUND_HOT" or birth == "AIR_HOT" then
         target_status = {
-            {vdi_control_off , SWITCH_ON, get_param_handle("PTN_135"), "PTN_135"},
+            {vdi_control_off , SWITCH_OFF, get_param_handle("PTN_135"), "PTN_135"},
             {vdi_control_stby , SWITCH_OFF, get_param_handle("PTN_136"), "PTN_136"},
             {vdi_control_tc , SWITCH_OFF, get_param_handle("PTN_137"), "PTN_137"},
             {vdi_control_tc_C , SWITCH_OFF, get_param_handle("PTN_138"), "PTN_138"},
-            {vdi_control_analog , SWITCH_OFF, get_param_handle("PTN_139"), "PTN_139"},
+            {vdi_control_analog , SWITCH_ON, get_param_handle("PTN_139"), "PTN_139"},
+            {vdi_control_test, SWITCH_OFF, get_param_handle("PTN_140"), "PTN_140"},
         }
         CURRENT_DISPLAY = vdi_control_analog
         init_analog()
@@ -144,6 +149,7 @@ VDIControlSystem:listen_command(Keys.VDIControlSTBY)
 VDIControlSystem:listen_command(Keys.VDIControlTC)
 VDIControlSystem:listen_command(Keys.VDIControlTCCal)
 VDIControlSystem:listen_command(Keys.VDIControlAnalog)
+VDIControlSystem:listen_command(Keys.VDIControlTest)
 
 function SetCommand(command, value)
     if command == Keys.VDIControlOff then
@@ -167,6 +173,8 @@ function SetCommand(command, value)
         target_status[vdi_control_analog][2] = SWITCH_ON
         CURRENT_DISPLAY = vdi_control_analog
         init_analog()
+    elseif command == Keys.VDIControlTest then
+        target_status[vdi_control_test][2] = 1 - target_status[vdi_control_test][2]
     end
 end
 
@@ -232,8 +240,13 @@ function update()
     update_switch_status()
     if get_elec_primary_ac_ok() then
         if CURRENT_DISPLAY > 2.2 then
-            vdi_base_enable:set(1)
-            update_base_simble(1)
+            if  target_status[vdi_control_test][2] == SWITCH_ON then
+                vdi_base_enable:set(1)
+                update_base_simble(0)
+            else
+                vdi_base_enable:set(1)
+                update_base_simble(1)
+            end
         elseif CURRENT_DISPLAY > 1.2 then
             vdi_base_enable:set(1)
             update_base_simble(0)
@@ -242,10 +255,23 @@ function update()
             update_base_simble(0)
         end
         if CURRENT_DISPLAY == vdi_control_analog then
-            update_AnalogPage(1)
+            if target_status[vdi_control_test][2] == SWITCH_ON then
+                vdi_analog_test:set(1)
+                update_AnalogPage(0)
+            else
+                vdi_analog_test:set(0)
+                update_AnalogPage(1)
+            end
         else
             update_AnalogPage(0)
         end 
+        if CURRENT_DISPLAY == vdi_control_tc or CURRENT_DISPLAY == vdi_control_tc_C then
+            if target_status[vdi_control_test][2] == SWITCH_ON  then
+                vdi_tc_test:set(1)
+            else
+                vdi_tc_test:set(0)
+            end
+        end
     end
 end
 

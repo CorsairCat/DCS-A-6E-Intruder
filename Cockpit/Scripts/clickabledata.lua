@@ -424,6 +424,7 @@ multi_tumb_click_list = {
     {"PTN_137", "VDI Display Terrian Clearance Calibrate", devices.VDI_DCMS, 137, Keys.VDIControlTC},
     {"PTN_138", "VDI Display Terrian Clearance", devices.VDI_DCMS, 138, Keys.VDIControlTCCal},
     {"PTN_139", "VDI Display Analog Page", devices.VDI_DCMS, 139, Keys.VDIControlAnalog},
+    {"PTN_140", "VDI Display TEST", devices.VDI_DCMS, 140, Keys.VDIControlTest},
 }
 
 for k,v in pairs(multi_tumb_click_list) do

@@ -28,6 +28,44 @@ Add(VDI_base_clip)
 
 -- basic_vdi_material_BR
 
+local vdi_analog_test 				   = CreateElement "ceTexPoly"
+vdi_analog_test.vertices                 = vdi_vert_gen(4200 ,3200)
+vdi_analog_test.indices                  = {0,1,2,2,3,0}
+vdi_analog_test.tex_coords               = tex_coord_gen(1055,850,900,765,2048,2048)
+vdi_analog_test.material                 = basic_vdi_material_BR
+vdi_analog_test.name 			           = create_guid_string()
+vdi_analog_test.init_pos                 = {0, 0, 0}
+vdi_analog_test.init_rot		           = {0, 0, 0}
+vdi_analog_test.collimated	           = true
+vdi_analog_test.element_params           = {"VDI_ANALOG_TEST_ENABLE"}
+vdi_analog_test.controllers              = {{"opacity_using_parameter",0},}
+vdi_analog_test.use_mipfilter            = true
+vdi_analog_test.additive_alpha           = true
+vdi_analog_test.h_clip_relation          = h_clip_relations.COMPARE
+vdi_analog_test.level                    = VDI_DEFAULT_NOCLIP_LEVEL
+vdi_analog_test.parent_element	            = "vdi_base_clip"
+Add(vdi_analog_test)
+
+-- 1060 850 900 765
+
+local vdi_analog_test 				   = CreateElement "ceTexPoly"
+vdi_analog_test.vertices                 = vdi_vert_gen(4200 ,3200)
+vdi_analog_test.indices                  = {0,1,2,2,3,0}
+vdi_analog_test.tex_coords               = tex_coord_gen(1055,25,840,735,2048,2048)
+vdi_analog_test.material                 = basic_vdi_material_BR
+vdi_analog_test.name 			           = create_guid_string()
+vdi_analog_test.init_pos                 = {0, 0, 0}
+vdi_analog_test.init_rot		           = {0, 0, 0}
+vdi_analog_test.collimated	           = true
+vdi_analog_test.element_params           = {"VDI_TC_TEST_ENABLE"}
+vdi_analog_test.controllers              = {{"opacity_using_parameter",0},}
+vdi_analog_test.use_mipfilter            = true
+vdi_analog_test.additive_alpha           = true
+vdi_analog_test.h_clip_relation          = h_clip_relations.COMPARE
+vdi_analog_test.level                    = VDI_DEFAULT_NOCLIP_LEVEL
+vdi_analog_test.parent_element	            = "vdi_base_clip"
+Add(vdi_analog_test)
+
 local vdi_always_show				     = CreateElement "ceTexPoly"
 vdi_always_show.vertices                 = vdi_vert_gen(700 ,60)
 vdi_always_show.indices                  = {0,1,2,2,3,0}
