@@ -4,6 +4,9 @@
 + VDI- Center/Right/Down : pilot Vdi
 
 ## Main Control
+#### ARG 21 - 23
++ 21: Roll
++ 22: Pitch
 #### ARG 38
 + Canopy open/close
 #### ARG 41-44
