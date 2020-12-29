@@ -1,7 +1,7 @@
 dofile(LockOn_Options.script_path.."command_defs.lua")
 dofile(LockOn_Options.script_path.."Systems/electric_system_api.lua")
 
-local dev 	    = GetSelf()
+local VDIControlSystem 	    = GetSelf()
 
 local sensor_data = get_base_data()
 
@@ -29,8 +29,61 @@ local vdi_impact_yaw = get_param_handle("VDI_YAW_MOVE")
 
 local test_uhf = get_param_handle("UHF_DISPLAY")
 
-function post_initialize()
-    -- test_uhf:set("DEFAULT UHF CHANNEL TEST")
+------Here Strat the general Switch Control
+
+local SWITCH_OFF = 0
+local SWITCH_ON = 1
+local SWITCH_TEST = -1
+
+switch_count = 0
+function _switch_counter()
+    switch_count = switch_count + 1
+    return switch_count
+end
+
+CURRENT_DISPLAY = 1
+CURRENT_LIGHTNESS = 0.3
+
+local vdi_control_off = _switch_counter()  -- 1
+local vdi_control_stby = _switch_counter() -- 2
+local vdi_control_tc = _switch_counter() -- 3
+local vdi_control_tc_C = _switch_counter() -- 4
+local vdi_control_analog = _switch_counter() -- 5
+
+target_status = {
+    {vdi_control_off , SWITCH_ON, get_param_handle("PTN_135"), "PTN_135"},
+    {vdi_control_stby , SWITCH_OFF, get_param_handle("PTN_136"), "PTN_136"},
+    {vdi_control_tc , SWITCH_OFF, get_param_handle("PTN_137"), "PTN_137"},
+    {vdi_control_tc_C , SWITCH_OFF, get_param_handle("PTN_138"), "PTN_138"},
+    {vdi_control_analog , SWITCH_OFF, get_param_handle("PTN_139"), "PTN_139"},
+}
+
+current_status = {
+    {vdi_control_off , SWITCH_OFF,},
+    {vdi_control_stby , SWITCH_OFF,},
+    {vdi_control_tc , SWITCH_OFF,},
+    {vdi_control_tc_C , SWITCH_OFF,},
+    {vdi_control_analog , SWITCH_OFF,},
+}
+
+function update_switch_status()
+    local switch_moving_step = 0.25
+    for k,v in pairs(target_status) do
+        if math.abs(target_status[k][2] - current_status[k][2]) < switch_moving_step then
+            current_status[k][2] = target_status[k][2]
+        elseif target_status[k][2] > current_status[k][2] then
+            current_status[k][2] = current_status[k][2] + switch_moving_step
+        elseif target_status[k][2] < current_status[k][2] then
+            current_status[k][2] = current_status[k][2] - switch_moving_step
+        end
+        target_status[k][3]:set(current_status[k][2])
+        local temp_switch_ref = get_clickable_element_reference(target_status[k][4])
+        temp_switch_ref:update()
+        -- print_message_to_user(k)
+    end
+end
+
+function init_analog()
     for i = 1, 12, 1 do
         temp_control = get_param_handle("VDI_ANALOG_CLOUD_MOVING_"..i)
         if i == 11 or i == 12 then
@@ -59,12 +112,51 @@ function post_initialize()
     end
 end
 
-function update()
-    local current_opac = 0.4
+function post_initialize()
+    -- test_uhf:set("DEFAULT UHF CHANNEL TEST")
+    for k,v in pairs(target_status) do
+        current_status[k][2] = target_status[k][2]
+        target_status[k][3]:set(current_status[k][2])
+    end
+end
+
+VDIControlSystem:listen_command(Keys.VDIControlOff)
+VDIControlSystem:listen_command(Keys.VDIControlSTBY)
+VDIControlSystem:listen_command(Keys.VDIControlTC)
+VDIControlSystem:listen_command(Keys.VDIControlTCCal)
+VDIControlSystem:listen_command(Keys.VDIControlAnalog)
+
+function SetCommand(command, value)
+    if command == Keys.VDIControlOff then
+        target_status[CURRENT_DISPLAY][2] = SWITCH_OFF
+        target_status[vdi_control_off][2] = SWITCH_ON
+        CURRENT_DISPLAY = vdi_control_off
+    elseif command == Keys.VDIControlSTBY then
+        target_status[CURRENT_DISPLAY][2] = SWITCH_OFF
+        target_status[vdi_control_stby][2] = SWITCH_ON
+        CURRENT_DISPLAY = vdi_control_stby
+    elseif command == Keys.VDIControlTC then
+        target_status[CURRENT_DISPLAY][2] = SWITCH_OFF
+        target_status[vdi_control_tc][2] = SWITCH_ON
+        CURRENT_DISPLAY = vdi_control_tc
+    elseif command == Keys.VDIControlTCCal then
+        target_status[CURRENT_DISPLAY][2] = SWITCH_OFF
+        target_status[vdi_control_tc_C][2] = SWITCH_ON
+        CURRENT_DISPLAY = vdi_control_tc_C
+    elseif command == Keys.VDIControlAnalog then
+        target_status[CURRENT_DISPLAY][2] = SWITCH_OFF
+        target_status[vdi_control_analog][2] = SWITCH_ON
+        CURRENT_DISPLAY = vdi_control_analog
+        init_analog()
+    end
+end
+
+function update_AnalogPage(is_display)
+    local current_opac = CURRENT_LIGHTNESS * is_display
     vdi_ground_tex_enable:set(current_opac)
     vdi_analog_enable:set(current_opac)
     vdi_cloud_tex_enable:set(current_opac)
-    vdi_base_enable:set(1)
+    -- vdi_base_enable:set(1)
     vdi_simbol_enable:set(current_opac * 2)
 
     local moving_step = 0.005
@@ -102,5 +194,19 @@ function update()
 
     vdi_bank_angle:set(- sensor_data.getRoll() * 0.5)
     vdi_bank_up:set(math.abs(sensor_data.getRoll() * 0.05))
+end
+
+function update()
+    update_switch_status()
+    if CURRENT_DISPLAY > 1.2 then
+        vdi_base_enable:set(1)
+    else
+        vdi_base_enable:set(0)
+    end
+    if CURRENT_DISPLAY == vdi_control_analog then
+        update_AnalogPage(1)
+    else
+        update_AnalogPage(0)
+    end
 end
 

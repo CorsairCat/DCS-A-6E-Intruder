@@ -203,6 +203,14 @@ Keys =
     TACANAntDOWN = __custom_counter(),
     UHFAntUP = __custom_counter(),
     UHFAntDOWN = __custom_counter(),
+
+    -- VDI System
+    VDIControlOff = __custom_counter(),
+    VDIControlTC = __custom_counter(),
+    VDIControlTest = __custom_counter(),
+    VDIControlTCCal = __custom_counter(),
+    VDIControlAnalog = __custom_counter(),
+    VDIControlSTBY = __custom_counter(),
 }
 
 --从5000开始递增点击指令

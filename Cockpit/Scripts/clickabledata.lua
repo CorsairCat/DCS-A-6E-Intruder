@@ -417,6 +417,13 @@ multi_tumb_click_list = {
     -- antanna
     {"PTN_235", "TACAN Antanna Selection", devices.RADIO_SYSTEM, 235, Keys.TACANAntUP, Keys.TACANAntDOWN},
     {"PTN_236", "UHF Antanna Selection", devices.RADIO_SYSTEM, 236, Keys.UHFAntUP, Keys.UHFAntDOWN},
+
+    -- VDI control
+    {"PTN_135", "VDI Display Off", devices.VDI_DCMS, 135, Keys.VDIControlOff},
+    {"PTN_136", "VDI Display STBY Page", devices.VDI_DCMS, 136, Keys.VDIControlSTBY},
+    {"PTN_137", "VDI Display Terrian Clearance Calibrate", devices.VDI_DCMS, 137, Keys.VDIControlTC},
+    {"PTN_138", "VDI Display Terrian Clearance", devices.VDI_DCMS, 138, Keys.VDIControlTCCal},
+    {"PTN_139", "VDI Display Analog Page", devices.VDI_DCMS, 139, Keys.VDIControlAnalog},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
