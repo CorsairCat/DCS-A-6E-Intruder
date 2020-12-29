@@ -44,6 +44,9 @@ end
 CURRENT_DISPLAY = 1
 CURRENT_LIGHTNESS = 0.3
 
+SELF_LOC_X_LAST = 0
+SELF_LOC_Y_LAST = 0
+
 local vdi_control_off = _switch_counter()  -- 1
 local vdi_control_stby = _switch_counter() -- 2
 local vdi_control_tc = _switch_counter() -- 3
@@ -84,6 +87,9 @@ function update_switch_status()
 end
 
 function init_analog()
+    local self_loc_x , own_alt, self_loc_y = sensor_data.getSelfCoordinates()
+    SELF_LOC_X_LAST = self_loc_x
+    SELF_LOC_Y_LAST = self_loc_y
     for i = 1, 12, 1 do
         temp_control = get_param_handle("VDI_ANALOG_CLOUD_MOVING_"..i)
         if i == 11 or i == 12 then
@@ -114,6 +120,19 @@ end
 
 function post_initialize()
     -- test_uhf:set("DEFAULT UHF CHANNEL TEST")
+    local birth = LockOn_Options.init_conditions.birth_place
+    if birth == "GROUND_HOT" or birth == "AIR_HOT" then
+        target_status = {
+            {vdi_control_off , SWITCH_ON, get_param_handle("PTN_135"), "PTN_135"},
+            {vdi_control_stby , SWITCH_OFF, get_param_handle("PTN_136"), "PTN_136"},
+            {vdi_control_tc , SWITCH_OFF, get_param_handle("PTN_137"), "PTN_137"},
+            {vdi_control_tc_C , SWITCH_OFF, get_param_handle("PTN_138"), "PTN_138"},
+            {vdi_control_analog , SWITCH_OFF, get_param_handle("PTN_139"), "PTN_139"},
+        }
+        CURRENT_DISPLAY = vdi_control_analog
+        init_analog()
+    end
+
     for k,v in pairs(target_status) do
         current_status[k][2] = target_status[k][2]
         target_status[k][3]:set(current_status[k][2])
@@ -157,9 +176,18 @@ function update_AnalogPage(is_display)
     vdi_analog_enable:set(current_opac)
     vdi_cloud_tex_enable:set(current_opac)
     -- vdi_base_enable:set(1)
-    vdi_simbol_enable:set(current_opac * 2)
 
     local moving_step = 0.005
+    local self_loc_x , own_alt, self_loc_y = sensor_data.getSelfCoordinates()
+    if (self_loc_x == SELF_LOC_X_LAST) and (self_loc_y == SELF_LOC_Y_LAST) then
+        moving_step = 0
+    else
+        -- calculate ground speed
+        moving_step = math.sqrt((self_loc_x - SELF_LOC_X_LAST)^2 + (self_loc_y - SELF_LOC_Y_LAST)^2 ) / 5 * 0.005
+        -- print_message_to_user("GroundSpeed:"..moving_step * 5 /0.005)
+    end
+    SELF_LOC_X_LAST = self_loc_x
+    SELF_LOC_Y_LAST = self_loc_y
     local current_move = vdi_ground_moving:get()
     if current_move > - 0.7 then
         vdi_ground_moving:set(current_move - moving_step)
@@ -168,7 +196,7 @@ function update_AnalogPage(is_display)
     end
     local temp_control 
     local temp_opac
-    local moving_step = 0.005
+    -- local moving_step = 0.005
     for i = 1, 12, 1 do
         temp_control = get_param_handle("VDI_ANALOG_CLOUD_MOVING_"..i)
         temp_opac = get_param_handle("VDI_ANALOG_CLOUD_OPAC_"..i)
@@ -185,9 +213,13 @@ function update_AnalogPage(is_display)
             temp_opac:set(1 * current_opac)
         end
     end
-
     vdi_ana_roll:set(sensor_data.getRoll())
     vdi_bg_pitch:set(- sensor_data.getPitch() * 0.5)
+end
+
+function update_base_simble(is_display)
+    local current_opac = CURRENT_LIGHTNESS * is_display
+    vdi_simbol_enable:set(current_opac * 2)
 
     vdi_impact_pitch:set(- sensor_data.getAngleOfAttack() * 0.5)
     vdi_impact_yaw:set(- sensor_data.getAngleOfSlide() * 0.5)
@@ -198,15 +230,22 @@ end
 
 function update()
     update_switch_status()
-    if CURRENT_DISPLAY > 1.2 then
-        vdi_base_enable:set(1)
-    else
-        vdi_base_enable:set(0)
-    end
-    if CURRENT_DISPLAY == vdi_control_analog then
-        update_AnalogPage(1)
-    else
-        update_AnalogPage(0)
+    if get_elec_primary_ac_ok() then
+        if CURRENT_DISPLAY > 2.2 then
+            vdi_base_enable:set(1)
+            update_base_simble(1)
+        elseif CURRENT_DISPLAY > 1.2 then
+            vdi_base_enable:set(1)
+            update_base_simble(0)
+        else
+            vdi_base_enable:set(0)
+            update_base_simble(0)
+        end
+        if CURRENT_DISPLAY == vdi_control_analog then
+            update_AnalogPage(1)
+        else
+            update_AnalogPage(0)
+        end 
     end
 end
 
