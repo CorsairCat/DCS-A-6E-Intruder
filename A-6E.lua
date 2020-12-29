@@ -54,7 +54,8 @@ A_6e = {
 	net_animation = {
         0, -- front gear
         3, -- right gear
-        5, -- left gear
+		5, -- left gear
+		8, --wing folding
         9, -- right flap
         10, -- left flap
         11, -- right aileron
@@ -78,7 +79,7 @@ A_6e = {
         192, -- tail (white) light
 
 		--198, -- anticollision (flashing red) top light
-		85, -- captsual launch bar
+		--85, -- captsual launch bar
         83, -- anticollision (flashing red) bottom light
         51, -- taxi light (white) right main gear door
         402, -- huffer
