@@ -187,7 +187,13 @@ A_6e = {
 			drop_canopy_name	= "A-6E-fragment-canopy-glass", --not done
 			pos					= {4.768, -0.455, -0.5},
 			canopy_pos			= {2.677, 2.677, 0},
-			g_suit 			    =  6
+			g_suit 			    =  6,
+			can_be_playable   	= true,
+			canopy_arg          = 38,
+			ejection_order    	= 2,
+			ejection_added_speed= {-3,15,-3}, --pilot to the left
+			role      			= "pilot",
+			role_display_name   = _("Pilot"),
 		}, -- end of [1]
 
 		[2] = 
@@ -196,8 +202,15 @@ A_6e = {
 			drop_canopy_name	= "A-6E-fragment-canopy-glass", --not done
 			pos					= {4.768, -0.455, 0.5},
 			canopy_pos			= {2.677, 2.677, 0},
-			g_suit 			    =  6
-		}, -- end of [1]
+			g_suit 			    =  6,
+			can_be_playable  	= true,
+			ejection_added_speed= {-3,15,3}, -- RIO to the right
+			ejection_order   	= 1,
+			canopy_arg          = 38,
+			pilot_body_arg  	= 472,
+			role      			= "instructor",
+			role_display_name   = _("Bombardier/Navigator"),
+		}, -- end of [2]
 	}, -- end of crew_members
 		
 	mechanimations = {
