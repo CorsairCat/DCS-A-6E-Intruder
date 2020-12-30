@@ -196,6 +196,9 @@ animation_list = {
 
     {"tacan_mode", 912}, -- 0:off; 1:REC; 2:T/C
     {"tacan_chann", 913}, 
+
+    -- Carrier launch
+    {"is_locked_to_catapult", 914}, -- 0: no; 1:yes
 }
 
 --[[

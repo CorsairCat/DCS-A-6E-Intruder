@@ -143,6 +143,8 @@ function SetCommand(command,value)
     end
 end
 
+IS_LOCKED_TO_CATAPULT_STATUS = get_param_handle("is_locked_to_catapult")
+
 function update_hook_and_bar()
     local time_increse_step = 0.005
     --HOOK_CURR_STATUS = get_aircraft_draw_argument_value(25)
@@ -156,16 +158,22 @@ function update_hook_and_bar()
             HOOK_CURR_STATUS = HOOK_CURR_STATUS - time_increse_step
         end
     end
-    if math.abs(LAUNCH_BAR_CURR_STATUS - LAUNCH_BAR_TARGET_STATUS) < 0.05 then
-        LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_TARGET_STATUS
-    else
-        if LAUNCH_BAR_CURR_STATUS < LAUNCH_BAR_TARGET_STATUS then
-            LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS + time_increse_step
-        elseif LAUNCH_BAR_CURR_STATUS > LAUNCH_BAR_TARGET_STATUS then
-            LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS - time_increse_step
+
+    if IS_LOCKED_TO_CATAPULT_STATUS ~= 1 then
+        if math.abs(LAUNCH_BAR_CURR_STATUS - LAUNCH_BAR_TARGET_STATUS) < 0.05 then
+            LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_TARGET_STATUS
+        else
+            if LAUNCH_BAR_CURR_STATUS < LAUNCH_BAR_TARGET_STATUS then
+                LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS + time_increse_step
+            elseif LAUNCH_BAR_CURR_STATUS > LAUNCH_BAR_TARGET_STATUS then
+                LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS - time_increse_step
+            end
         end
+    else
+        -- do noting? / or set to another value
+        LAUNCH_BAR_CURR_STATUS = 0.9
     end
-    set_aircraft_draw_argument_value(85, LAUNCH_BAR_CURR_STATUS)
+    
     set_aircraft_draw_argument_value(25, HOOK_CURR_STATUS)
     -- print_message_to_user(HOOK_CURR_STATUS)
 end
@@ -181,6 +189,12 @@ function update()
     local n_gear_status = get_aircraft_draw_argument_value(0)
     local l_gear_status = get_aircraft_draw_argument_value(5)
     local r_gear_status = get_aircraft_draw_argument_value(3)
+
+    if nose_gear_status == 1 then
+        set_aircraft_draw_argument_value(85, LAUNCH_BAR_CURR_STATUS)
+    else
+        set_aircraft_draw_argument_value(85, n_gear_status)
+    end
 
         --takes 7 seconds to full extended
         -- set globle time count
