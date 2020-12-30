@@ -280,12 +280,17 @@ keyCommands = {
     {down = iCommandPlaneLightsOnOff, name = _('Navigation lights'), category = _('Systems')},
     {down = iCommandPlaneHeadLightOnOff, name = _('Gear Light Near/Far/Off'), category = _('Systems')},
 
-    {down = iCommandPlaneFlaps, name = _('Flaps Up/Down'), category = _('Systems')},
-    {down = iCommandPlaneFlapsOn, name = _('Flaps Down'), category = _('Systems')},
-    {down = iCommandPlaneFlapsOff, name = _('Flaps Up'), category = _('Systems')},
-    {down = Keys.PlaneFlapsStop, name = _('Flaps Stop'), category = 'Systems'},
-    {down = Keys.PlaneFlapsDownHotas, up = Keys.PlaneFlapsStop, name = _('Flaps Down else Stop (HOTAS)'), category = 'HOTAS'}, -- for Warthog/HOTAS Flaps lever - realistic
-    {down = Keys.PlaneFlapsUpHotas, up = Keys.PlaneFlapsStop, name = _('Flaps Up else Stop (HOTAS)'), category = 'HOTAS'},  -- for Warthog/HOTAS Flaps lever - realistic
+    --{down = iCommandPlaneFlaps, name = _('Flaps Up/Down'), category = _('Systems')},
+    {down = Keys.FlapDown, name = _('Flaps Down'), category = _('Systems')},
+    {down = Keys.FlapUp, name = _('Flaps Up'), category = _('Systems')},
+    {down = Keys.FlapDown, name = _('Flaps Down (HOTAS)'), category = _('HOTAS')},
+    {down = Keys.FlapUp, name = _('Flaps Up (HOTAS)'), category = _('HOTAS')},
+    --{down = Keys.PlaneFlapsStop, name = _('Flaps Stop'), category = 'Systems'},
+    --{down = Keys.PlaneFlapsDownHotas, up = Keys.PlaneFlapsStop, name = _('Flaps Down else Stop (HOTAS)'), category = 'HOTAS'}, -- for Warthog/HOTAS Flaps lever - realistic
+    --{down = Keys.PlaneFlapsUpHotas, up = Keys.PlaneFlapsStop, name = _('Flaps Up else Stop (HOTAS)'), category = 'HOTAS'},  -- for Warthog/HOTAS Flaps lever - realistic
+    {down = Keys.HookHandle, name = _('Tail Hook Up/Down'), category = _('Systems')},
+    {down = Keys.LaunchBarHandle, name = _('Tow Link Up/Down'), category = _('Systems')},
+
 
     {down = iCommandPlaneGear, name = _('Landing Gear Up/Down'), category = _('Systems')},
     {down = iCommandPlaneGearUp, name = _('Landing Gear Up'), category = _('Systems')},

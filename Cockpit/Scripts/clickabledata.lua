@@ -412,6 +412,10 @@ multi_tumb_click_list = {
     {"PTN_216", "Windshield Wash and Heat", devices.ECS_SYSTEM, 216, Keys.DeiceWindShieldUP, Keys.DeiceWindShieldDOWN},
     {"PTN_217", "Pitot Heat", devices.ECS_SYSTEM, 217, Keys.DeicePitot},
 
+    -- Carrier landing ext
+    {"PTN_053", "Hook Handle", devices.GEAR_SYSTEM, 53, Keys.HookHandle},
+    {"PTN_054", "Launch Bar Handle", devices.GEAR_SYSTEM, 44, Keys.LaunchBarHandle},
+
     -- UHF
     {"PTN_182", "Guard type", devices.RADIO_SYSTEM, 182, Keys.UHFGuard},
     -- antanna

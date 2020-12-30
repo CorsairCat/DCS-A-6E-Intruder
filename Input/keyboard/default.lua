@@ -280,10 +280,13 @@ keyCommands = {
     {combos = {{key = 'L', reformers = {'RCtrl'}}}, down = Keys.PlaneLightsOnOff, name = _('Navigation Lights Bright/Dim/Off'), category = _('Systems')},
     {combos = {{key = 'L', reformers = {'RAlt'}}}, down = Keys.PlaneHeadlightOnOff, name = _('Taxi Light On/Off'), category = _('Systems')},
 
-    {combos = {{key = 'F'}}, down = iCommandPlaneFlaps, name = _('Flaps Up/Down'), category = _('Systems')},
-    {combos = {{key = 'F', reformers = {'LCtrl'}}}, down = iCommandPlaneFlapsOn, name = _('Flaps Down'), category = _('Systems')},
-    {combos = {{key = 'F', reformers = {'LShift'}}}, down = iCommandPlaneFlapsOff, name = _('Flaps Up'), category = _('Systems')},
-    {combos = {{key = 'F', reformers = {'LAlt'}}}, down = Keys.PlaneFlapsStop, name = _('Flaps Stop'), category = _('Systems')},
+    {combos = {{key = 'F', reformers = {'LCtrl'}}}, down = Keys.FlapDown, name = _('Flaps Down'), category = _('Systems')},
+    {combos = {{key = 'F', reformers = {'LShift'}}}, down = Keys.FlapUp, name = _('Flaps Up'), category = _('Systems')},
+    {down = Keys.FlapDown, name = _('Flaps Down (HOTAS)'), category = _('HOTAS')},
+    {down = Keys.FlapUp, name = _('Flaps Up (HOTAS)'), category = _('HOTAS')},
+
+    {combos = {{key = 'G', reformers = {'LAlt'}}}, down = Keys.HookHandle, name = _('Tail Hook Up/Down'), category = _('Systems')},
+    {down = Keys.LaunchBarHandle, name = _('Tow Link Up/Down'), category = _('Systems')},
 
     {combos = {{key = 'G'}}, down = Keys.PlaneGear, name = _('Landing Gear Up/Down'), category = _('Systems')},
     {combos = {{key = 'G', reformers = {'LCtrl'}}}, down = Keys.PlaneGearUp, name = _('Landing Gear Up'), category = _('Systems')},

@@ -211,6 +211,9 @@ Keys =
     VDIControlTCCal = __custom_counter(),
     VDIControlAnalog = __custom_counter(),
     VDIControlSTBY = __custom_counter(),
+
+    HookHandle = __custom_counter(),
+    LaunchBarHandle = __custom_counter(),
 }
 
 --从5000开始递增点击指令
