@@ -121,9 +121,9 @@ function Altitude_Cal()
     elseif (radar_altitude < 200) then
         Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 100) * 0.0012 + 0.22
     elseif (radar_altitude < 400) then
-        Gauge_display_state[radar_alt_ind][2] = (radar_alt_ind - 200) * 0.0007 + 0.34
+        Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 200) * 0.0007 + 0.34
     elseif (radar_altitude < 500) then
-        Gauge_display_state[radar_alt_ind][2] = (radar_alt_ind - 400) * 0,0002 + 0.48
+        Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 400) * 0,0002 + 0.48
     elseif (radar_altitude < 1000) then
         Gauge_display_state[radar_alt_ind][2] = (radar_altitude - 500) * 0.0003 + 0.5 --0.65
     elseif (radar_altitude < 2000) then
@@ -155,7 +155,7 @@ end
 
 function calculate_Climb_Slide()
     if (get_elec_primary_ac_ok() == true) then
-        local climb_rate = sensor_data.getVerticalVelocity() * METER_TO_INCH * 60 / 6000
+        local climb_rate = sensor_data.getVerticalVelocity() * METER_TO_INCH / 100
         local slide_rate = sensor_data.getRateOfYaw() * RAD_TO_DEGREE / 90
         Gauge_display_state[climb_rate_ind][2] = climb_rate
         Gauge_display_state[slide_rate_ind][2] = slide_rate
