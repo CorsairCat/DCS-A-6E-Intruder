@@ -84,4 +84,7 @@ dofile(current_mod_path.."/A-6E.lua")
 dofile(current_mod_path.."/Views.lua")
 make_view_settings('A-6E', ViewSettings, SnapViews)
 
+
+make_aircraft_carrier_capable('A-6E',{"AircraftCarrier","AircraftCarrier With Tramplin","AircraftCarrier With Catapult"})
+
 plugin_done()
