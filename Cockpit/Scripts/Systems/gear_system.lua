@@ -136,26 +136,38 @@ function SetCommand(command,value)
     elseif (command == Keys.LaunchBarHandle) then
         target_status[launch_bar_handle][2] = 1 - target_status[launch_bar_handle][2]
         LAUNCH_BAR_TARGET_STATUS = target_status[launch_bar_handle][2]
+        print_message_to_user(LAUNCH_BAR_TARGET_STATUS)
     elseif (command == Keys.HookHandle) then
         target_status[landing_hook_handle][2] = 1 - target_status[landing_hook_handle][2]
         HOOK_TARGET_STATUS = target_status[landing_hook_handle][2]
-	end
+    end
 end
 
 function update_hook_and_bar()
-    local time_increse_step = 0.02 / 4
-    if HOOK_CURR_STATUS < HOOK_TARGET_STATUS then
-        HOOK_CURR_STATUS = HOOK_CURR_STATUS + 0.05
-    elseif HOOK_CURR_STATUS > HOOK_TARGET_STATUS then
-        HOOK_CURR_STATUS = HOOK_CURR_STATUS - time_increse_step
+    local time_increse_step = 0.005
+    --HOOK_CURR_STATUS = get_aircraft_draw_argument_value(25)
+    --LAUNCH_BAR_CURR_STATUS = get_aircraft_draw_argument_value(85)
+    if math.abs(HOOK_CURR_STATUS - HOOK_TARGET_STATUS) < 0.01 then
+       HOOK_CURR_STATUS = HOOK_TARGET_STATUS
+    else
+        if HOOK_CURR_STATUS < HOOK_TARGET_STATUS then
+            HOOK_CURR_STATUS = HOOK_CURR_STATUS + 0.01
+        elseif HOOK_CURR_STATUS > HOOK_TARGET_STATUS then
+            HOOK_CURR_STATUS = HOOK_CURR_STATUS - time_increse_step
+        end
     end
-    if LAUNCH_BAR_CURR_STATUS < LAUNCH_BAR_TARGET_STATUS then
-        LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS + time_increse_step
-    elseif LAUNCH_BAR_CURR_STATUS > LAUNCH_BAR_TARGET_STATUS then
-        LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS - time_increse_step
+    if math.abs(LAUNCH_BAR_CURR_STATUS - LAUNCH_BAR_TARGET_STATUS) < 0.05 then
+        LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_TARGET_STATUS
+    else
+        if LAUNCH_BAR_CURR_STATUS < LAUNCH_BAR_TARGET_STATUS then
+            LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS + time_increse_step
+        elseif LAUNCH_BAR_CURR_STATUS > LAUNCH_BAR_TARGET_STATUS then
+            LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS - time_increse_step
+        end
     end
     set_aircraft_draw_argument_value(85, LAUNCH_BAR_CURR_STATUS)
     set_aircraft_draw_argument_value(25, HOOK_CURR_STATUS)
+    -- print_message_to_user(HOOK_CURR_STATUS)
 end
 
 local gear_level_pos = gear_level:get()

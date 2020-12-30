@@ -308,12 +308,6 @@ Landinggearhandle.input				= {0, 1}
 Landinggearhandle.output			= {0, 1}
 Landinggearhandle.parameter_name	= "LandingGearLevel"
 
-TowLinkHookhandle					= CreateGauge("parameter")
-TowLinkHookhandle.arg_number		= 44
-TowLinkHookhandle.input				= {0, 1}
-TowLinkHookhandle.output			= {0, 1}
-TowLinkHookhandle.parameter_name	= "TowLinkHookLevel"
-
 CanopyInside					    = CreateGauge("parameter")
 CanopyInside.arg_number		        = 38
 CanopyInside.input				    = {0, 1}

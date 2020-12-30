@@ -143,20 +143,18 @@ end
 function update()
     -- 开关舱门
     if (main_bay_status < main_bay_target and main_bay_target == 1) then
-		set_aircraft_draw_argument_value(25, main_bay_status)
+		--set_aircraft_draw_argument_value(25, main_bay_status)
 		--set_aircraft_draw_argument_value(26, get_aircraft_draw_argument_value(26) + 0.06)
         main_bay_status = main_bay_status + 0.05
         weapon_bay_display:set("OPENING")
 	elseif (main_bay_status > main_bay_target and main_bay_target == 0) then
-		set_aircraft_draw_argument_value(25, main_bay_status)
+		--set_aircraft_draw_argument_value(25, main_bay_status)
         --set_aircraft_draw_argument_value(26, get_aircraft_draw_argument_value(26) - 0.06)
         weapon_bay_display:set("CLOSEING")
         main_bay_status = main_bay_status - 0.05
     elseif (main_bay_target == 1) then
-        set_aircraft_draw_argument_value(25, 1)
         weapon_bay_display:set("OPEN")
     elseif (main_bay_target == 0) then
-        set_aircraft_draw_argument_value(25, 0)
         weapon_bay_display:set("CLOSE")
     end
     
