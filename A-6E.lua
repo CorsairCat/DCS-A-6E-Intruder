@@ -104,7 +104,7 @@ A_6e = {
 	wing_span 			= 16.154, 	--机翼跨度
 	wing_tip_pos 		= {-0.983, -0.809, 8.138},  --机翼坐标（前后 上下 左右）
 	wing_type 			= 0, 	--机翼类型
-	flaps_maneuver 		= 0.4, 	--起飞时最大襟翼(0.5为一级，1.0为两级)(仅AI使用此参数)
+	flaps_maneuver 		= 1.0, 	--起飞时最大襟翼(0.5为一级，1.0为两级)(仅AI使用此参数)
 	has_speedbrake 		= true, --有空气刹车
 
 	RCS					= 4.0, --正面雷达反射面积（m2）F16的标准截面积为4.0
@@ -115,8 +115,8 @@ A_6e = {
 
 	CAS_min 			= 58, 
 	V_opt 				= 211.944,
- 	V_take_off 			= 70, --67, --离地速度AI（m/s)
- 	V_land 				= 55, --63, --着陆速度AI（m/s)
+ 	V_take_off 			= 64, --67, --离地速度AI（m/s)
+ 	V_land 				= 64, --63, --着陆速度AI（m/s)
  	V_max_sea_level 	= 288.89, --最大海平面速度AI（m/s)
  	V_max_h 			= 205.778, --最大高度速度AI（m/s)
 	Vy_max 				= 38.7, 
@@ -152,6 +152,8 @@ A_6e = {
 	main_gear_amortizer_direct_stroke			=  3.226 - 3.226,		
 	main_gear_amortizer_reversal_stroke			=  2.791 - 3.226, 		
 	main_gear_amortizer_normal_weight_stroke	=  2.885 - 3.226,		
+
+	launch_bar_connected_arg_value = 0.95 ,
 
 	engines_count	=	2,--发动机数量
 	engines_nozzles = 
@@ -198,6 +200,37 @@ A_6e = {
 		}, -- end of [1]
 	}, -- end of crew_members
 		
+	--[[
+			mechanimations = {
+		LaunchBar = {
+			{Transition = {"Retract", "Extend"}, Sequence = {{C = {{"ChangeDriveTo", "HydraulicGravityAssisted"}, {"VelType", 3}, {"Arg", 85, "to", 0.881, "in", 4.4}}}}},
+			--{Transition = {"Extend", "Retract"}, Sequence = {{C = {{"ChangeDriveTo", "Hydraulic"}, {"VelType", 2}, {"Arg", 85, "to", 0.000, "in", 4.5}}}}},
+			{Transition = {"Retract", "Stage"},  Sequence = {{C = {{"ChangeDriveTo", "HydraulicGravityAssisted"}, {"VelType", 3}, {"Arg", 85, "to", 0.815, "in", 4.4}}}}},
+			--{Transition = {"Stage", "Retract"},  Sequence = {{C = {{"ChangeDriveTo", "Hydraulic"}, {"VelType", 2}, {"Arg", 85, "to", 0.000, "in", 4.5}}}}},
+			{Transition = {"Any", "Retract"},  Sequence = {{C = {{"ChangeDriveTo", "Hydraulic"}, {"VelType", 2}, {"Arg", 85, "to", 0.000, "in", 4.5}}}}},
+			{Transition = {"Extend", "Stage"},   Sequence = {
+					{C = {{"ChangeDriveTo", "Mechanical"}, {"Sleep", "for", 0.000}}},
+					{C = {{"Arg", 85, "from", 0.881, "to", 0.766, "in", 0.600}}},
+					{C = {{"Arg", 85, "from", 0.766, "to", 0.753, "in", 0.200}}},
+					{C = {{"Sleep", "for", 0.15}}},
+					--{C = {{"Sleep", "for", 0.150}}},
+					{C = {{"Arg", 85, "from", 0.753, "to", 0.784, "in", 0.1, "sign", 2}}},
+					{C = {{"Arg", 85, "from", 0.784, "to", 0.881, "in", 1.0}}},
+					--{C = {{"PosType", 6}, {"Sleep", "for", 3.3}}},
+					--{C = {{"Arg", 85, "from", 0.854, "to", 0.815, "in", 1.25}}},
+				},
+			},
+			{Transition = {"Stage", "Pull"},  Sequence = {
+					{C = {{"ChangeDriveTo", "Mechanical"}, {"VelType", 2}, {"Arg", 85,"from", 0.881, "to", 0.95, "in", 0.15}}},
+					{C = {{"ChangeDriveTo", "Mechanical"}, {"VelType", 2}, {"Arg", 85, "to", 0.78, "speed", 0.1}}},
+					{C = {{"ChangeDriveTo", "Mechanical"}, {"VelType", 2}, {"Arg", 85, "to", 0.7792, "speed", 0.02}}},
+					}
+			},
+			{Transition = {"Stage", "Extend"},   Sequence = {{C = {{"ChangeDriveTo", "HydraulicGravityAssisted"}, {"VelType", 3}, {"Arg", 85, "from", 0.815, "to", 0.881, "in", 0.2}}}}},
+		},
+	},
+	]]
+
 	LandRWCategories =
     {
         [1] =
@@ -390,7 +423,7 @@ A_6e = {
 			table_data = {
 					{0.0,	78920},
 					{0.2,	76020},
-					{0.4,	73480},
+					{0.4,	173480},
 					{0.6,	74620},
 					{0.7,	76430},
 					{0.8,	77900},
