@@ -2,4 +2,5 @@ model = {
     lods = {
         {"a-6e intruder.edm",7500000.000000};
     };
+    collision_shell = "a-6e intruder_collision.edm";
 }

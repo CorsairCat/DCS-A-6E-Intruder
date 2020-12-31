@@ -1,4 +1,6 @@
 local FM_dll=nil
+-- Test Collision only
+-- local FM_dll= "TEST_EFM.dll"
 --模组入口
 local self_ID = "A-6E" --定义模组名称，全局使用
 
@@ -67,9 +69,39 @@ mount_vfs_texture_path  (current_mod_path.."/Textures/A-6E-WEAPON")
  
 ---------------------------------------------------------------------------------------
 -- Option Cockpit operationnel, HUD partiel
+test_susp = {
+	{
+		wheel_radius         = 0.45,
+		
+			arg_post             = 0,
+			arg_amortizer        = 1,
+			arg_wheel_rotation   = 76,
+			arg_wheel_yaw        = 2,
+			collision_shell_name = "WHEEL_F",
+		},
+		{
+			wheel_radius         = 0.77,
+	
+			arg_post             = 3,
+			arg_amortizer        = 4,
+			arg_wheel_rotation   = 77,
+			arg_wheel_yaw        = -1,
+			collision_shell_name = "WHEEL_L",
+		},
+		{
+			wheel_radius         = 0.77,
+	
+			arg_post             = 5,
+			arg_amortizer        = 6,
+			arg_wheel_rotation   = 77,
+			arg_wheel_yaw        = -1,
+			collision_shell_name = "WHEEL_R",
+		},
+}
+
 local FM
 if FM_dll then
-    FM={self_ID,FM_dll}
+    FM={self_ID,FM_dll,center_of_mass = {2,0,0},moment_of_inertia = {52874,10552,105673},suspension = test_susp}
 else
     FM=nil
 end
