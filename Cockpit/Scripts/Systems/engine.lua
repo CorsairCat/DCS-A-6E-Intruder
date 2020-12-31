@@ -278,12 +278,12 @@ function SetCommand(command, value)
             local throttle = value * 0.85 + 0.15
             if (left_idle_status == SWITCH_ON) then
                 -- dispatch_action(nil, iCommandPlaneThrustCommon, value)
-                dispatch_action(Keys.LeftThrottleAxis, value)
+                dispatch_action(nil, Keys.LeftThrottleAxis, value)
                 -- left_throttle:set(throttle)
             end
             if (right_idle_status == SWITCH_ON) then
                 -- dispatch_action(nil, iCommandPlaneThrustCommon, value)
-                dispatch_action(Keys.RightThrottleAxis, value)
+                dispatch_action(nil, Keys.RightThrottleAxis, value)
                 -- right_throttle:set(throttle)
             end
         elseif (command == Keys.LeftThrottleAxis) and (engine_state_left == ENGINE_RUNNING) then 
