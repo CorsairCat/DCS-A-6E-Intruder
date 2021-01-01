@@ -287,8 +287,8 @@ keyCommands = {
 
     {combos = {{key = 'F', reformers = {'LCtrl'}}}, down = Keys.FlapDown, name = _('Flaps Down'), category = _('Systems')},
     {combos = {{key = 'F', reformers = {'LShift'}}}, down = Keys.FlapUp, name = _('Flaps Up'), category = _('Systems')},
-    {down = Keys.FlapDown, name = _('Flaps Down (HOTAS)'), category = _('HOTAS')},
-    {down = Keys.FlapUp, name = _('Flaps Up (HOTAS)'), category = _('HOTAS')},
+    --{down = Keys.FlapDown, name = _('Flaps Down (HOTAS)'), category = _('HOTAS')},
+    --{down = Keys.FlapUp, name = _('Flaps Up (HOTAS)'), category = _('HOTAS')},
 
     {combos = {{key = 'G', reformers = {'LAlt'}}}, down = Keys.HookHandle, name = _('Tail Hook Up/Down'), category = _('Systems')},
     {down = Keys.LaunchBarHandle, name = _('Tow Link Up/Down'), category = _('Systems')},

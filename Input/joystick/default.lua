@@ -283,8 +283,8 @@ keyCommands = {
     --{down = iCommandPlaneFlaps, name = _('Flaps Up/Down'), category = _('Systems')},
     {down = Keys.FlapDown, name = _('Flaps Down'), category = _('Systems')},
     {down = Keys.FlapUp, name = _('Flaps Up'), category = _('Systems')},
-    {down = Keys.FlapDown, name = _('Flaps Down (HOTAS)'), category = _('HOTAS')},
-    {down = Keys.FlapUp, name = _('Flaps Up (HOTAS)'), category = _('HOTAS')},
+    --{down = Keys.FlapDown, name = _('Flaps Down (HOTAS)'), category = _('HOTAS')},
+    --{down = Keys.FlapUp, name = _('Flaps Up (HOTAS)'), category = _('HOTAS')},
     --{down = Keys.PlaneFlapsStop, name = _('Flaps Stop'), category = 'Systems'},
     --{down = Keys.PlaneFlapsDownHotas, up = Keys.PlaneFlapsStop, name = _('Flaps Down else Stop (HOTAS)'), category = 'HOTAS'}, -- for Warthog/HOTAS Flaps lever - realistic
     --{down = Keys.PlaneFlapsUpHotas, up = Keys.PlaneFlapsStop, name = _('Flaps Up else Stop (HOTAS)'), category = 'HOTAS'},  -- for Warthog/HOTAS Flaps lever - realistic
