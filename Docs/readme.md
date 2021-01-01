@@ -244,7 +244,7 @@
 #### ARG 318 - 320
 + 318: Nose; 319: Left; 320: Right
 
-#### ARG 321 - 
+#### ARG 321 - 360
 + 321: air speed ind; 322: mach ind
 + 323: G meter
 + 324: Gyro roll, 325 Gyro pitch
@@ -258,3 +258,54 @@
 + 341: HSI compass; 342: Course; 343: Course_Tofrom; 344: Heading; 345: TACAN; 346: ADF;
 + 347 - 350: TACAN distance display; 351 - 353: Course Degree
 + 354: Fuel Quantity Inner; 355: Fuel Quantity Selection; 356 - 360: Fuel QUnantity All Display
+
+
+## Bomber Panel Starts from ARG 500
+#### ARG 501 - 529
++ Armater Panel TOP
++ 501 - 505: Selection of station Ind Lights
++ 506 - 510: Select Buttons
++ 511 - 515: Station Load Display
++ 516 - 520: Station Selection Switch
++ 521: Master Arm Switch
++ 522: L out Selection Light
++ 523: L out Select Button
++ 524: L out Load Display
++ 525: L out Select Switch
++ 526: R out Selection Light
++ 527: R out Select Button
++ 528: R out Load Display
++ 529: R out Select Switch
++ 562: Reselect Light
++ 563: Complete Light
+
+#### ARG 531 - 561
++ 531 - 538: Release Mode
++ 539 - 546: Attack Mode
++ 547: mech arm
++ 548: rocket fire mode (single/ ripple)
++ 549: Guns mode select
++ 550 - 552: Interval Select
++ 553 - 555: Qunantity Select
++ 556 - 557: Time Select
++ 558: missile control
++ 559: missile cooling
++ 560: missile tone
++ 561: missile pwr
+
+#### ARG 564 - 566
++ 564: HVDC light
++ 565: HVDC test button
++ 566: HVDC mode Roller
+
+#### ARG 567 - 575
++ Nuclear Panel
++ 567: Station 2 light
++ 568: Station 3 light
++ 569: Station 4 light
++ 570: Arm Light
++ 571: Safe Light
++ 572: OFF Button
++ 573: Safe Button
++ 574: GND Button
++ 575: AIR Button
