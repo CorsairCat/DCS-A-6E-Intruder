@@ -12,6 +12,72 @@ res.Name = name
 return res
 end
 
+function GenerateWeapon(Position)
+	local StationLoad = {}
+	if Position == "IN" then
+		StationLoad = {
+			-- A2A missiles
+			{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
+			{ CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
+			-- Fuel Tanks
+			{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
+			-- BOMBS
+			{ CLSID = "{BCE4E030-38E9-423E-98ED-24BE3DA87C32}" },  -- Mk-82
+			{ CLSID	= "{7A44FF09-527C-4B7E-B42B-3F111CFE50FB}" },  -- Mk-83
+			{ CLSID	= "{AB8B8299-F1CC-4359-89B5-2172E0CF4A5A}" },	-- Mk-84
+			{ CLSID = "{60CC734F-0AFA-4E2E-82B8-93B941AB11CF}" }, -- TER 3*MK82
+			{ CLSID = "{BRU-42_3*Mk-82AIR}" }, -- TER 3 MK82
+			--ROCKETS
+			{ CLSID = "{F3EFE0AB-E91A-42D8-9CA2-B63C91ED570A}" }, -- LAU-10 Zuni
+			{ CLSID = "{174C6E6D-0C3D-42ff-BCB3-0853CB371F5C}" }, -- LAU-68 7 RD
+			{ CLSID = "{FD90A1DC-9147-49FA-BF56-CB83EF0BD32B}"},  -- LAU-61
+			{ CLSID = "{BRU33_2*LAU68}"},
+			{ CLSID = "{BRU33_2*LAU61}"},
+			{ CLSID = "{BRU33_2*LAU10}"},
+		}
+	elseif Position == "ST" then
+		StationLoad = {
+			-- A2A missiles
+			{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
+			{ CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
+			-- Fuel Tanks
+			{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
+			-- BOMBS
+			{ CLSID = "{BCE4E030-38E9-423E-98ED-24BE3DA87C32}" },  -- Mk-82
+			{ CLSID	= "{7A44FF09-527C-4B7E-B42B-3F111CFE50FB}" },  -- Mk-83
+			{ CLSID	= "{AB8B8299-F1CC-4359-89B5-2172E0CF4A5A}" },	-- Mk-84
+			{ CLSID = "{1C97B4A0-AA3B-43A8-8EE7-D11071457185}"}, -- 6 * MER MK82
+			{ CLSID	=	"{3C7CD675-7D39-41C5-8735-0F4F537818A8}"}, -- 6 * MK20
+			{ CLSID = "{60CC734F-0AFA-4E2E-82B8-93B941AB11CF}" }, -- TER 3*MK82
+			{ CLSID = "{BRU-42_3*Mk-82AIR}" }, -- TER 3 MK82
+			
+			--ROCKETS
+			{ CLSID = "{F3EFE0AB-E91A-42D8-9CA2-B63C91ED570A}" }, -- LAU-10 Zuni
+			{ CLSID = "{174C6E6D-0C3D-42ff-BCB3-0853CB371F5C}" }, -- LAU-68 7 RD
+			{ CLSID = "{FD90A1DC-9147-49FA-BF56-CB83EF0BD32B}"},  -- LAU-61
+			{ CLSID = "{BRU33_2*LAU68}"},
+			{ CLSID = "{BRU33_2*LAU61}"},
+			{ CLSID = "{BRU33_2*LAU10}"},
+		}
+	elseif Position == "CL" then
+		StationLoad = {
+			-- Fuel Tanks
+			{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
+			-- BOMBS
+			{ CLSID = "{BCE4E030-38E9-423E-98ED-24BE3DA87C32}" },  -- Mk-82
+			{ CLSID	= "{7A44FF09-527C-4B7E-B42B-3F111CFE50FB}" },  -- Mk-83
+			{ CLSID	= "{AB8B8299-F1CC-4359-89B5-2172E0CF4A5A}" },	-- Mk-84
+			{ CLSID = "{1C97B4A0-AA3B-43A8-8EE7-D11071457185}"}, -- 6 * MER MK82
+			{ CLSID	=	"{3C7CD675-7D39-41C5-8735-0F4F537818A8}"}, -- 6 * MK20
+			{ CLSID = "{60CC734F-0AFA-4E2E-82B8-93B941AB11CF}" }, -- TER 3*MK82
+			{ CLSID = "{BRU-42_3*Mk-82AIR}" }, -- TER 3 MK82
+			-- GUN pod
+			{CLSID = "{ADEN_GUNPOD}"},
+		}
+	end
+	return StationLoad
+end
+
 A_6e = {
 	Name = "A-6E",
 	DisplayName = _("A-6E"),
@@ -323,55 +389,31 @@ A_6e = {
 			{
 				use_full_connector_position = true, connector = "Pylon1", arg = 501, arg_value = 1,
 			},
-            {
-				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
-				{ CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
-				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
-            }
+			GenerateWeapon("ST")
         ),
 		pylon(2, 1,  -0.000000, -0.00000, -0.00000,
 			{
 				use_full_connector_position = true, connector = "Pylon2", arg = 502, arg_value = 0,
 			},
-            {
-				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
-                { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
-				{ CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
-				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
-            }
+			GenerateWeapon("IN")
         ),
 		pylon(3, 1, -0.000000, -0.00000, -0.00000,
 			{
 				use_full_connector_position = true, connector = "Pylon3", arg = 503, arg_value = 0,
 			},
-            {
-				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
-                { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
-				-- { CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
-				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
-            }
+			GenerateWeapon("CL")
         ),
 		pylon(4, 1, -0.000000, -0.000000, -0.00000,
 			{
 				use_full_connector_position = true, connector = "Pylon4", arg = 504, arg_value = 0,
 			},
-            {
-				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
-                { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
-				-- { CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
-				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
-            }
+			GenerateWeapon("IN")
         ),
 		pylon(5, 1, 0.000000, 0.00000, 0.00000,
 			{
 				use_full_connector_position = true, connector = "Pylon5", arg = 505, arg_value = 0,
 			},
-            {
-				{ CLSID = "{6CEB49FC-DED8-4DED-B053-E1F033FF72D3}" }, --aim 9M
-                { CLSID = "{5CE2FF2A-645A-4197-B48D-8720AC69394F}" }, --Aim 9X
-				-- { CLSID = "{40EF17B7-F508-45de-8566-6FFECC0C1AB8}" }, --AIM_120C
-				{ CLSID = "{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}" }, -- AERO-1D 300-GAL Fuel Tank
-            }
+			GenerateWeapon("ST")
         ),
 	},
 	

@@ -275,7 +275,7 @@ R_IDLE_RESTART = 0
 function SetCommand(command, value)
     if (get_elec_primary_dc_ok() or get_elec_primary_ac_ok()) then
         if (command == Keys.ThrottleAxisTest) then 
-            local throttle = value * 0.85 + 0.15
+            -- local throttle = value * 0.85 + 0.15
             if (left_idle_status == SWITCH_ON) then
                 -- dispatch_action(nil, iCommandPlaneThrustCommon, value)
                 dispatch_action(nil, Keys.LeftThrottleAxis, value)
@@ -290,13 +290,13 @@ function SetCommand(command, value)
             local throttle = value * 0.85 + 0.15
             if (left_idle_status == SWITCH_ON) then
                 dispatch_action(nil, iCommandPlaneThrustLeft, value)
-                left_throttle:set(throttle)
+                -- left_throttle:set(throttle)
             end
         elseif (command == Keys.RightThrottleAxis) and (engine_state_right == ENGINE_RUNNING) then 
             local throttle = value * 0.85 + 0.15
             if (right_idle_status == SWITCH_ON) then
                 dispatch_action(nil, iCommandPlaneThrustRight, value)
-                right_throttle:set(throttle)
+                -- right_throttle:set(throttle)
             end
         elseif (command == Keys.RightSpeedDriveUP) then
             if (target_status[right_spd][2] < 0.5) then

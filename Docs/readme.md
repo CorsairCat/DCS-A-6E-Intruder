@@ -1,5 +1,8 @@
 # Arg List and Click List
 
+## Collision Sheel
++ https://forums.eagle.ru/topic/80600-gear-state-external-flight-model-source-problem-identified/page/2/?tab=comments#comment-1742904
+
 ## Screen Helper
 + VDI- Center/Right/Down : pilot Vdi
 

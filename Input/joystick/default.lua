@@ -665,7 +665,7 @@ axisCommands = {
 	--Old throttle
     --{combos = defaultDeviceAssignmentFor("thrust"),  action = iCommandPlaneThrustCommon, name = _('Thrust')},
     --Test throttle
-	{combos = defaultDeviceAssignmentFor("thrust"),  action = Keys.ThrottleAxisTest, name = _('Thrust')},
+	{action = Keys.ThrottleAxisTest, name = _('Thrust')},
 	--Needed for the new Carrier script, should replace the Real throttle later
 	--{combos = defaultDeviceAssignmentFor("thrust"), action = device_commands.throttle_axis_mod 	,cockpit_device_id = devices.CARRIER ,name = _('Throttle Axis')},
    

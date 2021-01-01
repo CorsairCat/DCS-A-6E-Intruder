@@ -140,6 +140,8 @@ function SetCommand(command,value)
     elseif (command == Keys.HookHandle) then
         target_status[landing_hook_handle][2] = 1 - target_status[landing_hook_handle][2]
         HOOK_TARGET_STATUS = target_status[landing_hook_handle][2]
+        -- let sfm to handle this
+        dispatch_action(nil, 69)
     end
 end
 
@@ -149,15 +151,19 @@ function update_hook_and_bar()
     local time_increse_step = 0.005
     --HOOK_CURR_STATUS = get_aircraft_draw_argument_value(25)
     --LAUNCH_BAR_CURR_STATUS = get_aircraft_draw_argument_value(85)
-    if math.abs(HOOK_CURR_STATUS - HOOK_TARGET_STATUS) < 0.01 then
-       HOOK_CURR_STATUS = HOOK_TARGET_STATUS
-    else
-        if HOOK_CURR_STATUS < HOOK_TARGET_STATUS then
-            HOOK_CURR_STATUS = HOOK_CURR_STATUS + 0.01
-        elseif HOOK_CURR_STATUS > HOOK_TARGET_STATUS then
-            HOOK_CURR_STATUS = HOOK_CURR_STATUS - time_increse_step
+    --[[
+        if math.abs(HOOK_CURR_STATUS - HOOK_TARGET_STATUS) < 0.01 then
+        HOOK_CURR_STATUS = HOOK_TARGET_STATUS
+        else
+            if HOOK_CURR_STATUS < HOOK_TARGET_STATUS then
+                HOOK_CURR_STATUS = HOOK_CURR_STATUS + 0.01
+            elseif HOOK_CURR_STATUS > HOOK_TARGET_STATUS then
+                HOOK_CURR_STATUS = HOOK_CURR_STATUS - time_increse_step
+            end
         end
-    end
+        set_aircraft_draw_argument_value(25, HOOK_CURR_STATUS)
+        -- print_message_to_user(HOOK_CURR_STATUS)
+    ]]
 
     if IS_LOCKED_TO_CATAPULT_STATUS ~= 1 then
         if math.abs(LAUNCH_BAR_CURR_STATUS - LAUNCH_BAR_TARGET_STATUS) < 0.05 then
@@ -173,9 +179,7 @@ function update_hook_and_bar()
         -- do noting? / or set to another value
         LAUNCH_BAR_CURR_STATUS = 0.9
     end
-    
-    set_aircraft_draw_argument_value(25, HOOK_CURR_STATUS)
-    -- print_message_to_user(HOOK_CURR_STATUS)
+
 end
 
 local gear_level_pos = gear_level:get()
