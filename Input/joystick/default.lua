@@ -291,6 +291,9 @@ keyCommands = {
     {down = Keys.HookHandle, name = _('Tail Hook Up/Down'), category = _('Systems')},
     {down = Keys.LaunchBarHandle, name = _('Tow Link Up/Down'), category = _('Systems')},
 
+    -- {down = iCommandPlane_HOTAS_NoseWheelSteeringButton, up = iCommandPlane_HOTAS_NoseWheelSteeringButton, name = _('Nose Gear Maneuvering Range'), category = 'Systems'},
+    {down = Keys.NoseWheelSteeringOn, up = Keys.NoseWheelSteeringOff, name = _('Nose Gear Steering'), category = 'Systems'},
+
 
     {down = iCommandPlaneGear, name = _('Landing Gear Up/Down'), category = _('Systems')},
     {down = iCommandPlaneGearUp, name = _('Landing Gear Up'), category = _('Systems')},

@@ -299,6 +299,7 @@ keyCommands = {
 
     {combos = {{key = 'W'}}, down = Keys.BrakesOn, up = Keys.BrakesOff, name = _('Wheel Brake On'), category = _('Systems')},
     {combos = {{key = 'C', reformers = {'LCtrl'}}}, down = iCommandPlaneFonar, name = _('Canopy Open/Close'), category = _('Systems')},
+    {combos = {{key = 'S'}}, down = Keys.NoseWheelSteeringOn, up = Keys.NoseWheelSteeringOff, name = _('Nose Gear Steering'), category = 'Systems'},
   --[[
     {combos = {{key = 'P'}}, down = iCommandPlaneParachute, name = _('Dragging Chute'), category = _('Systems')},
     {combos = {{key = 'N', reformers = {'RShift'}}}, down = iCommandPlaneResetMasterWarning, name = _('Audible Warning Reset'), category = _('Systems')},

@@ -214,6 +214,9 @@ Keys =
 
     HookHandle = __custom_counter(),
     LaunchBarHandle = __custom_counter(),
+
+    NoseWheelSteeringOn = __custom_counter(),
+    NoseWheelSteeringOff = __custom_counter(),
 }
 
 --从5000开始递增点击指令
