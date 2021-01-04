@@ -353,7 +353,7 @@ keyCommands = {
 
     -- Weapons
     {combos = {}, down = Keys.WeaponSelectNext, name = _('Weapon Select Next'), category = _('Weapons')},
-    {combos = {}, down = Keys.WeaponLaunch, name = _('Weapon Launch'), category = _('Weapons')},
+    {combos = {}, down = Keys.WeaponLaunch, up = Keys.WeaponLaunchOff, name = _('Weapon Launch'), category = _('Weapons')},
 
     {down = iCommandPlane_LockOn_start, up = iCommandPlane_LockOn_finish, name = 'Target Lock', category = 'Sensors'},
 

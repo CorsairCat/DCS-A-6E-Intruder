@@ -429,6 +429,15 @@ multi_tumb_click_list = {
     {"PTN_138", "VDI Display Terrian Clearance", devices.VDI_DCMS, 138, Keys.VDIControlTCCal},
     {"PTN_139", "VDI Display Analog Page", devices.VDI_DCMS, 139, Keys.VDIControlAnalog},
     {"PTN_140", "VDI Display TEST", devices.VDI_DCMS, 140, Keys.VDIControlTest},
+
+    --weapon_system
+    {"PTN_521", "Master Arm Switch", devices.WEAPON_SYSTEM, 521, Keys.MasterArmamentUP, Keys.MasterArmamentDOWN},
+
+    {"PTN_516", "Pylon 1 Sel Switch", devices.WEAPON_SYSTEM, 515, Keys.Pylon1SelUP, Keys.Pylon1SelDOWN},
+    {"PTN_517", "Pylon 2 Sel Switch", devices.WEAPON_SYSTEM, 516, Keys.Pylon2SelUP, Keys.Pylon2SelDOWN},
+    {"PTN_518", "Pylon 3 Sel Switch", devices.WEAPON_SYSTEM, 517, Keys.Pylon3SelUP, Keys.Pylon3SelDOWN},
+    {"PTN_519", "Pylon 4 Sel Switch", devices.WEAPON_SYSTEM, 518, Keys.Pylon4SelUP, Keys.Pylon4SelDOWN},
+    {"PTN_520", "Pylon 5 Sel Switch", devices.WEAPON_SYSTEM, 519, Keys.Pylon5SelUP, Keys.Pylon5SelDOWN},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
@@ -452,6 +461,17 @@ elements["PTN_183"] = default_axis("UHF Volume", devices.RADIO_SYSTEM, Keys.UHFV
 elements["PTN_184"] = default_axis("TACAN Mode Selection", devices.RADIO_SYSTEM, Keys.TACANMode, 1134, 0, 0.1)
 elements["PTN_185"] = default_axis("TACAN Channel x10", devices.RADIO_SYSTEM, Keys.TACANChanA, 1134, 0, 0.1)
 elements["PTN_186"] = default_axis("TACAN Channel x1", devices.RADIO_SYSTEM, Keys.TACANChanB, 1134, 0, 0.1)
+
+-- Weapon 550-557
+elements["PTN_550"] = default_axis("Interval x100", devices.WEAPON_SYSTEM, Keys.IntervalTumbWheel100, 1134, 0, 0.1)
+elements["PTN_551"] = default_axis("Interval x10", devices.WEAPON_SYSTEM, Keys.IntervalTumbWheel10, 1134, 0, 0.1)
+elements["PTN_552"] = default_axis("Interval x1", devices.WEAPON_SYSTEM, Keys.IntervalTumbWheel, 1134, 0, 0.1)
+elements["PTN_553"] = default_axis("Quantity x10", devices.WEAPON_SYSTEM, Keys.QuantityTumbWheel10, 1134, 0, 0.1)
+elements["PTN_554"] = default_axis("Quantity x1", devices.WEAPON_SYSTEM, Keys.QuantityTumbWheel, 1134, 0, 0.1)
+elements["PTN_555"] = default_axis("Time x100", devices.WEAPON_SYSTEM, Keys.TimeTumbWheel100, 1134, 0, 0.1)
+elements["PTN_556"] = default_axis("Time x10", devices.WEAPON_SYSTEM, Keys.TimeTumbWheel10, 1134, 0, 0.1)
+elements["PTN_557"] = default_axis("Time x1", devices.WEAPON_SYSTEM, Keys.TimeTumbWheel, 1134, 0, 0.1)
+
 
 elements["PTN_179"] = springloaded_3_pos_tumb("UHF tens of Mega hertz", devices.RADIO_SYSTEM, Keys.UHFFreqAUP, Keys.UHFFreqASTOP, Keys.UHFFreqADOWN, Keys.UHFFreqASTOP, 1134)
 elements["PTN_180"] = springloaded_3_pos_tumb("UHF Mega hertz", devices.RADIO_SYSTEM, Keys.UHFFreqBUP, Keys.UHFFreqBSTOP, Keys.UHFFreqBDOWN, Keys.UHFFreqBSTOP, 1134)

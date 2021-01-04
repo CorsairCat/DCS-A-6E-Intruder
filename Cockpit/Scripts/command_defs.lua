@@ -1,4 +1,4 @@
-start_custom_command   = 10000
+start_custom_command   = 6000
 local __count_custom = start_custom_command-1
 local function __custom_counter()
 	__count_custom = __count_custom + 1
@@ -81,6 +81,7 @@ Keys =
     -- 武器测试用按键
     WeaponSelectNext = __custom_counter(),
     WeaponLaunch = __custom_counter(),
+    WeaponLaunchOff = __custom_counter(),
 
     -- 襟翼动作
     FlapUp = __custom_counter(),
@@ -212,12 +213,68 @@ Keys =
     VDIControlAnalog = __custom_counter(),
     VDIControlSTBY = __custom_counter(),
 
+    -- Gear System add-ons
+
     HookHandle = __custom_counter(),
     LaunchBarHandle = __custom_counter(),
 
     NoseWheelSteeringOn = __custom_counter(),
     NoseWheelSteeringOff = __custom_counter(),
-}
+
+    -- Weapon System
+    MasterArmamentUP = __custom_counter(),
+    MasterArmamentDOWN = __custom_counter(),
+
+    Pylon1SelUP = __custom_counter(),
+    Pylon1SelDOWN = __custom_counter(),
+    Pylon2SelUP = __custom_counter(),
+    Pylon2SelDOWN = __custom_counter(),
+    Pylon3SelUP = __custom_counter(),
+    Pylon3SelDOWN = __custom_counter(),
+    Pylon4SelUP = __custom_counter(),
+    Pylon4SelDOWN = __custom_counter(),
+    Pylon5SelUP = __custom_counter(),
+    Pylon5SelDOWN = __custom_counter(),
+
+    ReleaseJettison = __custom_counter(),
+    ReleaseGun = __custom_counter(),
+    ReleaseMissile = __custom_counter(),
+    ReleaseRocketSalvo = __custom_counter(),
+    ReleaseRocketTrain = __custom_counter(),
+    ReleaseBombSalve = __custom_counter(),
+    ReleaseBombTrain = __custom_counter(),
+    ReleaseStep = __custom_counter(),
+
+    AttackGCB = __custom_counter(),
+    AttackDelay = __custom_counter(),
+    AttackLabTGT = __custom_counter(),
+    AttackLabIP = __custom_counter(),
+    AttackRocket = __custom_counter(),
+    AttackHILoft = __custom_counter(),
+    AttackStraight = __custom_counter(),
+    AttackGeneral = __custom_counter(),
+
+    MechArmUP = __custom_counter(),
+    MechArmDOWN = __custom_counter(),
+    RocketModeSwitch = __custom_counter(),
+    GunsModeSwitchUP = __custom_counter(),
+    GunsModeSwitchDOWN = __custom_counter(),
+
+    IntervalTumbWheel100 = __custom_counter(),
+    IntervalTumbWheel10 = __custom_counter(),
+    IntervalTumbWheel = __custom_counter(),
+
+    QuantityTumbWheel10 = __custom_counter(),
+    QuantityTumbWheel = __custom_counter(),
+
+    TimeTumbWheel100 = __custom_counter(),
+    TimeTumbWheel10 = __custom_counter(),
+    TimeTumbWheel = __custom_counter(),
+
+    MissleControl = __custom_counter(),
+    MissleCoolingUP = __custom_counter(),
+    MissleCoolingDOWN = __custom_counter(),
+ }
 
 --从5000开始递增点击指令
 start_command   = 5000
