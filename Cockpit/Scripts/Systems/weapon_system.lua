@@ -60,10 +60,27 @@ WeaponSystem:listen_command(Keys.IntervalTumbWheel)
 WeaponSystem:listen_command(Keys.TimeTumbWheel100)
 WeaponSystem:listen_command(Keys.TimeTumbWheel10)
 WeaponSystem:listen_command(Keys.TimeTumbWheel)
+WeaponSystem:listen_command(Keys.ReleaseJettison)
+WeaponSystem:listen_command(Keys.ReleaseGun)
+WeaponSystem:listen_command(Keys.ReleaseMissile)
+WeaponSystem:listen_command(Keys.ReleaseRocketSalvo)
+WeaponSystem:listen_command(Keys.ReleaseRocketTrain)
+WeaponSystem:listen_command(Keys.ReleaseBombSalve)
+WeaponSystem:listen_command(Keys.ReleaseBombTrain)
+WeaponSystem:listen_command(Keys.ReleaseStep)
+WeaponSystem:listen_command(Keys.AttackGCB)
+WeaponSystem:listen_command(Keys.AttackDelay)
+WeaponSystem:listen_command(Keys.AttackLabTGT)
+WeaponSystem:listen_command(Keys.AttackLabIP)
+WeaponSystem:listen_command(Keys.AttackRocket)
+WeaponSystem:listen_command(Keys.AttackHILoft)
+WeaponSystem:listen_command(Keys.AttackStraight)
+WeaponSystem:listen_command(Keys.AttackGeneral)
 
 ----rest are for pylon drop tank checking and will send to parameters
 
 local LAUNCH_MODE = 0 -- STEP:0; BOMBS: 1; ROCKETS: 2; GUN: 3; MISSILES: 4; SEL JET: 5
+local LAST_LAUNCH_BUTTON = 1
 local ATTACK_MODE = 0 -- DELAY: 0; LAB IP: 1; LAB TGT: 2; GCB: 3; ROCKET: 4; HI LOFT: 5; STRAIGHT PATH: 6; GENERAL: 7
 local IS_TRAINING = 0 -- TRAINING: 1;
 local RESELECT_LIGHT_STATUS = 0
@@ -113,6 +130,15 @@ local attack_quantity_C = _switch_counter()
 local attack_time_A = _switch_counter()
 local attack_time_B = _switch_counter()
 local attack_time_C = _switch_counter()
+
+local release_step = _switch_counter()
+local release_bomb_train = _switch_counter()
+local release_bomb_salvo = _switch_counter()
+local release_rocket_train = _switch_counter()
+local release_rocket_salvo = _switch_counter()
+local release_missiles = _switch_counter()
+local release_guns = _switch_counter()
+local release_sel_jet = _switch_counter()
 
 target_status = {
     {master_arm_switch , SWITCH_OFF, get_param_handle("PTN_521"), "PTN_521"},

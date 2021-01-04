@@ -433,11 +433,29 @@ multi_tumb_click_list = {
     --weapon_system
     {"PTN_521", "Master Arm Switch", devices.WEAPON_SYSTEM, 521, Keys.MasterArmamentUP, Keys.MasterArmamentDOWN},
 
-    {"PTN_516", "Pylon 1 Sel Switch", devices.WEAPON_SYSTEM, 515, Keys.Pylon1SelUP, Keys.Pylon1SelDOWN},
-    {"PTN_517", "Pylon 2 Sel Switch", devices.WEAPON_SYSTEM, 516, Keys.Pylon2SelUP, Keys.Pylon2SelDOWN},
-    {"PTN_518", "Pylon 3 Sel Switch", devices.WEAPON_SYSTEM, 517, Keys.Pylon3SelUP, Keys.Pylon3SelDOWN},
-    {"PTN_519", "Pylon 4 Sel Switch", devices.WEAPON_SYSTEM, 518, Keys.Pylon4SelUP, Keys.Pylon4SelDOWN},
-    {"PTN_520", "Pylon 5 Sel Switch", devices.WEAPON_SYSTEM, 519, Keys.Pylon5SelUP, Keys.Pylon5SelDOWN},
+    {"PTN_516", "Pylon 1 Sel Switch", devices.WEAPON_SYSTEM, 516, Keys.Pylon1SelUP, Keys.Pylon1SelDOWN},
+    {"PTN_517", "Pylon 2 Sel Switch", devices.WEAPON_SYSTEM, 517, Keys.Pylon2SelUP, Keys.Pylon2SelDOWN},
+    {"PTN_518", "Pylon 3 Sel Switch", devices.WEAPON_SYSTEM, 518, Keys.Pylon3SelUP, Keys.Pylon3SelDOWN},
+    {"PTN_519", "Pylon 4 Sel Switch", devices.WEAPON_SYSTEM, 519, Keys.Pylon4SelUP, Keys.Pylon4SelDOWN},
+    {"PTN_520", "Pylon 5 Sel Switch", devices.WEAPON_SYSTEM, 520, Keys.Pylon5SelUP, Keys.Pylon5SelDOWN},
+
+    {"PTN_531", "Selection Jettsion", devices.WEAPON_SYSTEM, 531, Keys.ReleaseJettison},
+    {"PTN_532", "Guns Release Mode", devices.WEAPON_SYSTEM, 532, Keys.ReleaseGun},
+    {"PTN_533", "Missile Release Mode", devices.WEAPON_SYSTEM, 533, Keys.ReleaseMissile},
+    {"PTN_534", "Rocket Salvo Mode", devices.WEAPON_SYSTEM, 534, Keys.ReleaseRocketSalvo},
+    {"PTN_535", "Rocket Train Mode", devices.WEAPON_SYSTEM, 535, Keys.ReleaseRocketTrain},
+    {"PTN_536", "Bomb Salvo Mode", devices.WEAPON_SYSTEM, 536, Keys.ReleaseBombSalve},
+    {"PTN_537", "Bomb Train Mode", devices.WEAPON_SYSTEM, 537, Keys.ReleaseBombTrain},
+    {"PTN_538", "Step Mode (Manual)", devices.WEAPON_SYSTEM, 538, Keys.ReleaseStep},
+
+    {"PTN_539", "Ground Control Based Attack Mode", devices.WEAPON_SYSTEM, 539, Keys.AttackGCB},
+    {"PTN_540", "Delay Attack Mode", devices.WEAPON_SYSTEM, 540, Keys.AttackDelay},
+    {"PTN_541", "LABS TGT Attack Mode", devices.WEAPON_SYSTEM, 541, Keys.AttackLabTGT},
+    {"PTN_542", "LABS IP Attack Mode", devices.WEAPON_SYSTEM, 542, Keys.AttackLabIP},
+    {"PTN_543", "Rocket Attack Mode", devices.WEAPON_SYSTEM, 543, Keys.AttackRocket},
+    {"PTN_544", "Hi Loft Attack Mode", devices.WEAPON_SYSTEM, 544, Keys.AttackHILoft},
+    {"PTN_545", "Straight Path Attack Mode", devices.WEAPON_SYSTEM, 545, Keys.AttackStraight},
+    {"PTN_546", "General Attack Mode", devices.WEAPON_SYSTEM, 546, Keys.AttackGeneral},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
