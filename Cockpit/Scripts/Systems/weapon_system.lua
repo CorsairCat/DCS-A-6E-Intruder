@@ -140,6 +140,15 @@ local release_missiles = _switch_counter()
 local release_guns = _switch_counter()
 local release_sel_jet = _switch_counter()
 
+local attack_gcb_mode = _switch_counter()
+local attack_delay_mode = _switch_counter()
+local attack_labtgt_mode = _switch_counter()
+local attack_labip_mode = _switch_counter()
+local attack_rocket_mode = _switch_counter()
+local attack_hiloft_mode = _switch_counter()
+local attack_straight_mode = _switch_counter()
+local attack_general_mode = _switch_counter()
+
 target_status = {
     {master_arm_switch , SWITCH_OFF, get_param_handle("PTN_521"), "PTN_521"},
     {pylon1_select_switch, SWITCH_OFF, get_param_handle("PTN_516"), "PTN_516"},
@@ -155,6 +164,22 @@ target_status = {
     {attack_time_A, SWITCH_OFF, get_param_handle("PTN_555"), "PTN_555"},
     {attack_time_B, SWITCH_OFF, get_param_handle("PTN_556"), "PTN_556"},
     {attack_time_C, SWITCH_OFF, get_param_handle("PTN_557"), "PTN_557"},
+    {release_step, SWITCH_OFF, get_param_handle("PTN_538"), "PTN_538"},
+    {release_bomb_train, SWITCH_OFF, get_param_handle("PTN_537"), "PTN_537"},
+    {release_bomb_salvo, SWITCH_OFF, get_param_handle("PTN_536"), "PTN_536"},
+    {release_rocket_train, SWITCH_OFF, get_param_handle("PTN_535"), "PTN_535"},
+    {release_rocket_salvo, SWITCH_OFF, get_param_handle("PTN_534"), "PTN_534"},
+    {release_missiles, SWITCH_OFF, get_param_handle("PTN_533"), "PTN_533"},
+    {release_guns, SWITCH_OFF, get_param_handle("PTN_532"), "PTN_532"},
+    {release_sel_jet, SWITCH_OFF, get_param_handle("PTN_531"), "PTN_531"},
+    {attack_gcb_mode, SWITCH_OFF, get_param_handle("PTN_539"), "PTN_539"},
+    {attack_delay_mode, SWITCH_OFF, get_param_handle("PTN_540"), "PTN_540"},
+    {attack_labtgt_mode, SWITCH_OFF, get_param_handle("PTN_541"), "PTN_541"},
+    {attack_labip_mode, SWITCH_OFF, get_param_handle("PTN_542"), "PTN_542"},
+    {attack_rocket_mode, SWITCH_OFF, get_param_handle("PTN_543"), "PTN_543"},
+    {attack_hiloft_mode, SWITCH_OFF, get_param_handle("PTN_544"), "PTN_544"},
+    {attack_straight_mode, SWITCH_OFF, get_param_handle("PTN_545"), "PTN_545"},
+    {attack_general_mode, SWITCH_OFF, get_param_handle("PTN_546"), "PTN_546"},
 }
 
 current_status = {
@@ -172,6 +197,22 @@ current_status = {
     {attack_time_A, SWITCH_OFF, },
     {attack_time_B, SWITCH_OFF, },
     {attack_time_C, SWITCH_OFF, },
+    {release_step, SWITCH_OFF, },
+    {release_bomb_train, SWITCH_OFF,},
+    {release_bomb_salvo, SWITCH_OFF, },
+    {release_rocket_train, SWITCH_OFF, },
+    {release_rocket_salvo, SWITCH_OFF, },
+    {release_missiles, SWITCH_OFF, },
+    {release_guns, SWITCH_OFF, },
+    {release_sel_jet, SWITCH_OFF, },
+    {attack_gcb_mode, SWITCH_OFF, },
+    {attack_delay_mode, SWITCH_OFF, },
+    {attack_labtgt_mode, SWITCH_OFF, },
+    {attack_labip_mode, SWITCH_OFF, },
+    {attack_rocket_mode, SWITCH_OFF, },
+    {attack_hiloft_mode, SWITCH_OFF, },
+    {attack_straight_mode, SWITCH_OFF, },
+    {attack_general_mode, SWITCH_OFF, },
 }
 
 local PYLON_INFO_LIST = {}
