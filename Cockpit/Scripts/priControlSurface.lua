@@ -14,6 +14,9 @@ IS_STEERING_MODE = 0
 
 local ngear_pos_ind = get_param_handle("NoseWPOS_IND")
 
+local stick_pitch_arg = get_param_handle("STICK_PITCH")
+local stick_bank_arg = get_param_handle("STICK_BANK")
+
 function post_initialize()
 	dispatch_action(nil, 606, nil)
 end
@@ -37,11 +40,13 @@ function update()
     set_aircraft_draw_argument_value(12, -ROLL_STATE) -- left aileron
     --set_aircraft_draw_argument_value(9, ROLL_STATE) -- right slat
 	--set_aircraft_draw_argument_value(10, -ROLL_STATE) -- left slat
+	stick_bank_arg:set(ROLL_STATE)
 	
 
 	local PITCH_STATE = sensor_data:getStickRollPosition() / 100
 	set_aircraft_draw_argument_value(15, PITCH_STATE) -- right canard
 	set_aircraft_draw_argument_value(16, PITCH_STATE) -- left canard
+	stick_pitch_arg:set(PITCH_STATE)
 
 	local RUDDER_STATE = sensor_data:getRudderPosition() / 100
     set_aircraft_draw_argument_value(17, -RUDDER_STATE)

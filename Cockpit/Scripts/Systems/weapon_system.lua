@@ -79,9 +79,10 @@ WeaponSystem:listen_command(Keys.AttackGeneral)
 
 ----rest are for pylon drop tank checking and will send to parameters
 
-local LAUNCH_MODE = 0 -- STEP:0; BOMBS: 1; ROCKETS: 2; GUN: 3; MISSILES: 4; SEL JET: 5
-local LAST_LAUNCH_BUTTON = 1
-local ATTACK_MODE = 0 -- DELAY: 0; LAB IP: 1; LAB TGT: 2; GCB: 3; ROCKET: 4; HI LOFT: 5; STRAIGHT PATH: 6; GENERAL: 7
+local LAUNCH_MODE = -1 -- STEP:0; BOMBS: 1; ROCKETS: 2; GUN: 3; MISSILES: 4; SEL JET: 5; -1: unselected
+local LAST_LAUNCH_BUTTON = -1
+local ATTACK_MODE = -1 -- DELAY: 0; LAB IP: 1; LAB TGT: 2; GCB: 3; ROCKET: 4; HI LOFT: 5; STRAIGHT PATH: 6; GENERAL: 7; -1 : unselected
+local LAST_ATTACK_BUTTON = -1
 local IS_TRAINING = 0 -- TRAINING: 1;
 local RESELECT_LIGHT_STATUS = 0
 local COMPLETE_LIGHT_STATUS = 0
@@ -434,6 +435,47 @@ function SetCommand(command,value)
         elseif target_status[attack_time_C][2] > 1 then
             target_status[attack_time_C][2] = 0
         end
+    elseif command == Keys.ReleaseStep then
+        if target_status[release_step][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_step
+            LAUNCH_MODE = 0
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+    elseif command == Keys.ReleaseStep then
+        if target_status[release_step][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_step
+            LAUNCH_MODE = 0
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+        IS_TRAINING = 0
+    elseif command == Keys.ReleaseJettison then
+        if target_status[release_step][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_sel_jet
+            LAUNCH_MODE = 5
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+        IS_TRAINING = 0
     end
 
     if target_status[master_arm_switch][2] == SWITCH_OFF then

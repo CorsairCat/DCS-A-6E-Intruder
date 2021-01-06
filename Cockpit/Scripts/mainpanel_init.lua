@@ -93,6 +93,8 @@ animation_list = {
     {"FUEL_QUAN_A_2", 359},
     {"FUEL_QUAN_A_1", 360},
 
+    {"STICK_PITCH", 22},
+    {"STICK_BANK", 21},
     {"PTN_053", 53},
     {"PTN_054", 44},
 
