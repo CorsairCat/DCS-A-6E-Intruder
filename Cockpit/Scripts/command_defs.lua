@@ -274,6 +274,8 @@ Keys =
     MissleControl = __custom_counter(),
     MissleCoolingUP = __custom_counter(),
     MissleCoolingDOWN = __custom_counter(),
+
+    GunFireing = __custom_counter(),
  }
 
 --从5000开始递增点击指令

@@ -448,22 +448,9 @@ function SetCommand(command,value)
             LAST_LAUNCH_BUTTON = -1
             LAUNCH_MODE = -1
         end
-    elseif command == Keys.ReleaseStep then
-        if target_status[release_step][2] == SWITCH_OFF then
-            if LAST_LAUNCH_BUTTON ~= -1 then
-                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
-            end
-            LAST_LAUNCH_BUTTON = release_step
-            LAUNCH_MODE = 0
-            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
-        else
-            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
-            LAST_LAUNCH_BUTTON = -1
-            LAUNCH_MODE = -1
-        end
         IS_TRAINING = 0
     elseif command == Keys.ReleaseJettison then
-        if target_status[release_step][2] == SWITCH_OFF then
+        if target_status[release_sel_jet][2] == SWITCH_OFF then
             if LAST_LAUNCH_BUTTON ~= -1 then
                 target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
             end
@@ -476,6 +463,92 @@ function SetCommand(command,value)
             LAUNCH_MODE = -1
         end
         IS_TRAINING = 0
+    elseif command == Keys.ReleaseGun then
+        if target_status[release_guns][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_guns
+            LAUNCH_MODE = 3
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+        IS_TRAINING = 0
+    elseif command == Keys.ReleaseMissile then
+        if target_status[release_missiles][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_missiles
+            LAUNCH_MODE = 4
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+        IS_TRAINING = 0
+    elseif command == Keys.ReleaseBombSalve then
+        if target_status[release_bomb_salvo][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_bomb_salvo
+            LAUNCH_MODE = 1
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+        IS_TRAINING = 0
+    elseif command == Keys.ReleaseBombTrain then
+        if target_status[release_bomb_train][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_bomb_train
+            LAUNCH_MODE = 1
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+            IS_TRAINING = 1
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+            IS_TRAINING = 0
+        end
+    elseif command == Keys.ReleaseRocketSalve then
+        if target_status[release_rocket_salvo][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_rocket_salvo
+            LAUNCH_MODE = 2
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+        end
+        IS_TRAINING = 0
+    elseif command == Keys.ReleaseRocketTrain then
+        if target_status[release_rocket_train][2] == SWITCH_OFF then
+            if LAST_LAUNCH_BUTTON ~= -1 then
+                target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            end
+            LAST_LAUNCH_BUTTON = release_rocket_train
+            LAUNCH_MODE = 1
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_ON
+            IS_TRAINING = 1
+        else
+            target_status[LAST_LAUNCH_BUTTON][2] = SWITCH_OFF
+            LAST_LAUNCH_BUTTON = -1
+            LAUNCH_MODE = -1
+            IS_TRAINING = 0
+        end
     end
 
     if target_status[master_arm_switch][2] == SWITCH_OFF then
@@ -534,7 +607,7 @@ function update_launch_selection()
             if target_status[i][2] ~= SWITCH_OFF then
                 SELECTED_LIST[i - 1][1] = 1
                 selected_station_num = selected_station_num + 1
-                print_message_to_user(PYLON_INFO_LIST[i-1][3])
+                -- print_message_to_user(PYLON_INFO_LIST[i-1][3])
                 if max_bomb_num_on_one_pylon > PYLON_INFO_LIST[i-1][3] then
                     max_bomb_num_on_one_pylon = PYLON_INFO_LIST[i-1][3]
                 end
@@ -545,6 +618,22 @@ function update_launch_selection()
                     same_type_selected = 0
                 end
                 last_kind_weapon = PYLON_INFO_LIST[i-1][1];
+                if LAUNCH_MODE ~= 5 then
+                    if target_status[i][2] == SWITCH_ON and (PYLON_INFO_LIST[i-1][1] ~= wsType_Shell and PYLON_INFO_LIST[i-1][1] ~= wsType_Bomb) then
+                        reselect_signal = 1                        
+                    end
+                end
+                -- check if is gun and missile for gun and missile mode
+                if LAUNCH_MODE == 3 then
+                    -- print_message_to_user(PYLON_INFO_LIST[i-1][1].."XX"..PYLON_INFO_LIST[i-1][2])
+                    if PYLON_INFO_LIST[i-1][1] ~= wsType_Shell then
+                        reselect_signal = 1
+                    end
+                elseif LAUNCH_MODE == 4 then
+                    if PYLON_INFO_LIST[i-1][1] ~= wsType_Missile or target_status[i][2] == SWITCH_ON then
+                        reselect_signal = 1
+                    end
+                end
             else
                 SELECTED_LIST[i - 1][1] = 0
             end
@@ -579,6 +668,8 @@ function update_launch_selection()
                 {0, 0, get_param_handle("PTN_504")},
                 {0, 0, get_param_handle("PTN_505")},
             }
+        else
+            RESELECT_LIGHT_STATUS = 0
         end
     end
 end
@@ -586,11 +677,39 @@ end
 function step_mode_manual_launch()
     if STEP_SIGNAL == 0 and MANUAL_RELEASE_SIGNAL == 1 then
         for i = 1, 5, 1 do
-            if SELECTED_LIST[i][1] == 1 then
+            if SELECTED_LIST[i][1] == 1 and PYLON_INFO_LIST[i][1] ~= wsType_Shell and PYLON_INFO_LIST[i][1] ~= wsType_Missile then
                 WeaponSystem:launch_station(i-1)
             end
         end
         STEP_SIGNAL = 1
+    end
+end
+
+function seletion_jettsion()
+    if STEP_SIGNAL == 0 and MANUAL_RELEASE_SIGNAL == 1 then
+        for i = 1, 5, 1 do
+            if SELECTED_LIST[i][1] == 1 then
+                WeaponSystem:emergency_jettison(i-1)
+            end
+        end
+        STEP_SIGNAL = 1
+    end
+end
+
+function gun_mode_firing()
+    if MANUAL_RELEASE_SIGNAL == 1 then
+        if STEP_SIGNAL == 0 then
+            for i = 1, 5, 1 do
+                if SELECTED_LIST[i][1] == 1 then
+                    WeaponSystem:launch_station(i-1)
+                end
+            end
+            STEP_SIGNAL = 1
+        elseif STEP_SIGNAL <= 30 then
+            STEP_SIGNAL = STEP_SIGNAL + 1
+        elseif STEP_SIGNAL > 30 then
+            STEP_SIGNAL = 0
+        end
     end
 end
 
@@ -605,8 +724,14 @@ function update()
         update_launch_selection()
     end
     update_display_light()
-    if ATTACK_MODE == 0 then
-        step_mode_manual_launch()
+    if ATTACK_MODE == -1 then
+        if LAUNCH_MODE == 0 then
+            step_mode_manual_launch()
+        elseif LAUNCH_MODE == 5 then
+            seletion_jettsion()
+        elseif LAUNCH_MODE == 3 then
+            gun_mode_firing()
+        end
     end
 end
 

@@ -34,6 +34,8 @@ function GenerateWeapon(Position)
 			{ CLSID = "{BRU33_2*LAU68}"},
 			{ CLSID = "{BRU33_2*LAU61}"},
 			{ CLSID = "{BRU33_2*LAU10}"},
+			--gunpod
+			{ CLSID = "{E92CBFE5-C153-11d8-9897-000476191836}"},
 		}
 	elseif Position == "ST" then
 		StationLoad = {
@@ -58,6 +60,8 @@ function GenerateWeapon(Position)
 			{ CLSID = "{BRU33_2*LAU68}"},
 			{ CLSID = "{BRU33_2*LAU61}"},
 			{ CLSID = "{BRU33_2*LAU10}"},
+			--gunpod
+			{ CLSID = "{E92CBFE5-C153-11d8-9897-000476191836}"},
 		}
 	elseif Position == "CL" then
 		StationLoad = {
@@ -72,7 +76,7 @@ function GenerateWeapon(Position)
 			{ CLSID = "{60CC734F-0AFA-4E2E-82B8-93B941AB11CF}" }, -- TER 3*MK82
 			{ CLSID = "{BRU-42_3*Mk-82AIR}" }, -- TER 3 MK82
 			-- GUN pod
-			{CLSID = "{ADEN_GUNPOD}"},
+			{CLSID = "{E92CBFE5-C153-11d8-9897-000476191836}"},
 		}
 	end
 	return StationLoad
