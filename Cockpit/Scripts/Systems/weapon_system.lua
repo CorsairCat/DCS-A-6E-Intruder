@@ -854,6 +854,9 @@ function update()
             missile_launch_mode()
         end
     end
+    if LAUNCH_MODE ~= 4 then
+        hud_lock_test_sign:set(0)
+    end
 end
 
 need_to_be_closed = false
