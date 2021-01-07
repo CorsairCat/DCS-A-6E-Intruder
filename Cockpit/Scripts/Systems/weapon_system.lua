@@ -32,6 +32,8 @@ local ir_missile_lock_param = get_param_handle("WS_IR_MISSILE_LOCK")
 local ir_missile_az_param = get_param_handle("WS_IR_MISSILE_TARGET_AZIMUTH")
 local ir_missile_el_param = get_param_handle("WS_IR_MISSILE_TARGET_ELEVATION")
 
+local hud_lock_test_sign = get_param_handle("PULLUP_FLASH")
+
 -- 似乎是设置预设锁定方向？
 -- 方位角
 local ir_missile_des_az_param = get_param_handle("WS_IR_MISSILE_SEEKER_DESIRED_AZIMUTH")
@@ -76,6 +78,11 @@ WeaponSystem:listen_command(Keys.AttackRocket)
 WeaponSystem:listen_command(Keys.AttackHILoft)
 WeaponSystem:listen_command(Keys.AttackStraight)
 WeaponSystem:listen_command(Keys.AttackGeneral)
+WeaponSystem:listen_command(Keys.MissileControl)
+WeaponSystem:listen_command(Keys.MissileCoolingUP)
+WeaponSystem:listen_command(Keys.MissileCoolingDOWN)
+WeaponSystem:listen_command(Keys.GunsModeSwitchUP)
+WeaponSystem:listen_command(Keys.GunsModeSwitchDOWN)
 
 ----rest are for pylon drop tank checking and will send to parameters
 
@@ -150,6 +157,11 @@ local attack_hiloft_mode = _switch_counter()
 local attack_straight_mode = _switch_counter()
 local attack_general_mode = _switch_counter()
 
+local missile_control_switch = _switch_counter()
+local missile_cooling_switch = _switch_counter()
+
+local guns_mode_switch = _switch_counter()
+
 target_status = {
     {master_arm_switch , SWITCH_OFF, get_param_handle("PTN_521"), "PTN_521"},
     {pylon1_select_switch, SWITCH_OFF, get_param_handle("PTN_516"), "PTN_516"},
@@ -181,6 +193,9 @@ target_status = {
     {attack_hiloft_mode, SWITCH_OFF, get_param_handle("PTN_544"), "PTN_544"},
     {attack_straight_mode, SWITCH_OFF, get_param_handle("PTN_545"), "PTN_545"},
     {attack_general_mode, SWITCH_OFF, get_param_handle("PTN_546"), "PTN_546"},
+    {missile_control_switch, SWITCH_OFF, get_param_handle("PTN_558"), "PTN_558"},
+    {missile_cooling_switch, SWITCH_OFF, get_param_handle("PTN_559"), "PTN_559"},
+    {guns_mode_switch, SWITCH_OFF, get_param_handle("PTN_549"), "PTN_549"},
 }
 
 current_status = {
@@ -214,6 +229,9 @@ current_status = {
     {attack_hiloft_mode, SWITCH_OFF, },
     {attack_straight_mode, SWITCH_OFF, },
     {attack_general_mode, SWITCH_OFF, },
+    {missile_control_switch, SWITCH_OFF, },
+    {missile_cooling_switch, SWITCH_OFF, },
+    {guns_mode_switch, SWITCH_OFF, },
 }
 
 local PYLON_INFO_LIST = {}
@@ -549,6 +567,24 @@ function SetCommand(command,value)
             LAUNCH_MODE = -1
             IS_TRAINING = 0
         end
+    elseif command == Keys.MissileControl then
+        target_status[missile_control_switch][2] = 1 - target_status[missile_control_switch][2]
+    elseif command == Keys.MissileCoolingUP then
+        if target_status[missile_cooling_switch][2] < 0.5 then
+            target_status[missile_cooling_switch][2] = target_status[missile_cooling_switch][2] + 1
+        end
+    elseif command == Keys.MissileCoolingDOWN then
+        if target_status[missile_cooling_switch][2] > -0.5 then
+            target_status[missile_cooling_switch][2] = target_status[missile_cooling_switch][2] - 1
+        end
+    elseif command == Keys.GunsModeSwitchUP then
+        if target_status[guns_mode_switch][2] < 0.5 then
+            target_status[guns_mode_switch][2] = target_status[guns_mode_switch][2] + 1
+        end
+    elseif command == Keys.GunsModeSwitchDOWN then
+        if target_status[guns_mode_switch][2] > -0.5 then
+            target_status[guns_mode_switch][2] = target_status[guns_mode_switch][2] - 1
+        end
     end
 
     if target_status[master_arm_switch][2] == SWITCH_OFF then
@@ -564,6 +600,8 @@ function SetCommand(command,value)
             {0, 0, get_param_handle("PTN_505")},
         }        
     end
+    -- update missile in use selection
+    MISSILE_IN_USE = -1
 end
 
 function update_ir_missile_seeker()
@@ -697,7 +735,7 @@ function seletion_jettsion()
 end
 
 function gun_mode_firing()
-    if MANUAL_RELEASE_SIGNAL == 1 then
+    if MANUAL_RELEASE_SIGNAL == 1 and target_status[guns_mode_switch][2] == SWITCH_ON then
         if STEP_SIGNAL == 0 then
             for i = 1, 5, 1 do
                 if SELECTED_LIST[i][1] == 1 then
@@ -713,6 +751,86 @@ function gun_mode_firing()
     end
 end
 
+local MISSILE_COOLING = {0,0,0,0,0}
+
+function update_missile_cooling_status()
+    if target_status[missile_control_switch][2] == SWITCH_ON then
+        if target_status[missile_cooling_switch][2] == SWITCH_ON then
+            for i = 1, 5, 1 do
+                if SELECTED_LIST[i][1] == 1 and PYLON_INFO_LIST[i][1] == wsType_Missile and PYLON_INFO_LIST[i][3] > 0 then
+                    MISSILE_COOLING[i] = MISSILE_COOLING[i] + 1
+                else
+                    MISSILE_COOLING[i] = 0
+                end
+            end
+        else
+            MISSILE_COOLING = {0,0,0,0,0}
+        end
+    else
+        MISSILE_COOLING = {0,0,0,0,0}
+    end
+end
+
+MISSILE_IN_USE = -1
+AFTER_LAUNCH = 0
+
+function missile_launch_mode()
+    hud_lock_test_sign:set(1)
+    local missile_select = -1
+    local current_select_missile = MISSILE_IN_USE
+    if target_status[missile_control_switch][2] == SWITCH_ON then
+        -- print_message_to_user(ir_missile_lock_param:get())
+        if ir_missile_lock_param:get() == 1 and AFTER_LAUNCH == 0  then
+            hud_lock_test_sign:set(0)
+            local temp_ir_az = ir_missile_az_param:get()
+            local temp_ir_el = ir_missile_el_param:get()
+            if ir_missile_az_param:get() <= 0 then
+                for i = 1, 5, 1 do
+                    if MISSILE_COOLING[i] > 50 and PYLON_INFO_LIST[i][3] > 0 then
+                        missile_select = i
+                    end
+                end 
+            else
+                for i = 5, 1, -1 do
+                    if MISSILE_COOLING[i] > 50 and PYLON_INFO_LIST[i][3] > 0 then
+                        missile_select = i
+                    end
+                end
+            end
+            if current_select_missile ~= missile_select then
+                print_message_to_user("switch launch from "..current_select_missile.." to "..missile_select)
+                current_select_missile = missile_select
+                MISSILE_IN_USE = missile_select
+                WeaponSystem:select_station(missile_select - 1)
+                ir_missile_des_az_param:set(temp_ir_az)
+                ir_missile_des_el_param:set(temp_ir_el)
+            else
+                if STEP_SIGNAL == 0 and MANUAL_RELEASE_SIGNAL == 1 and missile_select ~= -1 then
+                    print_message_to_user("Launch")
+                    WeaponSystem:launch_station(missile_select - 1)
+                    STEP_SIGNAL = 1
+                    AFTER_LAUNCH = 1
+                end
+            end
+        else
+            hud_lock_test_sign:set(1)
+            if MISSILE_IN_USE ~= -1 and MISSILE_COOLING[MISSILE_IN_USE] > 50 then
+                -- do nothing
+            else
+                for i = 1, 5, 1 do
+                    if MISSILE_COOLING[i] > 50 and PYLON_INFO_LIST[i][3] > 0 then
+                        WeaponSystem:select_station(i - 1)
+                        current_select_missile = i
+                        MISSILE_IN_USE = i
+                        print_message_to_user(i)
+                    end
+                    AFTER_LAUNCH = 0
+                end
+            end
+        end
+    end
+end
+
 function update()
     -- WeaponSystem:emergency_jettison(i-1)
     -- WeaponSystem:launch_station(pylonSelected - 1)
@@ -724,6 +842,7 @@ function update()
         update_launch_selection()
     end
     update_display_light()
+    update_missile_cooling_status()
     if ATTACK_MODE == -1 then
         if LAUNCH_MODE == 0 then
             step_mode_manual_launch()
@@ -731,6 +850,8 @@ function update()
             seletion_jettsion()
         elseif LAUNCH_MODE == 3 then
             gun_mode_firing()
+        elseif LAUNCH_MODE == 4 then
+            missile_launch_mode()
         end
     end
 end

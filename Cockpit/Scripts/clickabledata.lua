@@ -456,6 +456,9 @@ multi_tumb_click_list = {
     {"PTN_544", "Hi Loft Attack Mode", devices.WEAPON_SYSTEM, 544, Keys.AttackHILoft},
     {"PTN_545", "Straight Path Attack Mode", devices.WEAPON_SYSTEM, 545, Keys.AttackStraight},
     {"PTN_546", "General Attack Mode", devices.WEAPON_SYSTEM, 546, Keys.AttackGeneral},
+    {"PTN_549", "Gun Safe Switch", devices.WEAPON_SYSTEM, 549, Keys.GunsModeSwitchUP, Keys.GunsModeSwitchDOWN},
+    {"PTN_558", "Missile Control", devices.WEAPON_SYSTEM, 558, Keys.MissileControl},
+    {"PTN_559", "Missile Head Cooling", devices.WEAPON_SYSTEM, 559, Keys.MissileCoolingUP, Keys.MissileCoolingDOWN},
 }
 
 for k,v in pairs(multi_tumb_click_list) do
