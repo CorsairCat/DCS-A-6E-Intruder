@@ -35,7 +35,7 @@ function GenerateWeapon(Position)
 			{ CLSID = "{BRU33_2*LAU61}"},
 			{ CLSID = "{BRU33_2*LAU10}"},
 			--gunpod
-			{ CLSID = "{E92CBFE5-C153-11d8-9897-000476191836}"},
+			{ CLSID = "{ac94375e-aa45-491e-858b-a8b93ee8b959}"},
 		}
 	elseif Position == "ST" then
 		StationLoad = {
@@ -61,7 +61,7 @@ function GenerateWeapon(Position)
 			{ CLSID = "{BRU33_2*LAU61}"},
 			{ CLSID = "{BRU33_2*LAU10}"},
 			--gunpod
-			{ CLSID = "{E92CBFE5-C153-11d8-9897-000476191836}"},
+			{ CLSID = "{ac94375e-aa45-491e-858b-a8b93ee8b959}"},
 		}
 	elseif Position == "CL" then
 		StationLoad = {
@@ -76,7 +76,7 @@ function GenerateWeapon(Position)
 			{ CLSID = "{60CC734F-0AFA-4E2E-82B8-93B941AB11CF}" }, -- TER 3*MK82
 			{ CLSID = "{BRU-42_3*Mk-82AIR}" }, -- TER 3 MK82
 			-- GUN pod
-			{CLSID = "{E92CBFE5-C153-11d8-9897-000476191836}"},
+			{CLSID = "{ac94375e-aa45-491e-858b-a8b93ee8b959}"},
 		}
 	end
 	return StationLoad
@@ -606,37 +606,4 @@ add_aircraft(A_6e)
 
 
 ---- set self defined weapons
-
--- AERO 1D 300 Gal fuel tanks
-local function Aero_1d_fuel_tank(clsid)
-	local data = {
-		category	= CAT_FUEL_TANKS,
-		CLSID		= clsid,
-		attribute	=  {wsType_Air,wsType_Free_Fall,wsType_FuelTank,WSTYPE_PLACEHOLDER},
-		Picture		= "AERO-1D.png",
-		displayName	= _("AERO-1D Fuel Tank 300 gallons"),
-		Weight_Empty	= 88,			-- empty weight with 1 fin(use for A-6): 193.5 lb
-		Weight			= 1013,			-- 300 gallons, 6.8 lb/gal  use JP-5 fuel full weight = 2233.5 lb
-		Cx_pil			= 0.0016,		
-		shape_table_data = 
-		{
-			{
-				name	= "AERO_1D";
-				file	= "AERO_1D";
-				life	= 1;
-				fire	= { 0, 1};
-				username	= "AERO_1D";
-				index	= WSTYPE_PLACEHOLDER;
-			},
-		},
-		Elements	= 
-		{
-			{
-				ShapeName	= "AERO_1D",
-			}, 
-		}, 
-	}
-	declare_loadout(data)
-end
-
-Aero_1d_fuel_tank("{5f5a94ef-a4d7-464e-8d80-b40e6cd6c264}") -- assign a uuid for it to prevent problem
+dofile(current_mod_path .. "/custom_weapons.lua")

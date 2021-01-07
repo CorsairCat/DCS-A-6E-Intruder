@@ -701,13 +701,13 @@ function gun_mode_firing()
         if STEP_SIGNAL == 0 then
             for i = 1, 5, 1 do
                 if SELECTED_LIST[i][1] == 1 then
-                    WeaponSystem:launch_station(i-1)
+                    WeaponSystem:launch_station(i-1) -- this mode will always fire at blust max length
                 end
             end
             STEP_SIGNAL = 1
-        elseif STEP_SIGNAL <= 30 then
+        elseif STEP_SIGNAL <= 5 then
             STEP_SIGNAL = STEP_SIGNAL + 1
-        elseif STEP_SIGNAL > 30 then
+        elseif STEP_SIGNAL > 5 then
             STEP_SIGNAL = 0
         end
     end
