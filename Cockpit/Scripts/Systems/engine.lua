@@ -535,7 +535,9 @@ function update_externel_pneumatic_status()
 end
 
 function check_if_engine_starting()
+    -- print_message_to_user((Externel_Bleed_Status))--  == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineRightRPM() >= 40)))
     if (target_status[left_spd][2] == SWITCH_ON and target_status[left_fuel_m][2] == SWITCH_ON and (Externel_Bleed_Status == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineRightRPM() >= 40))) then
+        -- print_message_to_user("l_engine_crank")
         if start_count_flag_l == 1 then
             start_count_time = start_count_time + 1
             if start_count_time > 75 then
@@ -560,6 +562,7 @@ end
 
 function update()
     -- update engine working status
+    update_externel_pneumatic_status()
     check_if_engine_starting()
     update_Engine_Status()
     update_switch_status()
