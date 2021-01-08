@@ -1,6 +1,6 @@
 local FM_dll=nil
 -- Test Collision only
--- local FM_dll= "TEST_EFM.dll"
+-- local FM_dll= "A-6E_Intruder_FM.dll"
 --模组入口
 local self_ID = "A-6E" --定义模组名称，全局使用
 
@@ -101,7 +101,7 @@ test_susp = {
 
 local FM
 if FM_dll then
-    FM={self_ID,FM_dll,center_of_mass = {2,0,0},moment_of_inertia = {52874,10552,105673},suspension = test_susp}
+    FM={self_ID,FM_dll}
 else
     FM=nil
 end
