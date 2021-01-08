@@ -79,6 +79,10 @@ gear_system:listen_command(120)
 gear_system:listen_command(Keys.HookHandle)
 gear_system:listen_command(Keys.LaunchBarHandle)
 
+local n_gear_status
+local l_gear_status
+local r_gear_status
+
 function post_initialize()
     local birth = LockOn_Options.init_conditions.birth_place
     if birth=="GROUND_HOT" then
@@ -102,6 +106,9 @@ function post_initialize()
     set_aircraft_draw_argument_value(0, nose_gear_status)
     set_aircraft_draw_argument_value(3, r_main_gear_status)
     set_aircraft_draw_argument_value(5, l_main_gear_status)
+    n_gear_status = nose_gear_status
+    l_gear_status = l_main_gear_status
+    r_gear_status = r_main_gear_status
     gear_level:set(1 - nose_gear_status)
 end
 
@@ -164,22 +171,6 @@ function update_hook_and_bar()
         set_aircraft_draw_argument_value(25, HOOK_CURR_STATUS)
         -- print_message_to_user(HOOK_CURR_STATUS)
     ]]
-
-    if IS_LOCKED_TO_CATAPULT_STATUS ~= 1 then
-        if math.abs(LAUNCH_BAR_CURR_STATUS - LAUNCH_BAR_TARGET_STATUS) < 0.05 then
-            LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_TARGET_STATUS
-        else
-            if LAUNCH_BAR_CURR_STATUS < LAUNCH_BAR_TARGET_STATUS then
-                LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS + time_increse_step
-            elseif LAUNCH_BAR_CURR_STATUS > LAUNCH_BAR_TARGET_STATUS then
-                LAUNCH_BAR_CURR_STATUS = LAUNCH_BAR_CURR_STATUS - time_increse_step
-            end
-        end
-    else
-        -- do noting? / or set to another value
-        LAUNCH_BAR_CURR_STATUS = 0.9
-    end
-
 end
 
 local gear_level_pos = gear_level:get()
@@ -189,10 +180,6 @@ function update()
     update_hook_and_bar()
 
     local gear_handle_click_ref = get_clickable_element_reference("PNT_083")
-
-    local n_gear_status = get_aircraft_draw_argument_value(0)
-    local l_gear_status = get_aircraft_draw_argument_value(5)
-    local r_gear_status = get_aircraft_draw_argument_value(3)
 
     if nose_gear_status == 1 then
         set_aircraft_draw_argument_value(85, LAUNCH_BAR_CURR_STATUS)

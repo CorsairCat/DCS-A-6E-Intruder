@@ -1,6 +1,6 @@
 local FM_dll=nil
 -- Test Collision only
--- local FM_dll= "A-6E_Intruder_FM.dll"
+local FM_dll= "A-6E_Intruder_FM.dll"
 --模组入口
 local self_ID = "A-6E" --定义模组名称，全局使用
 
