@@ -52,6 +52,9 @@ local FF_r = get_param_handle("FF_R")
 local left_throttle = get_param_handle("LeftThrottor")
 local right_throttle = get_param_handle("RightThrottor")
 
+local left_throttle_efm = get_param_handle("EFM_LEFT_THRUST_A")
+local right_throttle_efm = get_param_handle("EFM_RIGHT_THRUST_A")
+
 function set_rpm_display(rpm_in_percent)
     local return_rpm_in_1 = 0
     if rpm_in_percent < 70 then
@@ -204,7 +207,7 @@ function post_initialize()
 	
 	local dev = GetSelf()
     local sensor_data = get_base_data()
-    local throttle = sensor_data.getThrottleLeftPosition()
+    local throttle = left_throttle_efm:get()
 
     --初始化不同出生状况下发动机状态参数
     local birth = LockOn_Options.init_conditions.birth_place
@@ -440,6 +443,7 @@ FUEL_MASTER_STOP_FLAG_L = 0
 FUEL_MASTER_STOP_FLAG_R = 0
 
 function update_Engine_Status()
+    print_message_to_user(right_throttle_efm:get())
     if sensor_data.getEngineLeftRPM() <= 10 then
         engine_state_left = ENGINE_POST_STARTING
         FUEL_MASTER_STOP_FLAG_L = 0
@@ -468,10 +472,10 @@ function update_Engine_Status()
     end
 
     if left_idle_status == SWITCH_ON then
-        left_throttle:set(sensor_data.getThrottleLeftPosition() * 0.85 + 0.15) 
+        left_throttle:set(left_throttle_efm:get() * 0.85 + 0.15) 
     end
     if right_idle_status == SWITCH_ON then
-        right_throttle:set(sensor_data.getThrottleRightPosition() * 0.85 + 0.15)
+        right_throttle:set(right_throttle_efm:get() * 0.85 + 0.15)
     end
 
     if target_status[left_fuel_m][2] == SWITCH_OFF and (engine_state_left == ENGINE_RUNNING or engine_state_left == ENGINE_STARTING) then
@@ -498,7 +502,7 @@ function update_Engine_Status()
 
     if left_idle_status == SWITCH_ON then
         lthro_click_ref:set_hint("Move Left Throttle to OFF")
-        if sensor_data.getThrottleLeftPosition() < 0.05 then
+        if left_throttle_efm:get() < 0.05 then
             lthro_click_ref:hide(false)
             lthro_click_ref:update()
         else
@@ -512,7 +516,7 @@ function update_Engine_Status()
 
     if right_idle_status == SWITCH_ON then
         rthro_click_ref:set_hint("Move Left Throttle to OFF")
-        if sensor_data.getThrottleRightPosition() < 0.05 then
+        if right_throttle_efm:get() < 0.05 then
             rthro_click_ref:hide(false)
             rthro_click_ref:update()
         else

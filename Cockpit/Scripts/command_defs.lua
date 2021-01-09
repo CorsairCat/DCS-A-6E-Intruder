@@ -91,8 +91,8 @@ Keys =
     ParkingBrakesOff = __custom_counter(),
     ParkingBrakes = __custom_counter(),
 
-    LeftThrottleAxis = __custom_counter(),
-    RightThrottleAxis = __custom_counter(),
+    LeftThrottleAxis = __custom_counter(), -- for efm
+    RightThrottleAxis = __custom_counter(), -- for efm
 
     LeftEngineCrank = __custom_counter(),
     RightEngineCrank = __custom_counter(),
@@ -288,5 +288,5 @@ end
 
 click_cmd =
 {
-    GearLevel = __click_counter(), --起落架手柄
+    GearLevel = __click_counter(), --起落架手柄 5001// 5050 EFM
 }
