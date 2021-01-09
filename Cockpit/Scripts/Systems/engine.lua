@@ -77,8 +77,8 @@ function set_temperature_display(temperature_input)
 end
 
 function update_Engine_Working_Status()
-    local left_rpm = sensor_data.getEngineLeftRPM()
-    local right_rpm = sensor_data.getEngineRightRPM()
+    local left_rpm = sensor_data.getEngineLeftRPM() * 100
+    local right_rpm = sensor_data.getEngineRightRPM() * 100
     RPM_l:set(set_rpm_display(left_rpm))
     RPM_r:set(set_rpm_display(right_rpm))
     EGT_l:set(set_temperature_display(sensor_data.getEngineLeftTemperatureBeforeTurbine()))
@@ -430,7 +430,7 @@ function update_bleed_status()
     local bleed_nww_status = target_status[nww_status][2]
     local ecs_trans_parameter = get_param_handle("EnvironmentControl")
     local nww_bleed = get_param_handle("WindshieldDeice")
-    if sensor_data.getEngineLeftRPM() > 50 or sensor_data.getEngineRightRPM() > 50 then
+    if sensor_data.getEngineLeftRPM() * 100 > 50 or sensor_data.getEngineRightRPM() * 100 > 50 then
         ecs_trans_parameter:set(bleed_aircond_status)
         nww_bleed:set(bleed_nww_status)
     else
@@ -444,28 +444,28 @@ FUEL_MASTER_STOP_FLAG_R = 0
 
 function update_Engine_Status()
     -- print_message_to_user(right_throttle_efm:get())
-    if sensor_data.getEngineLeftRPM() <= 10 then
+    if sensor_data.getEngineLeftRPM() * 100 <= 10 then
         engine_state_left = ENGINE_POST_STARTING
         FUEL_MASTER_STOP_FLAG_L = 0
         L_IDLE_RESTART = 0
-    elseif sensor_data.getEngineLeftRPM() < 45 then
+    elseif sensor_data.getEngineLeftRPM() * 100 < 45 then
             engine_state_left = ENGINE_STARTING
-    elseif sensor_data.getEngineLeftRPM() >= 45 then
+    elseif sensor_data.getEngineLeftRPM() * 100 >= 45 then
         engine_state_left = ENGINE_RUNNING
-    elseif (left_idle_status == SWITCH_OFF and sensor_data.getEngineLeftRPM() >= 20) then
+    elseif (left_idle_status == SWITCH_OFF and sensor_data.getEngineLeftRPM() * 100 >= 20) then
         dispatch_action(nil, iCommandLeftEngineStop)
     else
         engine_state_left = ENGINE_OFF
     end
-    if sensor_data.getEngineRightRPM() <= 10 then
+    if sensor_data.getEngineRightRPM() * 100 <= 10 then
         engine_state_right = ENGINE_POST_STARTING
         FUEL_MASTER_STOP_FLAG_R = 0
         R_IDLE_RESTART = 0
-    elseif sensor_data.getEngineRightRPM() < 45 then
+    elseif sensor_data.getEngineRightRPM() * 100 < 45 then
         engine_state_right = ENGINE_STARTING
-    elseif sensor_data.getEngineRightRPM() >= 45 then
+    elseif sensor_data.getEngineRightRPM() * 100 >= 45 then
         engine_state_right = ENGINE_RUNNING
-    elseif (right_idle_status == SWITCH_OFF and sensor_data.getEngineRightRPM() >= 20) then
+    elseif (right_idle_status == SWITCH_OFF and sensor_data.getEngineRightRPM() * 100 >= 20) then
         dispatch_action(nil, iCommandRightEngineStop)
     else
         engine_state_right = ENGINE_OFF
@@ -495,7 +495,7 @@ function update_Engine_Status()
         dispatch_action(nil, iCommandRightEngineStart, nil)
         FUEL_MASTER_STOP_FLAG_R = 0
     end
-    -- print_message_to_user("EngineState:"..sensor_data.getEngineRightRPM()..","..engine_state_right..";")
+    -- print_message_to_user("EngineState:"..sensor_data.getEngineRightRPM() * 100..","..engine_state_right..";")
     
     local lthro_click_ref = get_clickable_element_reference("PTN_LTHRO")
     local rthro_click_ref = get_clickable_element_reference("PTN_RTHRO")
@@ -539,8 +539,8 @@ function update_externel_pneumatic_status()
 end
 
 function check_if_engine_starting()
-    -- print_message_to_user((Externel_Bleed_Status))--  == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineRightRPM() >= 40)))
-    if (target_status[left_spd][2] == SWITCH_ON and target_status[left_fuel_m][2] == SWITCH_ON and (Externel_Bleed_Status == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineRightRPM() >= 40))) then
+    -- print_message_to_user((Externel_Bleed_Status))--  == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineRightRPM() * 100 >= 40)))
+    if (target_status[left_spd][2] == SWITCH_ON and target_status[left_fuel_m][2] == SWITCH_ON and (Externel_Bleed_Status == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineRightRPM() * 100 >= 40))) then
         -- print_message_to_user("l_engine_crank")
         if start_count_flag_l == 1 then
             start_count_time = start_count_time + 1
@@ -551,7 +551,7 @@ function check_if_engine_starting()
             end
         end
     end
-    if (target_status[right_spd][2] == SWITCH_ON and target_status[right_fuel_m][2] == SWITCH_ON and (Externel_Bleed_Status == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineLeftRPM() >= 40))) then
+    if (target_status[right_spd][2] == SWITCH_ON and target_status[right_fuel_m][2] == SWITCH_ON and (Externel_Bleed_Status == SWITCH_ON or (target_status[csd_status][2] == SWITCH_ON and sensor_data.getEngineLeftRPM() * 100 >= 40))) then
         if start_count_flag_r == 1 then
             --print_message_to_user("r_crank_count")
             start_count_time = start_count_time + 1
