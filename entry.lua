@@ -100,8 +100,18 @@ test_susp = {
 }
 
 local FM
+
+dofile(current_mod_path.."/suspension.lua")
+
 if FM_dll then
-    FM={self_ID,FM_dll}
+	FM=
+	{
+		[1] = self_ID,
+		[2] = FM_dll,
+		center_of_mass = {5.8784 - 4.572, -0.7883, 0},
+		moment_of_inertia = {12000.0, 85000.0, 75000.0},
+		suspension = test_susp,--suspension_data,
+	}
 else
     FM=nil
 end

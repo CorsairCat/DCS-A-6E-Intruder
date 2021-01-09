@@ -184,7 +184,7 @@ function update()
     if nose_gear_status == 1 then
         set_aircraft_draw_argument_value(85, LAUNCH_BAR_CURR_STATUS)
     else
-        set_aircraft_draw_argument_value(85, n_gear_status)
+        set_aircraft_draw_argument_value(85, 0)--n_gear_status)
     end
 
         --takes 7 seconds to full extended
