@@ -443,7 +443,7 @@ FUEL_MASTER_STOP_FLAG_L = 0
 FUEL_MASTER_STOP_FLAG_R = 0
 
 function update_Engine_Status()
-    print_message_to_user(right_throttle_efm:get())
+    -- print_message_to_user(right_throttle_efm:get())
     if sensor_data.getEngineLeftRPM() <= 10 then
         engine_state_left = ENGINE_POST_STARTING
         FUEL_MASTER_STOP_FLAG_L = 0
