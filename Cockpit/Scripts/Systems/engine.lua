@@ -58,22 +58,35 @@ local right_throttle_efm = get_param_handle("EFM_RIGHT_THRUST_A")
 function set_rpm_display(rpm_in_percent)
     local return_rpm_in_1 = 0
     if rpm_in_percent < 70 then
-        return_rpm_in_1 = 0.0023 * rpm_in_percent + 0.25
+        return_rpm_in_1 = 0.3 * rpm_in_percent / 70
     else
-        return_rpm_in_1 = 0.01457 * (rpm_in_percent - 70) + 0.411
+        return_rpm_in_1 = 0.684 * (rpm_in_percent - 70) / 40 + 0.3
     end
     return return_rpm_in_1
 end
 
 function set_temperature_display(temperature_input)
     local return_EGT = 0
-    if temperature_input < 300 then
-        return_EGT = 0.0023 * temperature_input * 7 / 30 + 0.25
+    if temperature_input < 400 then
+        return_EGT = 0.293 * temperature_input / 400
+    elseif temperature_input < 700 then
+        local temperature_after_turbine = temperature_input - 400
+        return_EGT = 0.553 * temperature_after_turbine / 300 + 0.293
     else
-        local temperature_after_turbine = (temperature_input - 300) * 0.5
-        return_EGT = 0.01457 * temperature_after_turbine / 10 + 0.411
+        return_EGT = 0.139 * (temperature_input - 700) / 200 + 0.864
     end
     return(return_EGT)
+end
+
+function set_fuelflow_display(fuel_flow_in_kgs)
+    local fuel_pos
+    local fuel_in_kpph = fuel_flow_in_kgs * 3.6 * 2.205
+    if fuel_in_kpph < 5 then
+        fuel_pos = fuel_in_kpph * 0.79 / 5;
+    else
+        fuel_pos = 0.19 * (fuel_in_kpph - 5) / 5 + 0.79
+    end
+    return(fuel_pos)
 end
 
 function update_Engine_Working_Status()
@@ -83,8 +96,8 @@ function update_Engine_Working_Status()
     RPM_r:set(set_rpm_display(right_rpm))
     EGT_l:set(set_temperature_display(sensor_data.getEngineLeftTemperatureBeforeTurbine()))
     EGT_r:set(set_temperature_display(sensor_data.getEngineRightTemperatureBeforeTurbine()))
-    FF_l:set(sensor_data.getEngineLeftFuelConsumption() * 3 * 0.75 + 0.24)
-    FF_r:set(sensor_data.getEngineRightFuelConsumption() * 3 * 0.75 + 0.24)
+    FF_l:set(set_fuelflow_display(sensor_data.getEngineLeftFuelConsumption()))
+    FF_r:set(set_fuelflow_display(sensor_data.getEngineRightFuelConsumption()))
 end
 
 -- local EngineSwitch = get_param_handle("EngineSwitch")
