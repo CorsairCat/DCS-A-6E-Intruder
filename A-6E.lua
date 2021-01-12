@@ -207,8 +207,8 @@ A_6e = {
 	tanker_type 				= 3,
 	air_refuel_receptacle_pos 	= {0, 0, 0},
 
-	nose_gear_pos 			    = { 6.157,  -3.394 - 0.225,   0},--前起落架坐标（前后 上下 左右）
-	main_gear_pos 			    = { 0.856,  -3.226 - 0.385,   1.839},--主起落架坐标（前后 上下 左右）
+	nose_gear_pos 			    = { 4.226,  -2.661 - 0.225,   0},--前起落架坐标（前后 上下 左右）
+	main_gear_pos 			    = { -1.035,  -2.443 - 0.385,   1.839},--主起落架坐标（前后 上下 左右）
 	tand_gear_max 				= 1.963, --前轮最大旋转角度的tan值
 
 	nose_gear_wheel_diameter 	= 0.45,--前机轮直径（m)

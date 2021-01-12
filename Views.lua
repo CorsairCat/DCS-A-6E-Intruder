@@ -1,7 +1,7 @@
 ViewSettings = {
 	Cockpit = {
 	[1] = {-- player slot 1
-		CockpitLocalPoint     	= {5.254, 0.0161, -0.363}, --驾驶舱摄像机位置
+		CockpitLocalPoint     	= {3.363, 0.7991, -0.363}, --驾驶舱摄像机位置
 		CameraViewAngleLimits  = {20.000000,120.000000},
 		CameraAngleRestriction = {false,90.000000,0.500000},
 		CameraAngleLimits      = {200,-90.000000,110.000000},
@@ -11,7 +11,7 @@ ViewSettings = {
 		limits_6DOF            = {x = {-0.050000,0.4500000},y ={-0.300000,0.3500000},z = {-0.220000,0.220000},roll = 90.000000},
 	},
 	[2] = {-- player slot 2
-		CockpitLocalPoint       = {5.254, - 0.1, 0.363},
+		CockpitLocalPoint       = {3.363, - 0.683, 0.363},
 		CameraViewAngleLimits   = {20.000000,120.000000},
 		CameraAngleRestriction = {false,90.000000,0.500000},
 		CameraAngleLimits      = {200,-90.000000,110.000000},

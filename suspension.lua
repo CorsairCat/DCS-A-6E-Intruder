@@ -2,7 +2,7 @@ suspension_data =
 {
 	{
 		mass  			  = 15,
-		pos   			  = { 6.157,  -3.394 - 0.225,   0},
+		pos   			  = { 4.226,  -2.661 - 0.225,   0},
 
 		-- moment_of_inertia = {1000,1000,1000},
 		damage_element = 0, 
@@ -51,7 +51,7 @@ suspension_data =
 	},
 	{
 		mass  			  = 65,
-		pos   			  = { 0.856,  -3.226 - 0.385,  -1.839},
+		pos   			  = { -1.035,  -2.443 - 0.385,  -1.839},
 		
 		damage_element	    = 3,
 		wheel_axle_offset 	= 0.6,
@@ -98,7 +98,7 @@ suspension_data =
 	},
 	{
 		mass  			  = 65,
-		pos   			  = { 0.856,  -3.226 - 0.385,   1.839},
+		pos   			  = { -1.035,  -2.443 - 0.385,  -1.839},
 		
 		
 		damage_element	    = 3,
