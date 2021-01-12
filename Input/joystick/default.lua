@@ -688,8 +688,8 @@ axisCommands = {
     --{action = iCommandPlaneTrimRudderAbs		, name = _('Trim Rudder')},
 
     --{action = iCommandWheelBrake,		name = _('Wheel Brake')},
-    --{action = iCommandLeftWheelBrake,	name = _('Wheel Brake Left')},
-    --{action = iCommandRightWheelBrake,	name = _('Wheel Brake Right')},
+    {action = iCommandLeftWheelBrake,	name = _('Wheel Brake Left')},
+    {action = iCommandRightWheelBrake,	name = _('Wheel Brake Right')},
 },
 }
 

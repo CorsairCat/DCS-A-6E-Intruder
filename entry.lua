@@ -109,7 +109,7 @@ if FM_dll then
 		[1] = self_ID,
 		[2] = FM_dll,
 		center_of_mass = {5.8784 - 4.572, -0.7883, 0},
-		moment_of_inertia = {12000.0, 85000.0, 75000.0},
+		moment_of_inertia = {7000.0, 50000.0, 55000.0, -1300},
 		suspension = suspension_data,--suspension_data,
 	}
 else

@@ -218,9 +218,6 @@ Keys =
     HookHandle = __custom_counter(),
     LaunchBarHandle = __custom_counter(),
 
-    NoseWheelSteeringOn = __custom_counter(),
-    NoseWheelSteeringOff = __custom_counter(),
-
     -- Weapon System
     MasterArmamentUP = __custom_counter(),
     MasterArmamentDOWN = __custom_counter(),
@@ -275,6 +272,9 @@ Keys =
     MissileCoolingUP = __custom_counter(),
     MissileCoolingDOWN = __custom_counter(),
 
+    --起落架手柄 5001// 5050 EFM - 6000 for EFM
+    NoseWheelSteeringOn = 5050,
+    NoseWheelSteeringOff = 5051,
  }
 
 --从5000开始递增点击指令
@@ -288,5 +288,5 @@ end
 
 click_cmd =
 {
-    GearLevel = __click_counter(), --起落架手柄 5001// 5050 EFM
+    GearLevel = __click_counter(),
 }

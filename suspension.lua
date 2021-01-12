@@ -17,9 +17,9 @@ suspension_data =
 		amortizer_basic_length					= - 3.11 + 3.394, -- - 3.25 + 3.394,
 		amortizer_spring_force_factor			= 4250000.0,
 		amortizer_spring_force_factor_rate		= 3.25,
-		amortizer_static_force					= 26000,
+		amortizer_static_force					= 12600.0,
 		amortizer_reduce_length					= - 3.11 + 3.394,
-		amortizer_direct_damper_force_factor	= 5000.0,
+		amortizer_direct_damper_force_factor	= 55000.0,
 		amortizer_back_damper_force_factor		= 60000.0,
 
 
@@ -28,7 +28,7 @@ suspension_data =
 		wheel_side_friction_factor    = 0.85 ,
 		-- wheel_roll_friction_factor    = 0.25, -- Rolling friction factor when wheel moving
 		wheel_glide_friction_factor   = 0.28 , -- Sliding aircraft
-		wheel_damage_force_factor     = 250.0, -- Tire is explosing due to hard landing
+		wheel_damage_force_factor     = 450.0, -- Tire is explosing due to hard landing
 		wheel_damage_speed			  = 180.0, -- Tire burst due to excessive speed
 
 
@@ -66,10 +66,10 @@ suspension_data =
 		amortizer_basic_length					= - 2.791 + 3.226,
 		amortizer_spring_force_factor			= 35000000.0,
 		amortizer_spring_force_factor_rate		= 5.7,
-		amortizer_static_force					= 42245,
+		amortizer_static_force					= 14224.5,
 		amortizer_reduce_length					= - 2.791 + 3.226,
-		amortizer_direct_damper_force_factor	= 4000,
-		amortizer_back_damper_force_factor		= 2500.0,
+		amortizer_direct_damper_force_factor	= 34000,
+		amortizer_back_damper_force_factor		= 24000,
 
 
 		wheel_radius				  = 0.77 ,
@@ -81,7 +81,7 @@ suspension_data =
 		wheel_damage_speed			  = 180.0,
 		wheel_moment_of_inertia   = 3.6, --wheel moi as rotation body
 
-		wheel_brake_moment_max = 15000.0, -- maximum value of braking moment  , N*m 
+		wheel_brake_moment_max = 25000.0, -- maximum value of braking moment  , N*m 
 		
 		--[[
 		args_post	  = {0,3,5};
@@ -114,9 +114,9 @@ suspension_data =
 		amortizer_basic_length					= - 2.791 + 3.226,
 		amortizer_spring_force_factor			= 35000000.0, -- force = spring_force_factor * pow(reduce_length, amortizer_spring_force_factor_rate
 		amortizer_spring_force_factor_rate		= 5.7,
-		amortizer_static_force					= 42245,
+		amortizer_static_force					= 14224.5,
 		amortizer_reduce_length					= - 2.791 + 3.226,
-		amortizer_direct_damper_force_factor	= 4000,
+		amortizer_direct_damper_force_factor	= 34000,
 		amortizer_back_damper_force_factor		= 24000.0,
 
 
@@ -129,7 +129,7 @@ suspension_data =
 		wheel_damage_speed			  = 180.0,
 		wheel_moment_of_inertia   = 3.6, --wheel moi as rotation body
 
-		wheel_brake_moment_max = 15000.0, -- maximum value of braking moment  , N*m 
+		wheel_brake_moment_max = 25000.0, -- maximum value of braking moment  , N*m 
 		
 		--[[
 		args_post	  = {0,3,5};
