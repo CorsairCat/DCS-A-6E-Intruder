@@ -59,16 +59,16 @@ function update()
 	if IS_STEERING_MODE == 1 and ngear_pos_ind:get() >= 0.7 then
 		if (get_aircraft_draw_argument_value(0) > 0.7) then
 			if math.abs(rudder_current - nose_wheel_target) < rudder_step then
-				set_aircraft_draw_argument_value(2, nose_wheel_target)
+				--set_aircraft_draw_argument_value(2, nose_wheel_target)
 			else
 				if rudder_current < nose_wheel_target then
-					set_aircraft_draw_argument_value(2, rudder_current + rudder_step)
+					--set_aircraft_draw_argument_value(2, rudder_current + rudder_step)
 				elseif rudder_current > nose_wheel_target then
-					set_aircraft_draw_argument_value(2, rudder_current - rudder_step)
+					--set_aircraft_draw_argument_value(2, rudder_current - rudder_step)
 				end
 			end
 		else
-			set_aircraft_draw_argument_value(2, 0)
+			--set_aircraft_draw_argument_value(2, 0)
 		end
 	end
 	--print(ROLL_STATE)

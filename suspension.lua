@@ -99,7 +99,7 @@ suspension_data =
 		amortizer_spring_force_factor_rate		= 17.0,
 		amortizer_static_force					= 25000.0,
 		amortizer_reduce_length					= 2.791 - 3.226,
-		amortizer_direct_damper_force_factor	= 65000.0,
+		amortizer_direct_damper_force_factor	= 45000.0,
 		amortizer_back_damper_force_factor		= 10000.0,
 
 
@@ -121,8 +121,8 @@ suspension_data =
 		args_wheel_yaw = {2,-1,-1};
 		--]]
 
-		arg_post             = 3,
-		arg_amortizer        = 4,
+		arg_post             = 5,
+		arg_amortizer        = 6,
 		arg_wheel_rotation   = 77,
 		arg_wheel_yaw        = -1,
 		collision_shell_name = "WHEEL_L",
@@ -156,7 +156,7 @@ suspension_data =
 		amortizer_spring_force_factor_rate		= 17.0,
 		amortizer_static_force					= 25000.0,
 		amortizer_reduce_length					= 2.791 - 3.226,
-		amortizer_direct_damper_force_factor	= 65000.0,
+		amortizer_direct_damper_force_factor	= 45000.0,
 		amortizer_back_damper_force_factor		= 10000.0,
 
 
@@ -178,8 +178,8 @@ suspension_data =
 		args_wheel_yaw = {2,-1,-1};
 		--]]
 
-		arg_post             = 5,
-		arg_amortizer        = 6,
+		arg_post             = 3,
+		arg_amortizer        = 4,
 		arg_wheel_rotation   = 77,
 		arg_wheel_yaw        = -1,
 		collision_shell_name = "WHEEL_R",
