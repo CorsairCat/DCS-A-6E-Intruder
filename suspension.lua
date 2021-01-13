@@ -1,29 +1,31 @@
+multiplier_suspen = 2;
+
 suspension_data = 
 {
 	{
-		mass  			  = 15,
+		mass  			  = 30,
 		pos   			  = { 4.226,  -2.661 - 0.225,   0},
 
 		-- moment_of_inertia = {1000,1000,1000},
-		damage_element = 0, 
+		--damage_element = 0, 
 		self_attitude = true,
-		wheel_axle_offset = 0.6,
+		wheel_axle_offset = 0.15,
 		yaw_limit = math.rad(63.0),
-		damper_coeff = 240.0, 
-		-- allowable_hard_contact_length	= - 3.11 + 3.394 + 0.03,				
+		damper_coeff = 300.0, 
+		allowable_hard_contact_length	= 0.289,				
 
-		-- amortizer_min_length					= 0.0,
-		amortizer_max_length					= - 3.11 + 3.394,
-		amortizer_basic_length					= - 3.11 + 3.394, -- - 3.25 + 3.394,
-		amortizer_spring_force_factor			= 4250000.0,
-		amortizer_spring_force_factor_rate		= 3.25,
-		amortizer_static_force					= 12600.0,
-		amortizer_reduce_length					= - 3.11 + 3.394,
-		amortizer_direct_damper_force_factor	= 55000.0,
-		amortizer_back_damper_force_factor		= 60000.0,
+		amortizer_min_length					= 0.0,
+		amortizer_max_length					= 0.284,
+		amortizer_basic_length					= 0.284, -- - 3.25 + 3.394,
+		amortizer_spring_force_factor			= 106230440, --10623.044,
+		amortizer_spring_force_factor_rate		= 3.7,
+		amortizer_static_force					= 22720,--4720,
+		amortizer_reduce_length					= 0.284, -- - 3.25 + 3.394,
+		amortizer_direct_damper_force_factor	= 13800,
+		amortizer_back_damper_force_factor		= 16000,
 
 
-		wheel_radius				  = 0.45,
+		wheel_radius				  = 0.45 / 2,
 		wheel_static_friction_factor  = 1.0 , --Static friction when wheel is not moving (fully braked)
 		wheel_side_friction_factor    = 0.85 ,
 		-- wheel_roll_friction_factor    = 0.25, -- Rolling friction factor when wheel moving
@@ -53,26 +55,26 @@ suspension_data =
 		mass  			  = 65,
 		pos   			  = { -1.035,  -2.443 - 0.385,  -1.839},
 		
-		damage_element	    = 3,
-		wheel_axle_offset 	= 0.6,
+		--damage_element	    = 3,
+		wheel_axle_offset 	= 0.1 ,
 		self_attitude	    = false,
 		yaw_limit		    = math.rad(0.0),
 		damper_coeff	    = 160.0,
 		
-		-- allowable_hard_contact_length			= - 2.791 + 3.226 + 0.05,
+		allowable_hard_contact_length			= - 2.791 + 3.226 + 0.05,
 
-		-- amortizer_min_length					= 0.0,
+		amortizer_min_length					= 0.0,
 		amortizer_max_length					= - 2.791 + 3.226,
 		amortizer_basic_length					= - 2.791 + 3.226,
-		amortizer_spring_force_factor			= 35000000.0,
-		amortizer_spring_force_factor_rate		= 5.7,
-		amortizer_static_force					= 14224.5,
+		amortizer_spring_force_factor			= 1631740 * multiplier_suspen,
+		amortizer_spring_force_factor_rate		= 3.7,
+		amortizer_static_force					= 41897,
 		amortizer_reduce_length					= - 2.791 + 3.226,
-		amortizer_direct_damper_force_factor	= 34000,
-		amortizer_back_damper_force_factor		= 24000,
+		amortizer_direct_damper_force_factor 	= 44000,
+		amortizer_back_damper_force_factor 		= 35000,
 
 
-		wheel_radius				  = 0.77 ,
+		wheel_radius				  = 0.385 ,
 		wheel_static_friction_factor  = 1.0 ,
 		wheel_side_friction_factor    = 0.85 ,
 		-- wheel_roll_friction_factor    = 0.25,
@@ -101,26 +103,26 @@ suspension_data =
 		pos   			  = { -1.035,  -2.443 - 0.385,  -1.839},
 		
 		
-		damage_element	    = 3,
-		wheel_axle_offset 	= 0.6,
+		--damage_element	    = 5,
+		wheel_axle_offset 	= 0.1 ,
 		self_attitude	    = false,
 		yaw_limit		    = math.rad(0.0),
 		damper_coeff	    = 160.0,
 		
-		-- allowable_hard_contact_length			= - 2.791 + 3.226 + 0.05,
+		allowable_hard_contact_length			= - 2.791 + 3.226 + 0.05,
 
-		-- amortizer_min_length					= 0.0,
+		amortizer_min_length					= 0.0,
 		amortizer_max_length					= - 2.791 + 3.226,
 		amortizer_basic_length					= - 2.791 + 3.226,
-		amortizer_spring_force_factor			= 35000000.0, -- force = spring_force_factor * pow(reduce_length, amortizer_spring_force_factor_rate
-		amortizer_spring_force_factor_rate		= 5.7,
-		amortizer_static_force					= 14224.5,
+		amortizer_spring_force_factor			= 1631740 * multiplier_suspen,
+		amortizer_spring_force_factor_rate		= 3.7,
+		amortizer_static_force					= 41897,
 		amortizer_reduce_length					= - 2.791 + 3.226,
-		amortizer_direct_damper_force_factor	= 34000,
-		amortizer_back_damper_force_factor		= 24000.0,
+		amortizer_direct_damper_force_factor 	= 44000,
+		amortizer_back_damper_force_factor 		= 35000,
 
 
-		wheel_radius				  = 0.77 ,
+		wheel_radius				  = 0.385 ,
 		wheel_static_friction_factor  = 1.0 ,
 		wheel_side_friction_factor    = 0.85 ,
 		-- wheel_roll_friction_factor    = 0.25,
