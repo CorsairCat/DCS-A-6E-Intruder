@@ -86,7 +86,7 @@ test_susp = {
 			arg_amortizer        = 4,
 			arg_wheel_rotation   = 77,
 			arg_wheel_yaw        = -1,
-			collision_shell_name = "WHEEL_L",
+			collision_shell_name = "WHEEL_R",
 		},
 		{
 			wheel_radius         = 0.77,
@@ -95,7 +95,7 @@ test_susp = {
 			arg_amortizer        = 6,
 			arg_wheel_rotation   = 77,
 			arg_wheel_yaw        = -1,
-			collision_shell_name = "WHEEL_R",
+			collision_shell_name = "WHEEL_L",
 		},
 }
 
@@ -108,9 +108,9 @@ if FM_dll then
 	{
 		[1] = self_ID,
 		[2] = FM_dll,
-		center_of_mass = {0, -1, 0},--{5.8784 - 4.572, -0.7883, 0},
-		moment_of_inertia = {7000.0, 50000.0, 55000.0, -2000},
-		suspension = suspension_data,--suspension_data,
+		center_of_mass = {1, -1, 0},--{5.8784 - 4.572, -0.7883, 0},
+		moment_of_inertia = {9000, 19240, 18250, 2400},
+		suspension = suspension_data,
 	}
 else
     FM=nil
