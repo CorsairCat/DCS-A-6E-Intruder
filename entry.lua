@@ -109,7 +109,8 @@ if FM_dll then
 		[1] = self_ID,
 		[2] = FM_dll,
 		center_of_mass = {1, -1, 0},--{5.8784 - 4.572, -0.7883, 0},
-		moment_of_inertia = {78000, 124240, 128250, 2400},
+		-- the moment_of_inertia is following the data from nasa
+		moment_of_inertia = {43580.057, 109659.913, 144223.779, 5000}, -- {78000, 124240, 128250, 2400},
 		suspension = suspension_data,
 	}
 else
