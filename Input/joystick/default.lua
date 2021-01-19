@@ -241,9 +241,9 @@ keyCommands = {
     {down = iCommandPlaneRightStart, up = iCommandPlaneRightStop, name = _('Aircraft Bank Right'), category = _('Flight Control')},
     {down = iCommandPlaneLeftRudderStart, up = iCommandPlaneLeftRudderStop, name = _('Aircraft Rudder Left'), category = _('Flight Control')},
     {down = iCommandPlaneRightRudderStart, up = iCommandPlaneRightRudderStop, name = _('Aircraft Rudder Right'), category = _('Flight Control')},
---[[No Trim Now
     {pressed = Keys.TrimUp, up = Keys.TrimStop, name = _('Trim: Nose Up'), category = _('Flight Control')},
     {pressed = Keys.TrimDown, up = Keys.TrimStop, name = _('Trim: Nose Down'), category = _('Flight Control')},
+--[[No Trim Now
     {pressed = Keys.TrimLeft, up = Keys.TrimStop, name = _('Trim: Left Wing Down'), category = _('Flight Control')},
     {pressed = Keys.TrimRight, up = Keys.TrimStop, name = _('Trim: Right Wing Down'), category = _('Flight Control')},
     {pressed = Keys.TrimLeftRudder, up = Keys.TrimStop, name = _('Trim: Rudder Left'), category = _('Flight Control')},
