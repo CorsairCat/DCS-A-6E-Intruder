@@ -1,6 +1,11 @@
 model = {
     lods = {
-        {"a-6e intruder.edm",7500000.000000};
+        {"a-6e intruder.edm",30.000000},
+		{"a-6e intruder.edm",75.000000},		
+		{"a-6e intruder.edm",350.000000},
+		{"a-6e intruder.edm",700.000000},
+		{"a-6e intruder.edm",2000.000000},
+		{"a-6e intruder.edm",50000.000000},	
     };
     collision_shell = "a-6e intruder_collision.edm";
 }
